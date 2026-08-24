@@ -253,7 +253,6 @@
             bottom: 22px;
             font-size: 2.2rem;
             animation: driveAcross 6s linear infinite;
-            transform: scaleX(-1);
         }
         @keyframes driveAcross {
             0% { left: -50px; }
@@ -263,7 +262,6 @@
             animation-delay: 3s;
             font-size: 1.8rem;
             bottom: 24px;
-            transform: scaleX(-1);
         }
 
         /* Uber specific */
@@ -273,8 +271,8 @@
 
         /* Walk specific */
         .transport-animation.walk-anim .road { background: linear-gradient(to right, #fff3e0, #ffe0b2); }
-        .transport-animation.walk-anim .vehicle { animation-duration: 8s; bottom: 20px; font-size: 2rem; transform: scaleX(1); }
-        .transport-animation.walk-anim .vehicle.v2 { animation-duration: 9s; animation-delay: 4s; font-size: 1.6rem; transform: scaleX(1); }
+        .transport-animation.walk-anim .vehicle { animation-duration: 8s; bottom: 20px; font-size: 2rem; }
+        .transport-animation.walk-anim .vehicle.v2 { animation-duration: 9s; animation-delay: 4s; font-size: 1.6rem; }
 
         /* Car specific */
         .transport-animation.car-anim .road { background: linear-gradient(to right, #fff3e0, #ffccbc); }
@@ -298,7 +296,6 @@
             animation-duration: 4s; 
             bottom: 28px; 
             font-size: 2.5rem;
-            transform: scaleX(-1);
         }
         .transport-animation.metro-anim .vehicle.v2 { display: none; }
 

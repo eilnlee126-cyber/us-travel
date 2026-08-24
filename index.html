@@ -204,120 +204,6 @@
 
         .section-title { font-size: 1.3rem; font-weight: 900; margin-bottom: 16px; }
 
-        /* City Transport Animation */
-        .city-transport {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            overflow: hidden;
-            position: relative;
-        }
-        .city-transport h4 {
-            font-size: 0.95rem;
-            margin-bottom: 14px;
-            text-align: center;
-            color: #666;
-        }
-        .transport-animation {
-            position: relative;
-            height: 70px;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .transport-animation .road {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 20px;
-            background: #e0e0e0;
-            border-radius: 10px;
-        }
-        .transport-animation .road::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: repeating-linear-gradient(90deg, #fff 0px, #fff 20px, transparent 20px, transparent 40px);
-            animation: roadMove 2s linear infinite;
-        }
-        @keyframes roadMove {
-            from { transform: translateX(0); }
-            to { transform: translateX(40px); }
-        }
-        .transport-animation .vehicle {
-            position: absolute;
-            bottom: 22px;
-            font-size: 2.2rem;
-            right: -50px;
-            animation: driveAcross 6s linear infinite;
-        }
-        .transport-animation .vehicle.v2 {
-            font-size: 1.8rem;
-            bottom: 24px;
-            right: -50px;
-            animation: driveAcross 6s linear infinite;
-            animation-delay: 3s;
-        }
-        @keyframes driveAcross {
-            0% { right: -50px; }
-            100% { right: 110%; }
-        }
-
-        /* Uber specific */
-        .transport-animation.uber-anim .road { background: linear-gradient(to right, #e8f5e9, #c8e6c9); }
-        .transport-animation.uber-anim .vehicle { animation: driveAcross 5s linear infinite; }
-        .transport-animation.uber-anim .vehicle.v2 { animation: driveAcross 7s linear infinite; animation-delay: 2.5s; }
-
-        /* Walk specific */
-        .transport-animation.walk-anim .road { background: linear-gradient(to right, #fff3e0, #ffe0b2); }
-        .transport-animation.walk-anim .vehicle { animation: driveAcross 8s linear infinite; bottom: 20px; font-size: 2rem; }
-        .transport-animation.walk-anim .vehicle.v2 { animation: driveAcross 9s linear infinite; animation-delay: 4s; font-size: 1.6rem; }
-
-        /* Car specific */
-        .transport-animation.car-anim .road { background: linear-gradient(to right, #fff3e0, #ffccbc); }
-        .transport-animation.car-anim .vehicle { animation: driveAcross 4.5s linear infinite; }
-        .transport-animation.car-anim .vehicle.v2 { animation: driveAcross 6s linear infinite; animation-delay: 2s; }
-
-        /* Metro specific */
-        .transport-animation.metro-anim { height: 80px; }
-        .transport-animation.metro-anim .road { 
-            height: 16px; 
-            background: #9e9e9e; 
-            bottom: 10px;
-        }
-        .transport-animation.metro-anim .road::after {
-            background: repeating-linear-gradient(90deg, #757575 0px, #757575 4px, transparent 4px, transparent 20px);
-            height: 4px;
-            top: -4px;
-            animation: roadMove 1s linear infinite;
-        }
-        .transport-animation.metro-anim .vehicle { 
-            animation: driveAcross 4s linear infinite;
-            bottom: 28px; 
-            font-size: 2.5rem;
-        }
-        .transport-animation.metro-anim .vehicle.v2 { display: none; }
-
-        .transport-label {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-        .transport-label span {
-            background: #f5f5f5;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #555;
-        }
-
         /* Stay Recommendations */
         .stay-reco {
             display: flex;
@@ -396,59 +282,6 @@
             height: 1px;
             background: #eee;
             margin: 18px 0;
-        }
-
-        /* Plane animation between cities */
-        .city-transition {
-            text-align: center;
-            padding: 16px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 20px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .city-transition p {
-            font-size: 0.85rem;
-            color: #888;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .plane-track {
-            position: relative;
-            height: 40px;
-            margin: 0 20px;
-        }
-        .plane-track .plane {
-            position: absolute;
-            font-size: 1.8rem;
-            top: 5px;
-            animation: flyAcross 4s ease-in-out infinite;
-        }
-        @keyframes flyAcross {
-            0% { right: 0%; transform: translateY(0); }
-            25% { transform: translateY(-8px); }
-            50% { right: 50%; transform: translateY(0); }
-            75% { transform: translateY(-5px); }
-            100% { right: 85%; transform: translateY(0); }
-        }
-        .plane-track .cloud {
-            position: absolute;
-            font-size: 1.2rem;
-            opacity: 0.4;
-            animation: cloudDrift 8s linear infinite;
-        }
-        .plane-track .cloud:nth-child(2) { top: 2px; animation-delay: 2s; font-size: 1rem; }
-        .plane-track .cloud:nth-child(3) { top: 20px; animation-delay: 5s; font-size: 0.9rem; }
-        @keyframes cloudDrift {
-            from { left: -30px; }
-            to { left: 110%; }
-        }
-        .city-transition .route-text {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #555;
         }
 
         /* Footer */
@@ -652,21 +485,6 @@
             </div>
         </div>
 
-        <!-- LA Transport Animation -->
-        <div class="city-transport">
-            <h4>🚕 LA에서는 이렇게 이동해요!</h4>
-            <div class="transport-animation uber-anim">
-                <div class="road"></div>
-                <div class="vehicle">🚕</div>
-                <div class="vehicle v2">🚙</div>
-            </div>
-            <div class="transport-label">
-                <span>🚕 우버로 편하게~</span>
-                <span>🌴 문 앞에서 문 앞까지</span>
-                <span>💰 하루 $20~40</span>
-            </div>
-        </div>
-
         <!-- LA 숙소 추천 -->
         <div class="city-transport">
             <h4>🏨 어디에서 잘까?</h4>
@@ -831,17 +649,6 @@
 
     <!-- TAB: Vegas -->
     <div class="tab-content" id="tab-vegas">
-        <div class="city-transition">
-            <p>LA에서 베가스로 이동! ✈️</p>
-            <div class="plane-track">
-                <span class="cloud">☁️</span>
-                <span class="cloud">☁️</span>
-                <span class="cloud">☁️</span>
-                <span class="plane">✈️</span>
-            </div>
-            <div class="route-text">🌴 LA → 🎰 베가스 (1시간)</div>
-        </div>
-
         <div class="city-page-header">
             <div class="big-emoji">🎰</div>
             <h2>라스베가스</h2>
@@ -854,21 +661,6 @@
                     <li>밤: 패딩 or 두꺼운 외투 (밤에 꽤 추움!)</li>
                     <li>많이 걸으니까 편한 신발 필수</li>
                 </ul>
-            </div>
-        </div>
-
-        <!-- Vegas Transport Animation -->
-        <div class="city-transport">
-            <h4>🚶 베가스에서는 이렇게 이동해요!</h4>
-            <div class="transport-animation walk-anim">
-                <div class="road"></div>
-                <div class="vehicle">🚶‍♂️</div>
-                <div class="vehicle v2">🚶‍♀️</div>
-            </div>
-            <div class="transport-label">
-                <span>🚶 스트립은 걸어다니기!</span>
-                <span>🚕 먼 곳은 우버</span>
-                <span>🎰 호텔 사이는 도보 OK</span>
             </div>
         </div>
 
@@ -1147,17 +939,6 @@
 
     <!-- TAB: San Francisco -->
     <div class="tab-content" id="tab-sf">
-        <div class="city-transition">
-            <p>베가스에서 샌프란으로! ✈️</p>
-            <div class="plane-track">
-                <span class="cloud">☁️</span>
-                <span class="cloud">☁️</span>
-                <span class="cloud">☁️</span>
-                <span class="plane">✈️</span>
-            </div>
-            <div class="route-text">🎰 베가스 → 🌉 샌프란 (1.5시간)</div>
-        </div>
-
         <div class="city-page-header">
             <div class="big-emoji">🌉</div>
             <h2>샌프란시스코</h2>
@@ -1171,21 +952,6 @@
                     <li>니트 + 코트</li>
                     <li>우산 챙기기 ☂️</li>
                 </ul>
-            </div>
-        </div>
-
-        <!-- SF Transport Animation -->
-        <div class="city-transport">
-            <h4>🚕 샌프란에서는 이렇게 이동해요!</h4>
-            <div class="transport-animation uber-anim">
-                <div class="road"></div>
-                <div class="vehicle">🚕</div>
-                <div class="vehicle v2">🚋</div>
-            </div>
-            <div class="transport-label">
-                <span>🚕 우버로 편하게</span>
-                <span>🚋 케이블카도 꼭 타보기!</span>
-                <span>🌉 금문교는 도보</span>
             </div>
         </div>
 
@@ -1346,17 +1112,6 @@
 
     <!-- TAB: Atlanta -->
     <div class="tab-content" id="tab-atlanta">
-        <div class="city-transition">
-            <p>서부 끝! 동부로 이동~ ✈️</p>
-            <div class="plane-track">
-                <span class="cloud">☁️</span>
-                <span class="cloud">☁️</span>
-                <span class="cloud">☁️</span>
-                <span class="plane">✈️</span>
-            </div>
-            <div class="route-text">🌉 샌프란 → 🍑 애틀란타 (4.5시간)</div>
-        </div>
-
         <div class="city-page-header">
             <div class="big-emoji">🍑</div>
             <h2>애틀란타 + Athens</h2>
@@ -1370,21 +1125,6 @@
                     <li>차 안에서 벗을 수 있게!</li>
                     <li>우산 ☂️</li>
                 </ul>
-            </div>
-        </div>
-
-        <!-- Atlanta Transport Animation -->
-        <div class="city-transport">
-            <h4>🚗 애틀란타에서는 이렇게 이동해요!</h4>
-            <div class="transport-animation car-anim">
-                <div class="road"></div>
-                <div class="vehicle">🚗</div>
-                <div class="vehicle v2">🚙</div>
-            </div>
-            <div class="transport-label">
-                <span>🚗 렌트카로 자유롭게!</span>
-                <span>🛣️ Athens까지 1.5시간 드라이브</span>
-                <span>🛍️ 아울렛도 차로 GO</span>
             </div>
         </div>
 
@@ -1552,17 +1292,6 @@
 
     <!-- TAB: NYC -->
     <div class="tab-content" id="tab-nyc">
-        <div class="city-transition">
-            <p>마지막 도시! 뉴욕으로~ ✈️</p>
-            <div class="plane-track">
-                <span class="cloud">☁️</span>
-                <span class="cloud">☁️</span>
-                <span class="cloud">☁️</span>
-                <span class="plane">✈️</span>
-            </div>
-            <div class="route-text">🍑 애틀란타 → 🗽 뉴욕 (2시간)</div>
-        </div>
-
         <div class="city-page-header">
             <div class="big-emoji">🗽</div>
             <h2>뉴욕</h2>
@@ -1577,21 +1306,6 @@
                     <li>방수 부츠 (눈 대비) 🥾</li>
                     <li>핫팩 잔뜩!</li>
                 </ul>
-            </div>
-        </div>
-
-        <!-- NYC Transport Animation -->
-        <div class="city-transport">
-            <h4>🚇 뉴욕에서는 이렇게 이동해요!</h4>
-            <div class="transport-animation metro-anim">
-                <div class="road"></div>
-                <div class="vehicle">🚇</div>
-                <div class="vehicle v2">🚇</div>
-            </div>
-            <div class="transport-label">
-                <span>🚇 지하철이 짱!</span>
-                <span>💰 $2.90이면 어디든</span>
-                <span>⏰ 24시간 운행</span>
             </div>
         </div>
 

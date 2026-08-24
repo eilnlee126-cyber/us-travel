@@ -246,7 +246,7 @@
         }
         @keyframes roadMove {
             from { transform: translateX(0); }
-            to { transform: translateX(-40px); }
+            to { transform: translateX(40px); }
         }
         .transport-animation .vehicle {
             position: absolute;
@@ -255,8 +255,8 @@
             animation: driveAcross 6s linear infinite;
         }
         @keyframes driveAcross {
-            0% { left: -50px; }
-            100% { left: 110%; }
+            0% { right: -50px; }
+            100% { right: 110%; }
         }
         .transport-animation .vehicle.v2 {
             animation-delay: 3s;
@@ -424,11 +424,11 @@
             animation: flyAcross 4s ease-in-out infinite;
         }
         @keyframes flyAcross {
-            0% { left: 0%; transform: translateY(0); }
+            0% { right: 0%; transform: translateY(0); }
             25% { transform: translateY(-8px); }
-            50% { left: 50%; transform: translateY(0); }
+            50% { right: 50%; transform: translateY(0); }
             75% { transform: translateY(-5px); }
-            100% { left: 85%; transform: translateY(0); }
+            100% { right: 85%; transform: translateY(0); }
         }
         .plane-track .cloud {
             position: absolute;
@@ -439,8 +439,8 @@
         .plane-track .cloud:nth-child(2) { top: 2px; animation-delay: 2s; font-size: 1rem; }
         .plane-track .cloud:nth-child(3) { top: 20px; animation-delay: 5s; font-size: 0.9rem; }
         @keyframes cloudDrift {
-            from { right: -30px; }
-            to { right: 110%; }
+            from { left: -30px; }
+            to { left: 110%; }
         }
         .city-transition .route-text {
             font-size: 0.9rem;

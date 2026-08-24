@@ -318,6 +318,43 @@
             color: #555;
         }
 
+        /* Stay Recommendations */
+        .stay-reco {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .stay-option {
+            background: #f9f9f9;
+            border-radius: 14px;
+            padding: 14px 18px;
+            border-left: 4px solid #ddd;
+            transition: transform 0.15s;
+        }
+        .stay-option:hover { transform: translateX(4px); }
+        .stay-option.best {
+            background: linear-gradient(135deg, #fff9e6, #fff3cd);
+            border-left: 4px solid #ffc107;
+        }
+        .stay-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .stay-option.best .stay-badge { color: #e6a000; }
+        .stay-name {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .stay-why {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
         /* Plane animation between cities */
         .city-transition {
             text-align: center;
@@ -587,6 +624,28 @@
             </div>
         </div>
 
+        <!-- LA 숙소 추천 -->
+        <div class="city-transport">
+            <h4>🏨 어디에서 잘까?</h4>
+            <div class="stay-reco">
+                <div class="stay-option best">
+                    <div class="stay-badge">👑 추천 1순위</div>
+                    <div class="stay-name">코리아타운 (Koreatown)</div>
+                    <div class="stay-why">한식 먹기 편하고, 위치가 중앙이라 어디든 우버 15~20분. 에어비앤비 가성비 좋음!</div>
+                </div>
+                <div class="stay-option">
+                    <div class="stay-badge">✨ 관광 중심</div>
+                    <div class="stay-name">헐리우드 / West Hollywood</div>
+                    <div class="stay-why">관광지 가까움. 걸어서 Walk of Fame 가능. 밤에도 활기있음</div>
+                </div>
+                <div class="stay-option">
+                    <div class="stay-badge">🏖️ 해변 좋아하면</div>
+                    <div class="stay-name">산타모니카</div>
+                    <div class="stay-why">비치 바로 앞. 분위기 좋지만 다른 관광지랑 좀 멀 수 있음</div>
+                </div>
+            </div>
+        </div>
+
         <div class="day-card">
             <div class="day-num west">D1</div>
             <div class="day-info">
@@ -660,6 +719,28 @@
             </div>
         </div>
 
+        <!-- Vegas 숙소 추천 -->
+        <div class="city-transport">
+            <h4>🏨 어디에서 잘까?</h4>
+            <div class="stay-reco">
+                <div class="stay-option best">
+                    <div class="stay-badge">👑 추천 1순위</div>
+                    <div class="stay-name">스트립 중간 (The Strip Mid)</div>
+                    <div class="stay-why">벨라지오, 파리스, 코스모폴리탄 근처. 걸어서 다 됨! 평일이면 의외로 $80~150도 가능</div>
+                </div>
+                <div class="stay-option">
+                    <div class="stay-badge">💰 가성비</div>
+                    <div class="stay-name">스트립 남쪽 (Luxor, Excalibur 쪽)</div>
+                    <div class="stay-why">좀 더 저렴. 스트립 중간까지 걸어서 15분 or 모노레일</div>
+                </div>
+                <div class="stay-option">
+                    <div class="stay-badge">🎲 올드 감성</div>
+                    <div class="stay-name">프리몬트 스트릿 (Downtown)</div>
+                    <div class="stay-why">저렴하고 빈티지한 분위기. 스트립과는 우버 10분 거리</div>
+                </div>
+            </div>
+        </div>
+
         <div class="day-card">
             <div class="day-num west">D5</div>
             <div class="day-info">
@@ -727,6 +808,28 @@
             </div>
         </div>
 
+        <!-- SF 숙소 추천 -->
+        <div class="city-transport">
+            <h4>🏨 어디에서 잘까?</h4>
+            <div class="stay-reco">
+                <div class="stay-option best">
+                    <div class="stay-badge">👑 추천 1순위</div>
+                    <div class="stay-name">유니온스퀘어 (Union Square) 근처</div>
+                    <div class="stay-why">시내 중심! 케이블카, 쇼핑, 차이나타운 다 걸어서 가능. 교통 허브</div>
+                </div>
+                <div class="stay-option">
+                    <div class="stay-badge">🦭 관광 분위기</div>
+                    <div class="stay-name">피셔맨스 워프 근처</div>
+                    <div class="stay-why">바다 보이고 관광지 바로 앞. 좀 비싸지만 분위기 좋음</div>
+                </div>
+                <div class="stay-option">
+                    <div class="stay-badge">💰 가성비</div>
+                    <div class="stay-name">미션 디스트릭트 (Mission)</div>
+                    <div class="stay-why">에어비앤비 저렴. 맛집 많고 로컬 분위기. 우버로 시내 10분</div>
+                </div>
+            </div>
+        </div>
+
         <div class="day-card">
             <div class="day-num west">D8</div>
             <div class="day-info">
@@ -791,6 +894,28 @@
                 <span>🚗 렌트카로 자유롭게!</span>
                 <span>🛣️ Athens까지 1.5시간 드라이브</span>
                 <span>🛍️ 아울렛도 차로 GO</span>
+            </div>
+        </div>
+
+        <!-- Atlanta 숙소 추천 -->
+        <div class="city-transport">
+            <h4>🏨 어디에서 잘까?</h4>
+            <div class="stay-reco">
+                <div class="stay-option best">
+                    <div class="stay-badge">👑 추천 1순위</div>
+                    <div class="stay-name">미드타운 (Midtown)</div>
+                    <div class="stay-why">벨트라인 바로 옆, 맛집/카페 많음. 다운타운 가깝고 안전한 동네</div>
+                </div>
+                <div class="stay-option">
+                    <div class="stay-badge">🏙️ 관광 중심</div>
+                    <div class="stay-name">다운타운 (Downtown)</div>
+                    <div class="stay-why">아쿠아리움, 코카콜라 월드 걸어서 가능. 주차 확인 필수!</div>
+                </div>
+                <div class="stay-option">
+                    <div class="stay-badge">🌳 로컬 감성</div>
+                    <div class="stay-name">버크헤드 (Buckhead)</div>
+                    <div class="stay-why">고급 동네, 쇼핑몰 있음. 다운타운까지 차 15분</div>
+                </div>
             </div>
         </div>
 
@@ -866,6 +991,28 @@
                 <span>🚇 지하철이 짱!</span>
                 <span>💰 $2.90이면 어디든</span>
                 <span>⏰ 24시간 운행</span>
+            </div>
+        </div>
+
+        <!-- NYC 숙소 추천 -->
+        <div class="city-transport">
+            <h4>🏨 어디에서 잘까?</h4>
+            <div class="stay-reco">
+                <div class="stay-option best">
+                    <div class="stay-badge">👑 추천 1순위</div>
+                    <div class="stay-name">롱아일랜드시티 (Long Island City, 퀸즈)</div>
+                    <div class="stay-why">맨하탄 지하철 1~2정거장! 에어비앤비 맨하탄의 절반 가격. 야경 뷰도 좋음</div>
+                </div>
+                <div class="stay-option">
+                    <div class="stay-badge">🌉 힙한 동네</div>
+                    <div class="stay-name">윌리엄스버그 (Williamsburg, 브루클린)</div>
+                    <div class="stay-why">카페/바 많고 분위기 좋음. 맨하탄까지 지하철 15분</div>
+                </div>
+                <div class="stay-option">
+                    <div class="stay-badge">🗽 관광 올인</div>
+                    <div class="stay-name">미드타운 맨하탄 (Midtown)</div>
+                    <div class="stay-why">타임스퀘어, 록펠러 걸어서 가능. 비싸지만 위치 최고 (호텔 $200+)</div>
+                </div>
             </div>
         </div>
 

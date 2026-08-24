@@ -252,32 +252,35 @@
             position: absolute;
             bottom: 22px;
             font-size: 2.2rem;
+            right: -50px;
             animation: driveAcross 6s linear infinite;
+        }
+        .transport-animation .vehicle.v2 {
+            font-size: 1.8rem;
+            bottom: 24px;
+            right: -50px;
+            animation: driveAcross 6s linear infinite;
+            animation-delay: 3s;
         }
         @keyframes driveAcross {
             0% { right: -50px; }
             100% { right: 110%; }
         }
-        .transport-animation .vehicle.v2 {
-            animation-delay: 3s;
-            font-size: 1.8rem;
-            bottom: 24px;
-        }
 
         /* Uber specific */
         .transport-animation.uber-anim .road { background: linear-gradient(to right, #e8f5e9, #c8e6c9); }
-        .transport-animation.uber-anim .vehicle { animation-duration: 5s; }
-        .transport-animation.uber-anim .vehicle.v2 { animation-duration: 7s; animation-delay: 2.5s; }
+        .transport-animation.uber-anim .vehicle { animation: driveAcross 5s linear infinite; }
+        .transport-animation.uber-anim .vehicle.v2 { animation: driveAcross 7s linear infinite; animation-delay: 2.5s; }
 
         /* Walk specific */
         .transport-animation.walk-anim .road { background: linear-gradient(to right, #fff3e0, #ffe0b2); }
-        .transport-animation.walk-anim .vehicle { animation-duration: 8s; bottom: 20px; font-size: 2rem; }
-        .transport-animation.walk-anim .vehicle.v2 { animation-duration: 9s; animation-delay: 4s; font-size: 1.6rem; }
+        .transport-animation.walk-anim .vehicle { animation: driveAcross 8s linear infinite; bottom: 20px; font-size: 2rem; }
+        .transport-animation.walk-anim .vehicle.v2 { animation: driveAcross 9s linear infinite; animation-delay: 4s; font-size: 1.6rem; }
 
         /* Car specific */
         .transport-animation.car-anim .road { background: linear-gradient(to right, #fff3e0, #ffccbc); }
-        .transport-animation.car-anim .vehicle { animation-duration: 4.5s; }
-        .transport-animation.car-anim .vehicle.v2 { animation-duration: 6s; animation-delay: 2s; }
+        .transport-animation.car-anim .vehicle { animation: driveAcross 4.5s linear infinite; }
+        .transport-animation.car-anim .vehicle.v2 { animation: driveAcross 6s linear infinite; animation-delay: 2s; }
 
         /* Metro specific */
         .transport-animation.metro-anim { height: 80px; }
@@ -293,7 +296,7 @@
             animation: roadMove 1s linear infinite;
         }
         .transport-animation.metro-anim .vehicle { 
-            animation-duration: 4s; 
+            animation: driveAcross 4s linear infinite;
             bottom: 28px; 
             font-size: 2.5rem;
         }

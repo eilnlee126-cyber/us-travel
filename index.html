@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇺🇸 우리의 미국 여행 ✈️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: #fef9f4;
+            color: #3d3d3d;
+            line-height: 1.7;
+        }
+        .hero {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a8edea 100%);
+            padding: 70px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "✈️";
+            position: absolute;
+            font-size: 3.5rem;
+            top: 20px;
+            right: 10%;
+            animation: float 3s ease-in-out infinite;
+        }
+        .hero::after {
+            content: "🧳";
+            position: absolute;
+            font-size: 2.5rem;
+            bottom: 20px;
+            left: 10%;
+            animation: float 3s ease-in-out infinite 1s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .hero h1 { font-size: 2.5rem; font-weight: 900; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); margin-bottom: 8px; }
+        .hero .subtitle { font-size: 1.2rem; color: #fff; opacity: 0.9; font-weight: 600; }
+        .hero .dates { margin-top: 16px; display: inline-block; background: rgba(255,255,255,0.85); padding: 8px 24px; border-radius: 30px; font-weight: 700; color: #e75480; }
+        .container { max-width: 850px; margin: 0 auto; padding: 20px; }
+        .summary-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 30px 0; }
+        .bubble { background: white; border-radius: 50px; padding: 12px 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+        .bubble .emoji { font-size: 1.3rem; }
+
+        /* Navigation Tabs */
+        .nav-wrap { 
+            background: white; 
+            border-radius: 20px; 
+            padding: 16px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06); 
+            margin: 30px 0;
+        }
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .nav-tab {
+            padding: 10px 18px;
+            border-radius: 30px;
+            border: none;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f5f5f5;
+            color: #666;
+        }
+        .nav-tab:hover { background: #eee; }
+        .nav-tab.active { color: white; transform: scale(1.05); }
+        .nav-tab[data-tab="overview"].active { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .nav-tab[data-tab="la"].active { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .nav-tab[data-tab="vegas"].active { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .nav-tab[data-tab="sf"].active { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .nav-tab[data-tab="atlanta"].active { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
+        .nav-tab[data-tab="nyc"].active { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
+        .nav-tab[data-tab="tips"].active { background: linear-gradient(135deg, #f6d365, #fda085); }
+
+        /* Tab Content */
+        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Route Visual */
+        .route-visual { background: white; border-radius: 24px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center; margin-bottom: 24px; }
+        .route-cities { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; font-size: 1rem; }
+        .route-city { padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; color: white; }
+        .route-city.west { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .route-city.east { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
+        .route-arrow { font-size: 1.2rem; color: #ccc; }
+
+        /* Weather / Clothing */
+        .weather-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-top: 16px; }
+        .weather-card { background: white; border-radius: 20px; padding: 20px 14px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.2s; }
+        .weather-card:hover { transform: translateY(-4px); }
+        .weather-card .w-emoji { font-size: 2.2rem; margin-bottom: 8px; }
+        .weather-card .w-city { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+        .weather-card .w-temp { font-size: 1.1rem; font-weight: 900; color: #e75480; }
+        .weather-card .w-desc { font-size: 0.75rem; color: #888; margin-top: 4px; }
+
+        /* Transport */
+        .transport-wrap { background: white; border-radius: 24px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 24px; }
+        .transport-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px dashed #eee; gap: 12px; }
+        .transport-item:last-child { border-bottom: none; }
+        .transport-item .t-emoji { font-size: 1.4rem; width: 36px; text-align: center; }
+        .transport-item .t-route { flex: 1; font-weight: 600; font-size: 0.9rem; }
+        .transport-item .t-method { font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+        .t-fly { background: #e3f2fd; color: #1565c0; }
+        .t-uber { background: #e8f5e9; color: #2e7d32; }
+        .t-car { background: #fff3e0; color: #e65100; }
+        .t-metro { background: #f3e5f5; color: #6a1b9a; }
+        .transport-item .t-time { font-size: 0.8rem; color: #999; min-width: 55px; text-align: right; }
+
+        /* City Page */
+        .city-page-header {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .city-page-header .big-emoji { font-size: 3.5rem; margin-bottom: 10px; }
+        .city-page-header h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 6px; }
+        .city-page-header .city-meta { color: #888; font-size: 0.95rem; }
+        .city-page-header .city-weather {
+            margin-top: 14px;
+            display: inline-block;
+            background: #fff3e0;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .city-page-header .city-clothing {
+            margin-top: 10px;
+            background: #e8f5e9;
+            padding: 12px 20px;
+            border-radius: 16px;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+        .city-page-header .city-clothing ul {
+            list-style: none;
+            margin-top: 6px;
+        }
+        .city-page-header .city-clothing li {
+            padding: 3px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .city-page-header .city-clothing li::before {
+            content: "👕";
+            position: absolute;
+            left: 0;
+            font-size: 0.75rem;
+        }
+
+        /* Day Cards */
+        .day-card {
+            background: white;
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .day-card:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .day-num {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+        .day-num.west { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .day-num.east { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
+        .day-info { flex: 1; }
+        .day-info .day-date { font-size: 0.8rem; color: #999; font-weight: 600; margin-bottom: 2px; }
+        .day-info .day-content { font-size: 0.95rem; color: #444; }
+
+        /* Tips Cards */
+        .tip-card { background: white; border-radius: 20px; padding: 24px; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .tip-card h3 { font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .tip-card ul { padding-left: 20px; }
+        .tip-card li { padding: 5px 0; font-size: 0.9rem; }
+        .tip-card.checklist { background: linear-gradient(135deg, #d4fc79, #96e6a1); }
+        .tip-card.checklist ul { list-style: none; padding-left: 0; }
+        .tip-card.checklist li { padding-left: 28px; position: relative; }
+        .tip-card.checklist li::before { content: "☐"; position: absolute; left: 0; font-size: 1.1rem; }
+
+        .section-title { font-size: 1.3rem; font-weight: 900; margin-bottom: 16px; }
+
+        /* Footer */
+        .footer { text-align: center; padding: 50px 20px; color: #bbb; }
+        .footer .big-emoji { font-size: 3rem; margin-bottom: 12px; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.9rem; }
+            .hero::before, .hero::after { font-size: 2rem; }
+            .nav-tab { padding: 8px 14px; font-size: 0.8rem; }
+            .city-page-header .big-emoji { font-size: 2.5rem; }
+            .day-card { padding: 14px; }
+            .transport-item { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>우리의 미국 여행 🇺🇸</h1>
+    <p class="subtitle">남편 첫 미국! 서부부터 동부까지 🎉</p>
+    <div class="dates">📅 2026.12.3 ~ 12.21 (19일)</div>
+</div>
+
+<div class="container">
+
+    <!-- Summary -->
+    <div class="summary-strip">
+        <div class="bubble"><span class="emoji">⏰</span> 19일</div>
+        <div class="bubble"><span class="emoji">🏙️</span> 5개 도시</div>
+        <div class="bubble"><span class="emoji">👫</span> 2명</div>
+        <div class="bubble"><span class="emoji">🗺️</span> 서부→동부</div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-wrap">
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="overview">🗺️ 전체보기</button>
+            <button class="nav-tab" data-tab="la">🌴 LA</button>
+            <button class="nav-tab" data-tab="vegas">🎰 베가스</button>
+            <button class="nav-tab" data-tab="sf">🌉 샌프란</button>
+            <button class="nav-tab" data-tab="atlanta">🍑 애틀란타</button>
+            <button class="nav-tab" data-tab="nyc">🗽 뉴욕</button>
+            <button class="nav-tab" data-tab="tips">💡 팁/준비물</button>
+        </div>
+    </div>
+
+    <!-- TAB: Overview -->
+    <div class="tab-content active" id="tab-overview">
+        <div class="route-visual">
+            <p style="font-weight:700; margin-bottom:14px; color:#666;">🛫 여행 루트</p>
+            <div class="route-cities">
+                <span class="route-city west">🌴 LA</span>
+                <span class="route-arrow">→</span>
+                <span class="route-city west">🎰 베가스</span>
+                <span class="route-arrow">→</span>
+                <span class="route-city west">🌉 샌프란</span>
+                <span class="route-arrow">→</span>
+                <span class="route-city east">🍑 애틀란타</span>
+                <span class="route-arrow">→</span>
+                <span class="route-city east">🗽 뉴욕</span>
+                <span class="route-arrow">→</span>
+                <span style="font-size:1.2rem;">🏠</span>
+            </div>
+        </div>
+
+        <div class="section-title">🌡️ 12월 날씨</div>
+        <div class="weather-grid">
+            <div class="weather-card">
+                <div class="w-emoji">🌴</div>
+                <div class="w-city">LA</div>
+                <div class="w-temp">15~20°C</div>
+                <div class="w-desc">맑고 쾌적 ☀️</div>
+            </div>
+            <div class="weather-card">
+                <div class="w-emoji">🎰</div>
+                <div class="w-city">베가스</div>
+                <div class="w-temp">5~15°C</div>
+                <div class="w-desc">낮엔OK 밤엔추움</div>
+            </div>
+            <div class="weather-card">
+                <div class="w-emoji">🌉</div>
+                <div class="w-city">샌프란</div>
+                <div class="w-temp">8~14°C</div>
+                <div class="w-desc">흐림, 비가능 🌧️</div>
+            </div>
+            <div class="weather-card">
+                <div class="w-emoji">🍑</div>
+                <div class="w-city">애틀란타</div>
+                <div class="w-temp">3~12°C</div>
+                <div class="w-desc">쌀쌀 + 비</div>
+            </div>
+            <div class="weather-card">
+                <div class="w-emoji">🗽</div>
+                <div class="w-city">뉴욕</div>
+                <div class="w-temp">-2~7°C</div>
+                <div class="w-desc">추움! 눈❄️</div>
+            </div>
+        </div>
+
+        <div style="margin-top:30px;">
+            <div class="section-title">🚗 이동수단</div>
+            <div class="transport-wrap">
+                <div class="transport-item">
+                    <div class="t-emoji">🛫</div>
+                    <div class="t-route">인천 → LA</div>
+                    <div class="t-method t-fly">✈️ 직항</div>
+                    <div class="t-time">11h</div>
+                </div>
+                <div class="transport-item">
+                    <div class="t-emoji">✈️</div>
+                    <div class="t-route">LA → 베가스</div>
+                    <div class="t-method t-fly">✈️ 비행기</div>
+                    <div class="t-time">1h</div>
+                </div>
+                <div class="transport-item">
+                    <div class="t-emoji">✈️</div>
+                    <div class="t-route">베가스 → 샌프란</div>
+                    <div class="t-method t-fly">✈️ 비행기</div>
+                    <div class="t-time">1.5h</div>
+                </div>
+                <div class="transport-item">
+                    <div class="t-emoji">✈️</div>
+                    <div class="t-route">샌프란 → 애틀란타</div>
+                    <div class="t-method t-fly">✈️ 비행기</div>
+                    <div class="t-time">4.5h</div>
+                </div>
+                <div class="transport-item">
+                    <div class="t-emoji">🚗</div>
+                    <div class="t-route">애틀란타 ↔ Athens</div>
+                    <div class="t-method t-car">🚗 렌트카</div>
+                    <div class="t-time">1.5h</div>
+                </div>
+                <div class="transport-item">
+                    <div class="t-emoji">✈️</div>
+                    <div class="t-route">애틀란타 → 뉴욕</div>
+                    <div class="t-method t-fly">✈️ 비행기</div>
+                    <div class="t-time">2h</div>
+                </div>
+                <div class="transport-item">
+                    <div class="t-emoji">🛬</div>
+                    <div class="t-route">뉴욕 → 인천</div>
+                    <div class="t-method t-fly">✈️ 직항</div>
+                    <div class="t-time">14h</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:20px;">
+            <div class="section-title">🚕 시내 이동</div>
+            <div class="transport-wrap">
+                <div class="transport-item">
+                    <div class="t-emoji">🌴</div>
+                    <div class="t-route">LA 시내</div>
+                    <div class="t-method t-uber">🚕 우버</div>
+                    <div class="t-time"></div>
+                </div>
+                <div class="transport-item">
+                    <div class="t-emoji">🎰</div>
+                    <div class="t-route">베가스 시내</div>
+                    <div class="t-method t-uber">🚶 도보+우버</div>
+                    <div class="t-time"></div>
+                </div>
+                <div class="transport-item">
+                    <div class="t-emoji">🌉</div>
+                    <div class="t-route">샌프란 시내</div>
+                    <div class="t-method t-uber">🚕 우버</div>
+                    <div class="t-time"></div>
+                </div>
+                <div class="transport-item">
+                    <div class="t-emoji">🍑</div>
+                    <div class="t-route">애틀란타</div>
+                    <div class="t-method t-car">🚗 렌트카</div>
+                    <div class="t-time"></div>
+                </div>
+                <div class="transport-item">
+                    <div class="t-emoji">🗽</div>
+                    <div class="t-route">뉴욕 시내</div>
+                    <div class="t-method t-metro">🚇 지하철</div>
+                    <div class="t-time"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: LA -->
+    <div class="tab-content" id="tab-la">
+        <div class="city-page-header">
+            <div class="big-emoji">🌴</div>
+            <h2>LA (로스앤젤레스)</h2>
+            <div class="city-meta">12/3 ~ 12/6 · 4일 · Day 1~4</div>
+            <div class="city-weather">☀️ 15~20°C · 맑고 쾌적, 비 거의 없음</div>
+            <div class="city-clothing">
+                <strong>👗 뭐 입지?</strong>
+                <ul>
+                    <li>긴팔 + 가벼운 자켓</li>
+                    <li>낮에는 반팔도 OK</li>
+                    <li>편한 운동화 + 선글라스 🕶️</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-num west">D1</div>
+            <div class="day-info">
+                <div class="day-date">12/3 (수) — 도착일</div>
+                <div class="day-content">인천 → LA 도착! ✈️ 숙소 체크인하고 근처에서 맛있는 거 먹고 쉬기 (시차 적응~)</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num west">D2</div>
+            <div class="day-info">
+                <div class="day-date">12/4 (목)</div>
+                <div class="day-content">⭐ 헐리우드 Walk of Fame → TCL Chinese Theatre → 그리피스 천문대에서 LA 야경 🌃</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num west">D3</div>
+            <div class="day-info">
+                <div class="day-date">12/5 (금)</div>
+                <div class="day-content">🏖️ 산타모니카 비치 + 베니스비치 산책 → 쇼핑 → 저녁은 코리아타운에서 한식!</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num west">D4</div>
+            <div class="day-info">
+                <div class="day-date">12/6 (토)</div>
+                <div class="day-content">🎨 게티 센터 (무료!) → 베벌리힐스 로데오 드라이브 구경 → In-N-Out 버거 🍔</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: Vegas -->
+    <div class="tab-content" id="tab-vegas">
+        <div class="city-page-header">
+            <div class="big-emoji">🎰</div>
+            <h2>라스베가스</h2>
+            <div class="city-meta">12/7 ~ 12/9 · 3일 · Day 5~7</div>
+            <div class="city-weather">🌵 5~15°C · 건조, 낮엔 따뜻 밤엔 쌀쌀</div>
+            <div class="city-clothing">
+                <strong>👗 뭐 입지?</strong>
+                <ul>
+                    <li>낮: 긴팔 + 자켓</li>
+                    <li>밤: 패딩 or 두꺼운 외투 (밤에 꽤 추움!)</li>
+                    <li>많이 걸으니까 편한 신발 필수</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-num west">D5</div>
+            <div class="day-info">
+                <div class="day-date">12/7 (일)</div>
+                <div class="day-content">LA → 베가스 비행! 🎰 스트립 걸으며 호텔 구경 (벨라지오 분수쇼 💦) → 저녁 뷔페 🤤</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num west">D6</div>
+            <div class="day-info">
+                <div class="day-date">12/8 (월)</div>
+                <div class="day-content">🏜️ 그랜드캐니언 당일투어 (선택) or 자유일: 호텔 구경, 카지노 체험, 낮잠 😴</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num west">D7</div>
+            <div class="day-info">
+                <div class="day-date">12/9 (화)</div>
+                <div class="day-content">🎪 프리몬트 스트릿 (올드베가스) → 아울렛 쇼핑 🛍️ → 저녁 태양의 서커스 쇼!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: San Francisco -->
+    <div class="tab-content" id="tab-sf">
+        <div class="city-page-header">
+            <div class="big-emoji">🌉</div>
+            <h2>샌프란시스코</h2>
+            <div class="city-meta">12/10 ~ 12/12 · 3일 · Day 8~10</div>
+            <div class="city-weather">🌧️ 8~14°C · 흐린 날 많음, 비 가능</div>
+            <div class="city-clothing">
+                <strong>👗 뭐 입지?</strong>
+                <ul>
+                    <li>레이어드 필수! (아침저녁 쌀쌀)</li>
+                    <li>바람막이 or 방수 자켓</li>
+                    <li>니트 + 코트</li>
+                    <li>우산 챙기기 ☂️</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-num west">D8</div>
+            <div class="day-info">
+                <div class="day-date">12/10 (수)</div>
+                <div class="day-content">베가스 → 샌프란! 🦭 피셔맨스워프 + 피어39 (바다사자 귀여움) → 클램차우더 🍲</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num west">D9</div>
+            <div class="day-info">
+                <div class="day-date">12/11 (목)</div>
+                <div class="day-content">🌁 금문교 걸어서 건너기! → 사우살리토 마을 → 차이나타운 → 미션 디스트릭트 맛집</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num west">D10</div>
+            <div class="day-info">
+                <div class="day-date">12/12 (금)</div>
+                <div class="day-content">🚋 케이블카 타보기 → 유니온스퀘어 쇼핑 → 트윈픽스 야경 (또는 실리콘밸리 🍎)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: Atlanta -->
+    <div class="tab-content" id="tab-atlanta">
+        <div class="city-page-header">
+            <div class="big-emoji">🍑</div>
+            <h2>애틀란타 + Athens</h2>
+            <div class="city-meta">12/13 ~ 12/16 · 4일 · Day 11~14</div>
+            <div class="city-weather">🌤️ 3~12°C · 쌀쌀하고 가끔 비</div>
+            <div class="city-clothing">
+                <strong>👗 뭐 입지?</strong>
+                <ul>
+                    <li>코트 or 패딩</li>
+                    <li>니트/맨투맨 + 겉옷 (레이어드)</li>
+                    <li>차 안에서 벗을 수 있게!</li>
+                    <li>우산 ☂️</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-num east">D11</div>
+            <div class="day-info">
+                <div class="day-date">12/13 (토)</div>
+                <div class="day-content">샌프란 → 애틀란타! 🚗 공항에서 렌트카 픽업 → 숙소 → 남부 음식 저녁 🍗</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num east">D12</div>
+            <div class="day-info">
+                <div class="day-date">12/14 (일)</div>
+                <div class="day-content">🐠 조지아 아쿠아리움 → 코카콜라 월드 🥤 → 올림픽 공원 → 벨트라인 → BBQ 저녁</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num east">D13</div>
+            <div class="day-info">
+                <div class="day-date">12/15 (월)</div>
+                <div class="day-content">🚗 Athens 드라이브! UGA 캠퍼스 🐶 → 다운타운 카페 → 살았던 동네 방문 💕 → 저녁 복귀</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num east">D14</div>
+            <div class="day-info">
+                <div class="day-date">12/16 (화)</div>
+                <div class="day-content">🛍️ 아울렛 쇼핑 (세금 저렴!) → 피치트리 스트릿 → 소울푸드 마지막 식사 → 렌트카 반납</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: NYC -->
+    <div class="tab-content" id="tab-nyc">
+        <div class="city-page-header">
+            <div class="big-emoji">🗽</div>
+            <h2>뉴욕</h2>
+            <div class="city-meta">12/17 ~ 12/21 · 5일 · Day 15~19</div>
+            <div class="city-weather">❄️ -2~7°C · 추움! 눈 올 수 있고 바람 강함</div>
+            <div class="city-clothing">
+                <strong>👗 뭐 입지? (제일 중요!!)</strong>
+                <ul>
+                    <li>두꺼운 롱패딩 필수!! 🧥</li>
+                    <li>목도리 + 장갑 + 비니 🧤</li>
+                    <li>히트텍 (내복) 강추</li>
+                    <li>방수 부츠 (눈 대비) 🥾</li>
+                    <li>핫팩 잔뜩!</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-num east">D15</div>
+            <div class="day-info">
+                <div class="day-date">12/17 (수)</div>
+                <div class="day-content">애틀란타 → 뉴욕! 숙소 체크인 → 밤에 타임스퀘어 야경 ✨ (진짜 대박임)</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num east">D16</div>
+            <div class="day-info">
+                <div class="day-date">12/18 (목)</div>
+                <div class="day-content">🗽 자유의 여신상 (페리) → 월스트릿 & 9/11 메모리얼 → 브루클린 브릿지 → 덤보 야경 🌃</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num east">D17</div>
+            <div class="day-info">
+                <div class="day-date">12/19 (금)</div>
+                <div class="day-content">🌳 센트럴파크 → MET 미술관 → 5번가 쇼핑 → 록펠러센터 크리스마스 트리 🎄✨</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num east">D18</div>
+            <div class="day-info">
+                <div class="day-date">12/20 (토)</div>
+                <div class="day-content">🌿 하이라인 → 첼시마켓 맛집 🤤 → 소호/노리타 쇼핑 → 브로드웨이 뮤지컬 🎭</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num east">D19</div>
+            <div class="day-info">
+                <div class="day-date">12/21 (일) — 마지막 날 😢</div>
+                <div class="day-content">코리아타운 브런치 → 자유시간/쇼핑 → JFK 공항 → 인천으로! ✈️🏠 수고했어 우리!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: Tips -->
+    <div class="tab-content" id="tab-tips">
+        <div class="tip-card">
+            <h3>📱 필수 앱 다운받기</h3>
+            <ul>
+                <li><strong>Uber / Lyft</strong> — 택시 대용 (LA, 베가스, 샌프란)</li>
+                <li><strong>Google Maps</strong> — 길찾기 필수</li>
+                <li><strong>NYC Subway</strong> — 뉴욕 지하철</li>
+                <li><strong>Yelp</strong> — 맛집 찾기</li>
+                <li><strong>Google Flights</strong> — 항공권 비교</li>
+            </ul>
+        </div>
+
+        <div class="tip-card">
+            <h3>💰 돈 아끼는 팁</h3>
+            <ul>
+                <li>국내선 항공 — 빨리 예약할수록 저렴! 지금 바로 검색!</li>
+                <li>숙소 — 에어비앤비가 2인 기준 가성비 좋음</li>
+                <li>뉴욕 MET 미술관 — 기부제 (원하는 만큼만)</li>
+                <li>베가스 뷔페 — 점심이 저녁보다 $20~30 저렴</li>
+                <li>아울렛은 애틀란타에서! (세금 조지아 ~4% vs 뉴욕 ~8%)</li>
+                <li>팁 — 레스토랑 15~20%, 우버/카페는 선택</li>
+            </ul>
+        </div>
+
+        <div class="tip-card" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);">
+            <h3>🧳 패킹 꿀팁</h3>
+            <ul>
+                <li>서부→동부 갈수록 추워짐! 두꺼운 옷은 캐리어에 넣고 서부에서는 가볍게~</li>
+                <li>뉴욕에서 쇼핑할 거면 캐리어 여유 공간 남기기</li>
+                <li>압축팩 필수 — 3주치 짐 줄이는 생존템</li>
+                <li>핫팩은 한국에서 사가기 (미국은 비쌈)</li>
+            </ul>
+        </div>
+
+        <div class="tip-card checklist">
+            <h3>✅ 출발 전 체크리스트</h3>
+            <ul>
+                <li>ESTA 신청 (출발 최소 72시간 전!)</li>
+                <li>여행자 보험 가입 (미국 병원비 무서움 😱)</li>
+                <li>국내선 항공편 예약 (LA→베가스→샌프란→ATL→뉴욕)</li>
+                <li>숙소 예약 (에어비앤비 일찍 잡기)</li>
+                <li>애틀란타 렌트카 예약</li>
+                <li>그랜드캐니언 투어 예약 (선택)</li>
+                <li>브로드웨이 티켓 예약 (인기 공연은 미리!)</li>
+                <li>자유의 여신상 페리 예약</li>
+                <li>핫팩 & 히트텍 챙기기</li>
+                <li>여권 유효기간 확인</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <div class="big-emoji">🎉✈️🇺🇸</div>
+    <p>즐거운 여행 되자! 💕</p>
+</div>
+
+<script>
+    // Tab Navigation
+    const tabs = document.querySelectorAll('.nav-tab');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active from all
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+
+            // Add active to clicked
+            tab.classList.add('active');
+            const target = document.getElementById('tab-' + tab.dataset.tab);
+            if (target) target.classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>

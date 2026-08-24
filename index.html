@@ -355,6 +355,49 @@
             line-height: 1.5;
         }
 
+        /* Spots & Food Lists */
+        .spots-section {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .spots-section h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .spot-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 10px;
+        }
+        .spot-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            transition: transform 0.15s;
+        }
+        .spot-item:hover { transform: translateY(-2px); }
+        .spot-item .spot-emoji { font-size: 1.4rem; flex-shrink: 0; }
+        .spot-item .spot-info { flex: 1; }
+        .spot-item .spot-name { font-weight: 700; font-size: 0.9rem; }
+        .spot-item .spot-desc { font-size: 0.78rem; color: #888; margin-top: 2px; }
+        .spot-item.food { background: #fff8f0; }
+        .spot-item.free { background: #f0fff4; }
+        .spots-divider {
+            height: 1px;
+            background: #eee;
+            margin: 18px 0;
+        }
+
         /* Plane animation between cities */
         .city-transition {
             text-align: center;
@@ -674,6 +717,116 @@
                 <div class="day-content">🎨 게티 센터 (무료!) → 베벌리힐스 로데오 드라이브 구경 → In-N-Out 버거 🍔</div>
             </div>
         </div>
+
+        <!-- LA 가볼 곳 -->
+        <div class="spots-section">
+            <h4>📍 LA 가볼 곳</h4>
+            <div class="spot-list">
+                <div class="spot-item free">
+                    <div class="spot-emoji">⭐</div>
+                    <div class="spot-info">
+                        <div class="spot-name">헐리우드 Walk of Fame</div>
+                        <div class="spot-desc">무료! 바닥 별 찾기 재미있음</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🔭</div>
+                    <div class="spot-info">
+                        <div class="spot-name">그리피스 천문대</div>
+                        <div class="spot-desc">무료! LA 야경 최고 스팟. 해질녘 가기</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🏖️</div>
+                    <div class="spot-info">
+                        <div class="spot-name">산타모니카 비치 & 피어</div>
+                        <div class="spot-desc">Route 66 끝점! 관람차, 해변 산책</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🎨</div>
+                    <div class="spot-info">
+                        <div class="spot-name">게티 센터 (Getty Center)</div>
+                        <div class="spot-desc">무료! 건축+정원+미술. 반나절 추천</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🛍️</div>
+                    <div class="spot-info">
+                        <div class="spot-name">베벌리힐스 로데오 드라이브</div>
+                        <div class="spot-desc">명품 거리 구경. 안 사도 분위기 즐기기</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🎬</div>
+                    <div class="spot-info">
+                        <div class="spot-name">TCL Chinese Theatre</div>
+                        <div class="spot-desc">스타 손도장/발도장 찍혀있는 곳</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🎭</div>
+                    <div class="spot-info">
+                        <div class="spot-name">베니스비치</div>
+                        <div class="spot-desc">스케이트파크, 머슬비치, 거리 예술가들</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🏰</div>
+                    <div class="spot-info">
+                        <div class="spot-name">디즈니랜드 (선택)</div>
+                        <div class="spot-desc">관심있으면! 1일 $150+. 차로 40분</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spots-divider"></div>
+            <h4>🍽️ LA 맛집/먹거리</h4>
+            <div class="spot-list">
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍔</div>
+                    <div class="spot-info">
+                        <div class="spot-name">In-N-Out Burger</div>
+                        <div class="spot-desc">캘리포니아 대표! Animal Style 필수. $5~8</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🌮</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Grand Central Market</div>
+                        <div class="spot-desc">타코, 팟타이, 에그슬럿 등 푸드홀. 다운타운</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🥩</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Howlin' Ray's</div>
+                        <div class="spot-desc">내슈빌 핫치킨. 줄 길지만 맛은 보장</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍜</div>
+                    <div class="spot-info">
+                        <div class="spot-name">코리아타운 한식</div>
+                        <div class="spot-desc">강호동 백정, 파크스BBQ, 순두부 등</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍩</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Randy's Donuts</div>
+                        <div class="spot-desc">거대 도넛 간판 포토스팟! 도넛도 맛있음</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">☕</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Blue Bottle / Intelligentsia</div>
+                        <div class="spot-desc">LA 스페셜티 커피. 분위기 좋음</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- TAB: Vegas -->
@@ -760,6 +913,116 @@
             <div class="day-info">
                 <div class="day-date">12/9 (화)</div>
                 <div class="day-content">🎪 프리몬트 스트릿 (올드베가스) → 아울렛 쇼핑 🛍️ → 저녁 태양의 서커스 쇼!</div>
+            </div>
+        </div>
+
+        <!-- Vegas 가볼 곳 -->
+        <div class="spots-section">
+            <h4>📍 베가스 가볼 곳</h4>
+            <div class="spot-list">
+                <div class="spot-item free">
+                    <div class="spot-emoji">⛲</div>
+                    <div class="spot-info">
+                        <div class="spot-name">벨라지오 분수쇼</div>
+                        <div class="spot-desc">무료! 15~30분마다. 밤에 더 예쁨</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🏨</div>
+                    <div class="spot-info">
+                        <div class="spot-name">호텔 구경 (무료)</div>
+                        <div class="spot-desc">베네시안(운하), 파리스(에펠탑), 시저스팰리스</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🎆</div>
+                    <div class="spot-info">
+                        <div class="spot-name">프리몬트 스트릿</div>
+                        <div class="spot-desc">올드베가스! LED 천장쇼 무료. 레트로 분위기</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🎪</div>
+                    <div class="spot-info">
+                        <div class="spot-name">태양의 서커스 (Cirque du Soleil)</div>
+                        <div class="spot-desc">'O' 또는 'KA' 추천. $100~200. 미리 예매!</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🏜️</div>
+                    <div class="spot-info">
+                        <div class="spot-name">그랜드캐니언 당일투어</div>
+                        <div class="spot-desc">버스투어 $100~150/인. 12시간. 스케일 압도적</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🛍️</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Las Vegas North Premium Outlets</div>
+                        <div class="spot-desc">나이키, 코치, 케이트스페이드 등. 스트립 근처</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🎡</div>
+                    <div class="spot-info">
+                        <div class="spot-name">High Roller (대관람차)</div>
+                        <div class="spot-desc">세계 최대 관람차. 야경 보며 한 바퀴 $25~35</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🌋</div>
+                    <div class="spot-info">
+                        <div class="spot-name">미라지 화산쇼</div>
+                        <div class="spot-desc">무료! 밤에 불 뿜는 화산. 스트립에서 구경</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spots-divider"></div>
+            <h4>🍽️ 베가스 맛집/먹거리</h4>
+            <div class="spot-list">
+                <div class="spot-item food">
+                    <div class="spot-emoji">🦞</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Bacchanal Buffet (시저스팰리스)</div>
+                        <div class="spot-desc">베가스 최고 뷔페! 점심 $55, 저녁 $75. 꼭 가기</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍕</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Secret Pizza (코스모폴리탄)</div>
+                        <div class="spot-desc">간판 없는 숨은 피자집. 늦은 밤 간식으로 딱</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🥩</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Gordon Ramsay Steak</div>
+                        <div class="spot-desc">특별한 날 스테이크. $80~150. 파리스 호텔</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🌮</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Tacos El Gordo</div>
+                        <div class="spot-desc">로컬 타코! 스트립 근처. 저렴하고 맛있음 $3~5</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍰</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Eggslut (코스모폴리탄)</div>
+                        <div class="spot-desc">에그 샌드위치 맛집. 아침/브런치로 좋음</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍜</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Chinatown (차이나타운)</div>
+                        <div class="spot-desc">스트립 밖 로컬 맛집 밀집. 저렴한 아시안 음식</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -849,6 +1112,116 @@
             <div class="day-info">
                 <div class="day-date">12/12 (금)</div>
                 <div class="day-content">🚋 케이블카 타보기 → 유니온스퀘어 쇼핑 → 트윈픽스 야경 (또는 실리콘밸리 🍎)</div>
+            </div>
+        </div>
+
+        <!-- SF 가볼 곳 -->
+        <div class="spots-section">
+            <h4>📍 샌프란 가볼 곳</h4>
+            <div class="spot-list">
+                <div class="spot-item free">
+                    <div class="spot-emoji">🌁</div>
+                    <div class="spot-info">
+                        <div class="spot-name">금문교 (Golden Gate Bridge)</div>
+                        <div class="spot-desc">무료! 걸어서 건너기 왕복 1시간. 안개 속 사진 멋있음</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🦭</div>
+                    <div class="spot-info">
+                        <div class="spot-name">피어39 & 피셔맨스 워프</div>
+                        <div class="spot-desc">바다사자 떼 귀여움! 기념품샵, 클램차우더</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🚋</div>
+                    <div class="spot-info">
+                        <div class="spot-name">케이블카</div>
+                        <div class="spot-desc">$8. 탈 자체가 관광! 파웰역에서 출발</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">⛵</div>
+                    <div class="spot-info">
+                        <div class="spot-name">사우살리토 (Sausalito)</div>
+                        <div class="spot-desc">금문교 건너편 예쁜 마을. 페리로 돌아오기 가능</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🌄</div>
+                    <div class="spot-info">
+                        <div class="spot-name">트윈 픽스 (Twin Peaks)</div>
+                        <div class="spot-desc">무료! 샌프란 전체 야경. 바람 강하니 따뜻하게</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🏮</div>
+                    <div class="spot-info">
+                        <div class="spot-name">차이나타운</div>
+                        <div class="spot-desc">미국에서 가장 오래된 차이나타운. 거리 걷기 좋음</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🛍️</div>
+                    <div class="spot-info">
+                        <div class="spot-name">유니온스퀘어</div>
+                        <div class="spot-desc">쇼핑 중심지. 백화점, 브랜드 매장 밀집</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🍎</div>
+                    <div class="spot-info">
+                        <div class="spot-name">실리콘밸리 (선택)</div>
+                        <div class="spot-desc">Apple Park, Googleplex 외관. 차 30~40분</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spots-divider"></div>
+            <h4>🍽️ 샌프란 맛집/먹거리</h4>
+            <div class="spot-list">
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍲</div>
+                    <div class="spot-info">
+                        <div class="spot-name">클램차우더 브레드볼</div>
+                        <div class="spot-desc">피셔맨스 워프 Boudin Bakery. 빵 속 수프!</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🌮</div>
+                    <div class="spot-info">
+                        <div class="spot-name">La Taqueria (미션)</div>
+                        <div class="spot-desc">미국 최고 부리토로 선정. $12~15. 줄 각오</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🦀</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Dungeness Crab (제철!)</div>
+                        <div class="spot-desc">12월이 제철! 피셔맨스워프에서 삶은 크랩</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍕</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Tony's Pizza Napoletana</div>
+                        <div class="spot-desc">세계 피자 챔피언. 노스비치. $15~25</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">☕</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Philz Coffee</div>
+                        <div class="spot-desc">샌프란 로컬 커피. Mint Mojito Iced 추천</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🥟</div>
+                    <div class="spot-info">
+                        <div class="spot-name">차이나타운 딤섬</div>
+                        <div class="spot-desc">Good Mong Kok 추천. 저렴하고 양 많음</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -945,6 +1318,116 @@
             <div class="day-info">
                 <div class="day-date">12/16 (화)</div>
                 <div class="day-content">🛍️ 아울렛 쇼핑 (세금 저렴!) → 피치트리 스트릿 → 소울푸드 마지막 식사 → 렌트카 반납</div>
+            </div>
+        </div>
+
+        <!-- Atlanta 가볼 곳 -->
+        <div class="spots-section">
+            <h4>📍 애틀란타 가볼 곳</h4>
+            <div class="spot-list">
+                <div class="spot-item">
+                    <div class="spot-emoji">🐠</div>
+                    <div class="spot-info">
+                        <div class="spot-name">조지아 아쿠아리움</div>
+                        <div class="spot-desc">세계 최대급! 고래상어 있음. $40/인. 반나절</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🥤</div>
+                    <div class="spot-info">
+                        <div class="spot-name">World of Coca-Cola</div>
+                        <div class="spot-desc">코카콜라 역사 + 전세계 콜라 시음. $20/인</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🏛️</div>
+                    <div class="spot-info">
+                        <div class="spot-name">센테니얼 올림픽 공원</div>
+                        <div class="spot-desc">무료! 1996 올림픽 기념. 분수쇼 있음</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🚶</div>
+                    <div class="spot-info">
+                        <div class="spot-name">벨트라인 (BeltLine)</div>
+                        <div class="spot-desc">무료! 산책/자전거 트레일. 벽화, 카페, 맛집 늘어서있음</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">✊</div>
+                    <div class="spot-info">
+                        <div class="spot-name">마틴 루터 킹 주니어 역사지구</div>
+                        <div class="spot-desc">무료! MLK 생가, 교회. 역사적 의미</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🛍️</div>
+                    <div class="spot-info">
+                        <div class="spot-name">North Georgia Premium Outlets</div>
+                        <div class="spot-desc">세금 저렴! 나이키, 코치, 아디다스 등. 차 40분</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🐶</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Athens - UGA 캠퍼스</div>
+                        <div class="spot-desc">아름다운 캠퍼스 산책. The Arch 포토스팟</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🎵</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Athens 다운타운</div>
+                        <div class="spot-desc">라이브뮤직 바, 인디 카페, 대학 타운 분위기</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spots-divider"></div>
+            <h4>🍽️ 애틀란타 맛집/먹거리</h4>
+            <div class="spot-list">
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍗</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Busy Bee Cafe</div>
+                        <div class="spot-desc">소울푸드 원조! 프라이드치킨, 맥앤치즈. $15~20</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🥩</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Fox Bros Bar-B-Q</div>
+                        <div class="spot-desc">텍사스 스타일 BBQ. 브리스킷 필수! $15~25</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🧇</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Waffle House</div>
+                        <div class="spot-desc">남부 대표 체인! 24시간. 와플+해시브라운 $8~12</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍑</div>
+                    <div class="spot-info">
+                        <div class="spot-name">The Varsity</div>
+                        <div class="spot-desc">1928년부터! 핫도그+양파링. 로컬 레전드</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍰</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Ponce City Market</div>
+                        <div class="spot-desc">벨트라인 위 푸드홀! 다양한 음식 + 루프탑 뷰</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">☕</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Jittery Joe's (Athens)</div>
+                        <div class="spot-desc">UGA 학생 카페. Athens 로컬 분위기 느끼기</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1049,6 +1532,158 @@
             <div class="day-info">
                 <div class="day-date">12/21 (일) — 마지막 날 😢</div>
                 <div class="day-content">코리아타운 브런치 → 자유시간/쇼핑 → JFK 공항 → 인천으로! ✈️🏠 수고했어 우리!</div>
+            </div>
+        </div>
+
+        <!-- NYC 가볼 곳 -->
+        <div class="spots-section">
+            <h4>📍 뉴욕 가볼 곳</h4>
+            <div class="spot-list">
+                <div class="spot-item">
+                    <div class="spot-emoji">🗽</div>
+                    <div class="spot-info">
+                        <div class="spot-name">자유의 여신상</div>
+                        <div class="spot-desc">페리 $24/인. 미리 예약 필수! 왕복 2~3시간</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🌉</div>
+                    <div class="spot-info">
+                        <div class="spot-name">브루클린 브릿지</div>
+                        <div class="spot-desc">무료! 걸어서 건너기 30분. 야경 시간 추천</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🎄</div>
+                    <div class="spot-info">
+                        <div class="spot-name">록펠러센터 크리스마스 트리</div>
+                        <div class="spot-desc">무료! 12월 뉴욕 상징. 스케이트장도 있음</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">✨</div>
+                    <div class="spot-info">
+                        <div class="spot-name">타임스퀘어</div>
+                        <div class="spot-desc">무료! 밤에 더 화려함. 첫날 밤에 가기</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🌳</div>
+                    <div class="spot-info">
+                        <div class="spot-name">센트럴파크</div>
+                        <div class="spot-desc">무료! 겨울에도 예쁨. 베데스다 분수, 보우 브릿지</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🎨</div>
+                    <div class="spot-info">
+                        <div class="spot-name">MET 미술관</div>
+                        <div class="spot-desc">기부제! 원하는 만큼만. 반나절 이상 소요</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🌿</div>
+                    <div class="spot-info">
+                        <div class="spot-name">하이라인 (High Line)</div>
+                        <div class="spot-desc">무료! 옛 철로 위 공원. 첼시마켓 옆</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🎭</div>
+                    <div class="spot-info">
+                        <div class="spot-name">브로드웨이 뮤지컬</div>
+                        <div class="spot-desc">위키드, 라이온킹, 시카고 등. $80~200. 미리 예매!</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🕊️</div>
+                    <div class="spot-info">
+                        <div class="spot-name">9/11 메모리얼</div>
+                        <div class="spot-desc">무료! (박물관은 $26). 외부 풀만 봐도 감동</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🛍️</div>
+                    <div class="spot-info">
+                        <div class="spot-name">5번가 쇼핑</div>
+                        <div class="spot-desc">삭스핍스, 티파니, 애플스토어. 윈도우 디스플레이 예쁨</div>
+                    </div>
+                </div>
+                <div class="spot-item free">
+                    <div class="spot-emoji">🌃</div>
+                    <div class="spot-info">
+                        <div class="spot-name">덤보 (DUMBO)</div>
+                        <div class="spot-desc">무료! 브루클린 브릿지 아래. 맨하탄 야경 최고 스팟</div>
+                    </div>
+                </div>
+                <div class="spot-item">
+                    <div class="spot-emoji">🎄</div>
+                    <div class="spot-info">
+                        <div class="spot-name">홀리데이 마켓 (Union Square)</div>
+                        <div class="spot-desc">크리스마스 시장! 핸드메이드 기념품, 먹거리</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spots-divider"></div>
+            <h4>🍽️ 뉴욕 맛집/먹거리</h4>
+            <div class="spot-list">
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍕</div>
+                    <div class="spot-info">
+                        <div class="spot-name">$1 Pizza (2Bros, 99 Cent Pizza)</div>
+                        <div class="spot-desc">뉴욕 로컬 경험! 맨하탄 곳곳. 간식으로 딱</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🥯</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Russ & Daughters</div>
+                        <div class="spot-desc">뉴욕 베이글 끝판왕. 크림치즈+훈제연어 $15~18</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🌭</div>
+                    <div class="spot-info">
+                        <div class="spot-name">할랄가이즈 (The Halal Guys)</div>
+                        <div class="spot-desc">치킨오버라이스! $8~10. 6th Ave & 53rd가 원조</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🥩</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Peter Luger Steak House</div>
+                        <div class="spot-desc">브루클린 전설 스테이크. $60~100. 예약 필수</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍜</div>
+                    <div class="spot-info">
+                        <div class="spot-name">차이나타운 & Little Italy</div>
+                        <div class="spot-desc">저렴한 딤섬, 덤플링, 이탈리안. $10 이하 가능</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🧁</div>
+                    <div class="spot-info">
+                        <div class="spot-name">Levain Bakery</div>
+                        <div class="spot-desc">뉴욕 최고 쿠키! 두껍고 촉촉. $5. 줄 각오</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🥘</div>
+                    <div class="spot-info">
+                        <div class="spot-name">첼시마켓 (Chelsea Market)</div>
+                        <div class="spot-desc">푸드홀! 랍스터, 타코, 도넛 등 다양. 하이라인 옆</div>
+                    </div>
+                </div>
+                <div class="spot-item food">
+                    <div class="spot-emoji">🍜</div>
+                    <div class="spot-info">
+                        <div class="spot-name">코리아타운 (32nd St)</div>
+                        <div class="spot-desc">한식 그리울 때! 한식뷔페, 치킨, 카페 다 있음</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

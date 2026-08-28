@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🗽 NYC 맛집 가이드 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: #0f0f1a;
+            color: #e0e0e0;
+            line-height: 1.7;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+            padding: 60px 20px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(79,172,254,0.2);
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(79,172,254,0.12) 0%, transparent 70%);
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #fff;
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .hero .sub {
+            color: #aac4e8;
+            font-size: 0.95rem;
+            position: relative;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: 'Noto Sans KR', sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── 동네 탭 네비 ── */
+        .nav-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #12121f;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 0 16px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+        .nav-wrap::-webkit-scrollbar { display: none; }
+        .nav-inner {
+            display: inline-flex;
+            gap: 4px;
+            padding: 10px 0;
+        }
+        .nav-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            background: transparent;
+            color: #888;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
+        .nav-btn.active { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #0f0f1a; }
+
+        /* ── 콘텐츠 ── */
+        .container { max-width: 800px; margin: 0 auto; padding: 24px 16px 60px; }
+        .section { display: none; animation: fadeIn 0.3s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ── 동네 헤더 ── */
+        .area-header {
+            background: linear-gradient(135deg, #1e1e35, #252540);
+            border: 1px solid rgba(79,172,254,0.15);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .area-header h2 { font-size: 1.5rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
+        .area-vibe {
+            display: inline-block;
+            background: rgba(79,172,254,0.12);
+            border: 1px solid rgba(79,172,254,0.25);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #aac4e8;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .route-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        /* ── 카드 그룹 ── */
+        .card-group { margin-bottom: 24px; }
+        .group-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #4facfe;
+            margin-bottom: 10px;
+            padding-left: 4px;
+        }
+
+        /* ── 식당 카드 ── */
+        .restaurant-card {
+            background: #1a1a2e;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+        .restaurant-card:hover {
+            transform: translateX(4px);
+            border-color: rgba(79,172,254,0.3);
+        }
+        .restaurant-card.star { border-left: 3px solid #ffd700; }
+        .restaurant-card.hot { border-left: 3px solid #f5576c; }
+        .restaurant-card.goat { border-left: 3px solid #4facfe; }
+        .r-emoji { font-size: 1.5rem; flex-shrink: 0; width: 36px; text-align: center; padding-top: 2px; }
+        .r-info { flex: 1; }
+        .r-name { font-weight: 700; font-size: 0.95rem; color: #fff; margin-bottom: 2px; }
+        .r-desc { font-size: 0.8rem; color: #888; line-height: 1.5; }
+        .r-badge {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 4px;
+        }
+        .badge-michelin { background: rgba(255,215,0,0.15); color: #ffd700; }
+        .badge-hot { background: rgba(245,87,108,0.15); color: #f5576c; }
+        .badge-goat { background: rgba(79,172,254,0.15); color: #4facfe; }
+        .badge-wait { background: rgba(255,165,0,0.15); color: #ffa500; }
+        .badge-date { background: rgba(240,147,251,0.15); color: #f093fb; }
+
+        /* ── Spot 카드 (가볼 곳) ── */
+        .spot-card {
+            background: #1a1a2e;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .spot-card .s-emoji { font-size: 1.4rem; width: 32px; text-align: center; flex-shrink: 0; }
+        .spot-card .s-name { font-weight: 700; font-size: 0.9rem; color: #fff; }
+        .spot-card .s-desc { font-size: 0.78rem; color: #777; margin-top: 2px; }
+
+        /* ── 베이글 테이블 ── */
+        .bagel-grid { display: flex; flex-direction: column; gap: 8px; }
+        .bagel-card {
+            background: #1a1a2e;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 14px 16px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .bagel-card .b-rank {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #0f0f1a;
+            font-weight: 900;
+            font-size: 0.85rem;
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .bagel-card.rank1 .b-rank { background: linear-gradient(135deg, #ffd700, #ffaa00); }
+        .bagel-card .b-info { flex: 1; }
+        .bagel-card .b-name { font-weight: 800; color: #fff; font-size: 0.9rem; }
+        .bagel-card .b-feature { font-size: 0.78rem; color: #888; margin: 2px 0; }
+        .bagel-card .b-combo {
+            font-size: 0.78rem;
+            color: #4facfe;
+            background: rgba(79,172,254,0.1);
+            padding: 4px 10px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        /* ── TIP 박스 ── */
+        .tip-box {
+            background: rgba(79,172,254,0.06);
+            border: 1px solid rgba(79,172,254,0.2);
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 0.83rem;
+            color: #aac4e8;
+            margin-bottom: 16px;
+        }
+        .tip-box strong { color: #4facfe; }
+
+        /* ── 할랄가이즈 카드 ── */
+        .halal-card {
+            background: linear-gradient(135deg, #1e2a1e, #1a2e1a);
+            border: 1px solid rgba(100,200,100,0.2);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .halal-card h3 { color: #90ee90; font-size: 1rem; margin-bottom: 12px; }
+        .halal-info { font-size: 0.85rem; color: #aaa; line-height: 2; }
+        .halal-info span { color: #fff; font-weight: 600; }
+
+        /* ── Footer ── */
+        .footer { text-align: center; padding: 40px 20px; color: #444; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <a class="back-btn" href="index.html">← 여행 플래너</a>
+    <h1>🗽 NYC 맛집 가이드</h1>
+    <p class="sub">뉴욕 5년 유학 · 진짜 가던 곳들만 · 2026 ver.</p>
+</div>
+
+<!-- 탭 네비 -->
+<div class="nav-wrap">
+    <div class="nav-inner">
+        <button class="nav-btn active" data-tab="fidi">📍 FiDi</button>
+        <button class="nav-btn" data-tab="soho">🛍️ SoHo</button>
+        <button class="nav-btn" data-tab="chelsea">🌿 Chelsea</button>
+        <button class="nav-btn" data-tab="midtown">🏙️ Midtown</button>
+        <button class="nav-btn" data-tab="bryant">🌳 Bryant Park</button>
+        <button class="nav-btn" data-tab="eastvillage">🍜 East Village</button>
+        <button class="nav-btn" data-tab="uppereast">🎨 Upper East/West</button>
+        <button class="nav-btn" data-tab="brooklyn">🌉 Brooklyn</button>
+        <button class="nav-btn" data-tab="bagel">🥯 베이글</button>
+        <button class="nav-btn" data-tab="halal">🌯 할랄가이즈</button>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- ── 1. FiDi ── -->
+    <div class="section active" id="tab-fidi">
+        <div class="area-header">
+            <h2>📍 FiDi / Wall St / 9·11 Memorial</h2>
+            <div class="area-vibe">조용하고 세련된 금융가 느낌. 낮보다 노을~저녁 추천.<br>멀리서 자유의 여신상도 볼 수 있어요.</div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Must Spots</div>
+            <div class="spot-card"><span class="s-emoji">🕊️</span><div><div class="s-name">9/11 Memorial & One World Trade Center</div></div></div>
+            <div class="spot-card"><span class="s-emoji">🦅</span><div><div class="s-name">Oculus</div><div class="s-desc">새 날개 모양의 건축물</div></div></div>
+            <div class="spot-card"><span class="s-emoji">🐂</span><div><div class="s-name">Wall Street Bull</div><div class="s-desc">특정 부위 만지면 재물이 들어온다는 속설... 그 부분만 색깔이 닳아있는 게 함정 ㅎ</div></div></div>
+            <div class="spot-card"><span class="s-emoji">🏛️</span><div><div class="s-name">Brookfield Place</div><div class="s-desc">야자수 + 대리석 공간, 깔끔한 쇼핑센터. 화장실도 깔끔!</div></div></div>
+            <div class="spot-card"><span class="s-emoji">⭐</span><div><div class="s-name">Pier 17</div><div class="s-desc">다운타운 핵심! 허드슨강 바라보며 걷거나 밥 먹기. 날 좋은 날 필수</div></div></div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Eats</div>
+            <div class="restaurant-card"><div class="r-emoji">🍱</div><div class="r-info"><div class="r-name">Brookfield Place 푸드코트</div><div class="r-desc">Blue Ribbon Sushi 등</div></div></div>
+            <div class="restaurant-card star"><div class="r-emoji">🍺</div><div class="r-info"><div class="r-name">Pier 근처 맥주</div><div class="r-desc">자유의 여신상 보면서 마실 수 있는 곳</div><span class="r-badge badge-hot">⭐ 분위기 맛집</span></div></div>
+            <div class="restaurant-card goat"><div class="r-emoji">🍽️</div><div class="r-info"><div class="r-name">Crown Shy</div><div class="r-desc">미슐랭급인데 분위기 부담 없음</div><span class="r-badge badge-date">데이트 최적</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🌃</div><div class="r-info"><div class="r-name">Manhatta</div><div class="r-desc">야경 미쳤음 (고층뷰) / 특별한 날용</div><span class="r-badge badge-wait">예약 필수!!</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍝</div><div class="r-info"><div class="r-name">Locanda Verde</div><div class="r-desc">브런치 + 파스타 안정적 맛집</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🎭</div><div class="r-info"><div class="r-name">The Odeon</div><div class="r-desc">뉴욕 감성 클래식 / 셀럽 많이 오는 곳</div></div></div>
+            <div class="restaurant-card star"><div class="r-emoji">🦪</div><div class="r-info"><div class="r-name">Grand Banks</div><div class="r-desc">허드슨강 바로 옆에서 굴 / 인생샷 바로 건짐</div><span class="r-badge badge-hot">인생샷 보장</span></div></div>
+        </div>
+    </div>
+
+    <!-- ── 2. SoHo ── -->
+    <div class="section" id="tab-soho">
+        <div class="area-header">
+            <h2>🛍️ SoHo / Nolita / West Village</h2>
+            <div class="area-vibe">뉴욕 감성 핵심. 한국으로 치면 압구정.<br>맛집 + 쇼핑 + 모델들의 성지. 여기 안 가면 뉴욕 온 거 아님!</div>
+            <div class="route-badge">Bleeker St 따라 걸으면 끝 — 아무 데나 들어가도 평균 이상</div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Must Eats</div>
+            <div class="restaurant-card hot"><div class="r-emoji">🥐</div><div class="r-info"><div class="r-name">Buvette</div><div class="r-desc">웨스트빌리지 감성 1위</div><span class="r-badge badge-wait">웨이팅 있음</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍮</div><div class="r-info"><div class="r-name">Bar Pisellino</div><div class="r-desc">Buvette 다음에 디저트 코스로 — 유럽 감성 인테리어 낭낭</div></div></div>
+            <div class="restaurant-card goat"><div class="r-emoji">🍝</div><div class="r-info"><div class="r-name">I Sodi</div><div class="r-desc">라자냐 GOAT</div><span class="r-badge badge-goat">GOAT</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍷</div><div class="r-info"><div class="r-name">L'Artusi</div><div class="r-desc">파스타 + 와인</div><span class="r-badge badge-date">데이트용</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🍜</div><div class="r-info"><div class="r-name">Raku</div><div class="r-desc">우동 레전드. 뉴요커들이 제일 좋아하는 일식 스팟</div><span class="r-badge badge-hot">뉴요커 픽</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍤</div><div class="r-info"><div class="r-name">Ruby's Diner</div><div class="r-desc">소녀시대가 다녀간 파스타집! 소호 본점이 제일 맛있음. 쉬림프 파스타 + 브론테 무조건 주문</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🥞</div><div class="r-info"><div class="r-name">Tartine</div><div class="r-desc">브런치 기본기 탄탄</div></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🍝</div><div class="r-info"><div class="r-name">Carbone</div><div class="r-desc">이탈리안 파스타 맛집</div><span class="r-badge badge-wait">예약 전쟁!!!!</span></div></div>
+            <div class="restaurant-card goat"><div class="r-emoji">🍳</div><div class="r-info"><div class="r-name">Olio E Piu</div><div class="r-desc">까르보나라 성지</div><span class="r-badge badge-goat">까르보나라 GOAT</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍕</div><div class="r-info"><div class="r-name">Rubirosa</div><div class="r-desc">얇은 피자 + 파스타</div><span class="r-badge badge-wait">웨이팅 필수</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🌶️</div><div class="r-info"><div class="r-name">Prince Street Pizza</div><div class="r-desc">스파이시 페퍼로니 = 필수 코스</div><span class="r-badge badge-hot">필수</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🫶</div><div class="r-info"><div class="r-name">Don Angie</div><div class="r-desc">lasagna roll = 인생 메뉴. 요즘 제일 핫한 이탈리안</div><span class="r-badge badge-hot">요즘 제일 핫</span></div></div>
+            <div class="restaurant-card goat"><div class="r-emoji">🥩</div><div class="r-info"><div class="r-name">4 Charles Prime Rib</div><div class="r-desc">버거 + 프라임립 GOAT</div><span class="r-badge badge-wait">예약 난이도 극악</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🔥</div><div class="r-info"><div class="r-name">Cote Korean Steakhouse</div><div class="r-desc">한국식 BBQ + 미슐랭. 미국 친구 데려가면 무조건 성공!!</div><span class="r-badge badge-michelin">미슐랭</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🌯</div><div class="r-info"><div class="r-name">Nami Nori</div><div class="r-desc">연예인들도 방문하는 핸드롤 식당</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">📸</div><div class="r-info"><div class="r-name">The Crosby Bar</div><div class="r-desc">인테리어 너무 예뻐서 사진만 찍으러 가고 싶은 곳</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍝</div><div class="r-info"><div class="r-name">La Pecora Bianca</div><div class="r-desc">파스타 · 브런치 강추 (소호 · 브라이언트파크 등 여러 지점)</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🇮🇹</div><div class="r-info"><div class="r-name">la piccola cucina</div><div class="r-desc">이탈리아 온 것 같은 현지 감성 파스타집. 식기도 예쁘고 갈 때마다 그릇 싹싹 긁음</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">👸</div><div class="r-info"><div class="r-name">Sant Ambroeus Lafayette</div><div class="r-desc">젤라또 맛있고 인테리어 공주공주함</div></div></div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Dessert</div>
+            <div class="restaurant-card"><div class="r-emoji">🍦</div><div class="r-info"><div class="r-name">Kith 아이스크림</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🎂</div><div class="r-info"><div class="r-name">Harbs</div><div class="r-desc">일본 케이크 매장. 넓고 쾌적해서 복잡한 소호에서 쉬어가기 딱</div></div></div>
+        </div>
+    </div>
+
+    <!-- ── 3. Chelsea ── -->
+    <div class="section" id="tab-chelsea">
+        <div class="area-header">
+            <h2>🌿 Chelsea / High Line / Meatpacking</h2>
+            <div class="route-badge">Chelsea Market → High Line → RH Rooftop</div>
+            <div class="area-vibe" style="margin-top:10px;">먹고 걷고 분위기까지 완벽 코스. 현금 필요한 가게 있음. 웨이팅 감안 필수.</div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Must Eats</div>
+            <div class="restaurant-card goat"><div class="r-emoji">🌮</div><div class="r-info"><div class="r-name">Chelsea Market 타코</div><div class="r-desc">진짜 TOP</div><span class="r-badge badge-goat">TOP</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🦞</div><div class="r-info"><div class="r-name">Chelsea Market 랍스터</div><div class="r-desc">바로 쪄주는 곳</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍝</div><div class="r-info"><div class="r-name">Cucina Alba</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🥘</div><div class="r-info"><div class="r-name">Salinas</div></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🌹</div><div class="r-info"><div class="r-name">RH Rooftop Restaurant</div><div class="r-desc">브라이덜샤워 느낌 미친 곳</div><span class="r-badge badge-date">분위기 최고</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🏙️</div><div class="r-info"><div class="r-name">Queensyard / Peak / Electric Lemon</div><div class="r-desc">Hudson Yards 몰 Vessel 안 — 무난하게 다 괜찮음</div></div></div>
+        </div>
+    </div>
+
+    <!-- ── 4. Midtown ── -->
+    <div class="section" id="tab-midtown">
+        <div class="area-header">
+            <h2>🏙️ Midtown / K-Town / 5th Ave / Central Park</h2>
+            <div class="area-vibe">뉴욕 처음이면 무조건 오는 구간.<br>스테이크는 점심이 가성비 좋음. 5th Ave + 센트럴파크 묶어서 편한 신발 필수!</div>
+        </div>
+
+        <div class="tip-box">
+            <strong>📍 Must Spots:</strong> 5th Ave (Saks / Bergdorf / Plaza Hotel 로비 꼭 입장) · Bryant Park · Rockefeller Center
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Must Eats</div>
+            <div class="restaurant-card hot"><div class="r-emoji">🥂</div><div class="r-info"><div class="r-name">Baccarat Hotel Bar</div><div class="r-desc">라운지 음식 + 샴페인 한잔 = 뉴욕 여행 다 함. 여자들 인생샷 성지</div><span class="r-badge badge-hot">인생샷</span></div></div>
+            <div class="restaurant-card goat"><div class="r-emoji">🥩</div><div class="r-info"><div class="r-name">Peter Luger Steak House</div><div class="r-desc">스테이크 GOAT</div><span class="r-badge badge-goat">GOAT</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🥩</div><div class="r-info"><div class="r-name">Smith & Wollensky</div><div class="r-desc">클래식 스테이크</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🥩</div><div class="r-info"><div class="r-name">Keens Steakhouse</div><div class="r-desc">전통 스테이크</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍌</div><div class="r-info"><div class="r-name">Magnolia Bakery</div><div class="r-desc">바나나 푸딩 필수</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🎂</div><div class="r-info"><div class="r-name">Lady M Cake</div><div class="r-desc">크레이프 케이크</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🌮</div><div class="r-info"><div class="r-name">Los Tacos No.1</div><div class="r-desc">가성비 + 진짜 맛있음</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍕</div><div class="r-info"><div class="r-name">Joe's Pizza</div><div class="r-desc">뉴욕 기본 피자</div></div></div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">K-Town 🇰🇷</div>
+            <div class="restaurant-card"><div class="r-emoji">🔥</div><div class="r-info"><div class="r-name">Jongro BBQ</div><div class="r-desc">K-town 대표 고기집. 내 픽은 Nubiani</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍻</div><div class="r-info"><div class="r-name">Take 31 + Soju Haus</div><div class="r-desc">뉴욕 한인들 술 마시러 놀러 가는 곳</div></div></div>
+            <div class="restaurant-card goat"><div class="r-emoji">⭐</div><div class="r-info"><div class="r-name">초당골</div><div class="r-desc">케타 1타 식당</div><span class="r-badge badge-goat">⭐⭐⭐⭐⭐</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🌙</div><div class="r-info"><div class="r-name">감미옥 / 미스코리아</div><div class="r-desc">24시간 영업 (iykyk)</div></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🍽️</div><div class="r-info"><div class="r-name">Jua</div><div class="r-desc">가격대 있지만 강추</div><span class="r-badge badge-hot">강추</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🏯</div><div class="r-info"><div class="r-name">Moono</div><div class="r-desc">Jua · Atoboy 같은 회사 운영. 한옥 느낌 인테리어 + 정갈한 한식. 증말 맛있게 먹었던 기억</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍶</div><div class="r-info"><div class="r-name">Atoboy / Her Name is Han / Hojokban</div></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🐷</div><div class="r-info"><div class="r-name">Okdongsik</div><div class="r-desc">흑백요리사2 뉴욕으로 간 돼지국밥 셰프님의 그 집!!</div><span class="r-badge badge-hot">흑백요리사2</span></div></div>
+        </div>
+    </div>
+
+    <!-- ── 5. Bryant Park ── -->
+    <div class="section" id="tab-bryant">
+        <div class="area-header">
+            <h2>🌳 Bryant Park ✨</h2>
+            <div class="area-vibe">뉴욕 한가운데인데 가장 여유로운 공간.<br>겨울 = 크리스마켓 + 아이스 스케이트 / 여름 = 피크닉</div>
+        </div>
+
+        <div class="tip-box">
+            <strong>Must Do:</strong> 잔디에 앉아서 커피 마시기 ⭐ · <strong>New York Public Library</strong> 내부 꼭 입장 (캐리어 반입 금지 / 진짜 영화 느낌!)
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Cafe & Dessert</div>
+            <div class="restaurant-card goat"><div class="r-emoji">☕</div><div class="r-info"><div class="r-name">Blue Bottle Coffee (Bryant Park 지점)</div><div class="r-desc">뉴욕에서 가장 안정적인 커피. 사서 공원 앉는 루트 강추</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🎂</div><div class="r-info"><div class="r-name">Lady M Cake Boutique</div><div class="r-desc">크레이프 케이크 = 정답</div></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🍪</div><div class="r-info"><div class="r-name">Culture Espresso</div><div class="r-desc">초코칩 쿠키 GOAT — Warm up 요청하기. 아이스 오트 허니 라떼 강추. 은근 로컬픽</div><span class="r-badge badge-goat">쿠키 GOAT</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🍨</div><div class="r-info"><div class="r-name">Anita Gelato</div><div class="r-desc">진짜 제발 꼭 가주세요 × 1,000,000. 여러 지점 있음</div><span class="r-badge badge-hot">무조건 가기</span></div></div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Food</div>
+            <div class="restaurant-card"><div class="r-emoji">🥗</div><div class="r-info"><div class="r-name">Sweetgreen</div><div class="r-desc">샐러드 투고해서 브라이언트파크에서 먹기 — 뉴욕 직장인 점심 루틴</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍱</div><div class="r-info"><div class="r-name">Ootoya</div><div class="r-desc">일본 가정식. 속 든든하고 진짜 맛있음</div></div></div>
+        </div>
+    </div>
+
+    <!-- ── 6. East Village ── -->
+    <div class="section" id="tab-eastvillage">
+        <div class="area-header">
+            <h2>🍜 Union Square / East Village / Gramercy</h2>
+            <div class="area-vibe">Flatiron Building · Madison Square Park · Washington Square Park · Eataly</div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Must Eats</div>
+            <div class="restaurant-card goat"><div class="r-emoji">🍔</div><div class="r-info"><div class="r-name">Shake Shack (1호점)</div><span class="r-badge badge-goat">원조</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🏆</div><div class="r-info"><div class="r-name">Estela</div><div class="r-desc">뭐 좀 아는 사람들이 1등으로 꼽는 이스트빌리지 최고 맛집</div><span class="r-badge badge-hot">현지인 1픽</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🍝</div><div class="r-info"><div class="r-name">Rezdôra</div><div class="r-desc">파스타 진짜 좋아하는 사람 전용</div><span class="r-badge badge-michelin">미슐랭급</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🌮</div><div class="r-info"><div class="r-name">Cosme</div><div class="r-desc">duck carnitas 유명. 뉴욕 멕시칸 탑티어</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🦐</div><div class="r-info"><div class="r-name">Fish Cheeks</div><div class="r-desc">태국 음식점</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍡</div><div class="r-info"><div class="r-name">Cha-an / Chikalicious</div><div class="r-desc">디저트</div></div></div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">숨은 찐맛집</div>
+            <div class="restaurant-card"><div class="r-emoji">🍜</div><div class="r-info"><div class="r-name">Ippudo</div><div class="r-desc">라멘</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🫕</div><div class="r-info"><div class="r-name">Shabutatsu</div><div class="r-desc">샤브샤브</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🥣</div><div class="r-info"><div class="r-name">Tsurutontan</div><div class="r-desc">대왕 우동</div></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🐟</div><div class="r-info"><div class="r-name">Dame</div><div class="r-desc">fish sandwich 미쳤음. 요즘 힙한 레스토랑</div><span class="r-badge badge-hot">요즘 힙</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🍛</div><div class="r-info"><div class="r-name">Thai Diner</div><div class="r-desc">brunch + thai fusion. 뉴요커들 최애</div><span class="r-badge badge-hot">뉴요커 최애</span></div></div>
+            <div class="restaurant-card goat"><div class="r-emoji">🍸</div><div class="r-info"><div class="r-name">Double Chicken Please</div><div class="r-desc">칵테일 세계 랭킹급</div><span class="r-badge badge-goat">세계 랭킹</span></div></div>
+        </div>
+    </div>
+
+    <!-- ── 7. Upper East/West ── -->
+    <div class="section" id="tab-uppereast">
+        <div class="area-header">
+            <h2>🎨 Upper East / Upper West</h2>
+            <div class="area-vibe">조용하고 클래식한 뉴욕의 예술을 향유하기 좋은 동네.<br>Metropolitan Museum · Guggenheim · Madison Ave 산책 추천</div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Must Eats</div>
+            <div class="restaurant-card hot"><div class="r-emoji">🎬</div><div class="r-info"><div class="r-name">Café Lalo</div><div class="r-desc">영화 감성 카페</div><span class="r-badge badge-hot">영화 촬영지</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🟣</div><div class="r-info"><div class="r-name">Ladurée</div><div class="r-desc">마카롱</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍫</div><div class="r-info"><div class="r-name">La Maison du Chocolat</div><div class="r-desc">초콜릿 최고</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🇦🇹</div><div class="r-info"><div class="r-name">Café Sabarsky</div><div class="r-desc">유럽 감성 끝판왕</div></div></div>
+            <div class="restaurant-card goat"><div class="r-emoji">🍔</div><div class="r-info"><div class="r-name">J.G. Melon</div><div class="r-desc">버거 레전드</div><span class="r-badge badge-goat">버거 레전드</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🥞</div><div class="r-info"><div class="r-name">Jacob's Pickles</div><div class="r-desc">남부 스타일 브런치</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🕯️</div><div class="r-info"><div class="r-name">Café Luxembourg</div><div class="r-desc">분위기 좋은 클래식</div></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🐎</div><div class="r-info"><div class="r-name">Ralph's Coffee</div><div class="r-desc">랄프로렌 커피</div></div></div>
+        </div>
+    </div>
+
+    <!-- ── 8. Brooklyn ── -->
+    <div class="section" id="tab-brooklyn">
+        <div class="area-header">
+            <h2>🌉 Brooklyn (감성 끝판왕)</h2>
+            <div class="area-vibe">뉴욕에서 제일 힙하고 여유로운 공간.<br>밤에는 살짝 스산할 수 있음!</div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Must Eats</div>
+            <div class="restaurant-card goat"><div class="r-emoji">🥩</div><div class="r-info"><div class="r-name">St. Anselm ⭐</div><div class="r-desc">브루클린 스테이크 = 여기. Peter Luger보다 요즘 더 많이 언급됨. BUTTERSTEAK / butcher steak 필수</div><span class="r-badge badge-goat">요즘 뉴요커 스테이크 1픽</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🍽️</div><div class="r-info"><div class="r-name">Francie</div><div class="r-desc">파스타 + 오리 요리 미침. 분위기까지 완벽</div><span class="r-badge badge-michelin">미슐랭 1스타</span><span class="r-badge badge-date" style="margin-left:4px;">데이트/브라이덜샤워</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🍝</div><div class="r-info"><div class="r-name">Lilia</div><div class="r-desc">파스타 성지</div><span class="r-badge badge-wait">예약 전쟁</span></div></div>
+            <div class="restaurant-card hot"><div class="r-emoji">🌆</div><div class="r-info"><div class="r-name">Laser Wolf</div><div class="r-desc">맨해튼 뷰 보면서 먹는 이스라엘 음식. 요즘 분위기 맛집 TOP</div><span class="r-badge badge-hot">분위기 TOP</span></div></div>
+            <div class="restaurant-card goat"><div class="r-emoji">💙</div><div class="r-info"><div class="r-name">Misi</div><div class="r-desc">개인적 브루클린 원픽</div><span class="r-badge badge-goat">원픽</span></div></div>
+        </div>
+
+        <div class="card-group">
+            <div class="group-title">Must</div>
+            <div class="restaurant-card hot"><div class="r-emoji">☀️</div><div class="r-info"><div class="r-name">Devocion</div><div class="r-desc">햇빛 + 커피 향 미쳤음</div><span class="r-badge badge-hot">커피 성지</span></div></div>
+            <div class="restaurant-card"><div class="r-emoji">🍺</div><div class="r-info"><div class="r-name">Brooklyn Brewery</div><div class="r-desc">맥주 + 분위기</div></div></div>
+        </div>
+    </div>
+
+    <!-- ── 9. 베이글 ── -->
+    <div class="section" id="tab-bagel">
+        <div class="area-header">
+            <h2>🥯 뉴욕 베이글 맛집 총정리</h2>
+        </div>
+
+        <div class="bagel-grid">
+            <div class="bagel-card rank1">
+                <div class="b-rank">1</div>
+                <div class="b-info">
+                    <div class="b-name">Russ & Daughters</div>
+                    <div class="b-feature">100년 넘은 클래식. 관광객 + 뉴요커 둘 다 인정</div>
+                    <div class="b-combo">👉 Bagel + Cream Cheese + Lox + Capers — 뉴욕 정석 조합</div>
+                </div>
+            </div>
+            <div class="bagel-card">
+                <div class="b-rank">2</div>
+                <div class="b-info">
+                    <div class="b-name">Tompkins Square Bagels</div>
+                    <div class="b-feature">양 많고 가성비. 로컬들이 진짜 자주 먹는 곳</div>
+                    <div class="b-combo">👉 BEC (Bacon Egg Cheese) + Everything Bagel — 아침/브런치 GOAT</div>
+                </div>
+            </div>
+            <div class="bagel-card">
+                <div class="b-rank">3</div>
+                <div class="b-info">
+                    <div class="b-name">Ess-a-Bagel</div>
+                    <div class="b-feature">사이즈 미침 (진짜 큼). 크림치즈 종류 다양</div>
+                    <div class="b-combo">👉 Plain Bagel + Scallion Cream Cheese</div>
+                </div>
+            </div>
+            <div class="bagel-card">
+                <div class="b-rank">4</div>
+                <div class="b-info">
+                    <div class="b-name">Absolute Bagels</div>
+                    <div class="b-feature">Columbia 근처 숨은 찐맛집. 가성비 미침</div>
+                    <div class="b-combo">👉 Sesame Bagel + Plain Cream Cheese — 기본기 탄탄</div>
+                </div>
+            </div>
+            <div class="bagel-card">
+                <div class="b-rank">5</div>
+                <div class="b-info">
+                    <div class="b-name">Liberty Bagels Midtown</div>
+                    <div class="b-feature">비주얼 미친 인스타용 베이글</div>
+                    <div class="b-combo">👉 Rainbow Bagel + Birthday Cake Cream Cheese</div>
+                </div>
+            </div>
+            <div class="bagel-card">
+                <div class="b-rank">6</div>
+                <div class="b-info">
+                    <div class="b-name">Best Bagel & Coffee</div>
+                    <div class="b-feature">뉴요커들이 찐으로 인정. 코리아타운 · 타임스퀘어 근처. 줄 있지만 회전 빠름</div>
+                    <div class="b-combo">👉 Everything Bagel + Scallion CC + Lox — 짭짤 + 고소 + 크리미 완벽 밸런스</div>
+                </div>
+            </div>
+            <div class="bagel-card">
+                <div class="b-rank">7</div>
+                <div class="b-info">
+                    <div class="b-name">Apollo Bagels 🔥</div>
+                    <div class="b-feature">요즘 뉴욕 제일 핫. 틱톡 · 인스타 릴스 바이럴. "겉바속쫀" 식감</div>
+                    <div class="b-combo">👉 Plain or Sesame Bagel + House Cream Cheese</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── 10. 할랄가이즈 ── -->
+    <div class="section" id="tab-halal">
+        <div class="area-header">
+            <h2>🌯 The Original 할랄가이즈 (본점)</h2>
+        </div>
+
+        <div class="halal-card">
+            <h3>🟡 원조 카트 정보</h3>
+            <div class="halal-info">
+                <div>📍 <span>위치:</span> 6th Ave & W 53rd St (힐튼 호텔 맞은편 노란 카트)</div>
+                <div>⏰ <span>영업:</span> 일~목 11:00 ~ 04:00 / 금~토 11:00 ~ 05:00</div>
+                <div>🍽️ <span>대표 메뉴:</span> Chicken & Rice</div>
+                <div>🌶️ <span>소스:</span> 화이트 소스 + 레드 소스 mix 필수!! (불닭만큼 매우니 주의 ♥)</div>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <strong>꿀팁:</strong> 노란색 티셔츠를 입은 직원이 있는 카트가 원조예요. 레드 소스는 진짜 매우니까 처음엔 조금만 넣어보기!
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">뉴욕 5년 유학 현지인 픽 · 2026 ver. · 즐거운 여행 되세요 🗽</div>
+
+<script>
+    const btns = document.querySelectorAll('.nav-btn');
+    const sections = document.querySelectorAll('.section');
+
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            btns.forEach(b => b.classList.remove('active'));
+            sections.forEach(s => s.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+</script>
+</body>
+</html>

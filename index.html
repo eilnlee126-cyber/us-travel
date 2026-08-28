@@ -79,7 +79,6 @@
         .nav-tab[data-tab="overview"].active { background: linear-gradient(135deg, #667eea, #764ba2); }
         .nav-tab[data-tab="la"].active { background: linear-gradient(135deg, #f093fb, #f5576c); }
         .nav-tab[data-tab="vegas"].active { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .nav-tab[data-tab="sf"].active { background: linear-gradient(135deg, #f093fb, #f5576c); }
         .nav-tab[data-tab="atlanta"].active { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
         .nav-tab[data-tab="nyc"].active { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
         .nav-tab[data-tab="tips"].active { background: linear-gradient(135deg, #f6d365, #fda085); }
@@ -304,15 +303,15 @@
 <div class="hero">
     <h1 style="cursor:pointer;" onclick="document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));document.querySelector('[data-tab=overview]').classList.add('active');document.getElementById('tab-overview').classList.add('active');window.scrollTo({top:0,behavior:'smooth'});">우리의 미국 여행 🇺🇸</h1>
     <p class="subtitle">남편 첫 미국! 서부부터 동부까지 🎉</p>
-    <div class="dates">📅 2026.12.3~ (about 19 days)</div>
+    <div class="dates">📅 2026.12.3 ~ 12.18 (16 days)</div>
 </div>
 
 <div class="container">
 
     <!-- Summary -->
     <div class="summary-strip">
-        <div class="bubble"><span class="emoji">⏰</span> 19일</div>
-        <div class="bubble"><span class="emoji">🏙️</span> 5개 도시</div>
+        <div class="bubble"><span class="emoji">⏰</span> 16일</div>
+        <div class="bubble"><span class="emoji">🏙️</span> 4개 도시</div>
         <div class="bubble"><span class="emoji">👫</span> 2명</div>
         <div class="bubble"><span class="emoji">🗺️</span> 서부→동부</div>
     </div>
@@ -323,7 +322,6 @@
             <button class="nav-tab active" data-tab="overview">🗺️ 전체보기</button>
             <button class="nav-tab" data-tab="la">🌴 LA</button>
             <button class="nav-tab" data-tab="vegas">🎰 베가스</button>
-            <button class="nav-tab" data-tab="sf">🌉 샌프란</button>
             <button class="nav-tab" data-tab="atlanta">🍑 애틀란타</button>
             <button class="nav-tab" data-tab="nyc">🗽 뉴욕</button>
             <button class="nav-tab" data-tab="tips">💡 팁/준비물</button>
@@ -338,8 +336,6 @@
                 <span class="route-city west">🌴 LA</span>
                 <span class="route-arrow">→</span>
                 <span class="route-city west">🎰 베가스</span>
-                <span class="route-arrow">→</span>
-                <span class="route-city west">🌉 샌프란</span>
                 <span class="route-arrow">→</span>
                 <span class="route-city east">🍑 애틀란타</span>
                 <span class="route-arrow">→</span>
@@ -362,12 +358,6 @@
                 <div class="w-city">베가스</div>
                 <div class="w-temp">5~15°C</div>
                 <div class="w-desc">낮엔OK 밤엔추움</div>
-            </div>
-            <div class="weather-card">
-                <div class="w-emoji">🌉</div>
-                <div class="w-city">샌프란</div>
-                <div class="w-temp">8~14°C</div>
-                <div class="w-desc">흐림, 비가능 🌧️</div>
             </div>
             <div class="weather-card">
                 <div class="w-emoji">🍑</div>
@@ -400,15 +390,9 @@
                 </div>
                 <div class="transport-item">
                     <div class="t-emoji">✈️</div>
-                    <div class="t-route">베가스 → 샌프란</div>
+                    <div class="t-route">베가스 → 애틀란타</div>
                     <div class="t-method t-fly">✈️ 비행기</div>
-                    <div class="t-time">1.5h</div>
-                </div>
-                <div class="transport-item">
-                    <div class="t-emoji">✈️</div>
-                    <div class="t-route">샌프란 → 애틀란타</div>
-                    <div class="t-method t-fly">✈️ 비행기</div>
-                    <div class="t-time">4.5h</div>
+                    <div class="t-time">3.5h</div>
                 </div>
                 <div class="transport-item">
                     <div class="t-emoji">🚗</div>
@@ -444,12 +428,6 @@
                     <div class="t-emoji">🎰</div>
                     <div class="t-route">베가스 시내</div>
                     <div class="t-method t-uber">🚶 도보+우버</div>
-                    <div class="t-time"></div>
-                </div>
-                <div class="transport-item">
-                    <div class="t-emoji">🌉</div>
-                    <div class="t-route">샌프란 시내</div>
-                    <div class="t-method t-uber">🚕 우버</div>
                     <div class="t-time"></div>
                 </div>
                 <div class="transport-item">
@@ -1024,225 +1002,12 @@
         </div>
     </div>
 
-    <!-- TAB: San Francisco -->
-    <div class="tab-content" id="tab-sf">
-        <div class="city-page-header">
-            <div class="big-emoji">🌉</div>
-            <h2>샌프란시스코</h2>
-            <div class="city-meta">12/10 ~ 12/12 · 3일 · Day 8~10</div>
-            <div class="city-weather">🌧️ 8~14°C · 흐린 날 많음, 비 가능</div>
-            <div class="city-clothing">
-                <strong>👗 뭐 입지?</strong>
-                <ul>
-                    <li>레이어드 필수! (아침저녁 쌀쌀)</li>
-                    <li>바람막이 or 방수 자켓</li>
-                    <li>니트 + 코트</li>
-                    <li>우산 챙기기 ☂️</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- SF 숙소 추천 -->
-        <div class="city-transport">
-            <h4>🏨 어디에서 잘까?</h4>
-            <div class="stay-reco">
-                <div class="stay-option best">
-                    <div class="stay-badge">👑 추천 1순위</div>
-                    <div class="stay-name">유니온스퀘어 (Union Square) 근처</div>
-                    <div class="stay-why">시내 중심! 케이블카, 쇼핑, 차이나타운 다 걸어서 가능. 교통 허브</div>
-                </div>
-                <div class="stay-option">
-                    <div class="stay-badge">🦭 관광 분위기</div>
-                    <div class="stay-name">피셔맨스 워프 근처</div>
-                    <div class="stay-why">바다 보이고 관광지 바로 앞. 좀 비싸지만 분위기 좋음</div>
-                </div>
-                <div class="stay-option">
-                    <div class="stay-badge">💰 가성비</div>
-                    <div class="stay-name">미션 디스트릭트 (Mission)</div>
-                    <div class="stay-why">에어비앤비 저렴. 맛집 많고 로컬 분위기. 우버로 시내 10분</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="day-card">
-            <div class="day-num west">D8</div>
-            <div class="day-info">
-                <div class="day-date">12/10 (수)</div>
-                <div class="day-content">베가스 → 샌프란! 🦭 피셔맨스워프 + 피어39 (바다사자 귀여움) → 클램차우더 🍲</div>
-            </div>
-        </div>
-        <div class="day-card">
-            <div class="day-num west">D9</div>
-            <div class="day-info">
-                <div class="day-date">12/11 (목)</div>
-                <div class="day-content">🌁 금문교 걸어서 건너기! → 사우살리토 마을 → 차이나타운 → 미션 디스트릭트 맛집</div>
-            </div>
-        </div>
-        <div class="day-card">
-            <div class="day-num west">D10</div>
-            <div class="day-info">
-                <div class="day-date">12/12 (금)</div>
-                <div class="day-content">🚋 케이블카 타보기 → 유니온스퀘어 쇼핑 → 트윈픽스 야경 (또는 실리콘밸리 🍎)</div>
-            </div>
-        </div>
-
-        <!-- SF 가볼 곳 -->
-        <div class="spots-section">
-            <h4>📍 샌프란 가볼 곳</h4>
-            <div class="spot-list">
-                <div class="spot-item free">
-                    <div class="spot-emoji">🌁</div>
-                    <div class="spot-info">
-                        <div class="spot-name">금문교 (Golden Gate Bridge)</div>
-                        <div class="spot-desc">무료! 걸어서 건너기 왕복 1시간. 안개 속 사진 멋있음</div>
-                    </div>
-                </div>
-                <div class="spot-item">
-                    <div class="spot-emoji">🦭</div>
-                    <div class="spot-info">
-                        <div class="spot-name">피어39 & 피셔맨스 워프</div>
-                        <div class="spot-desc">바다사자 떼 귀여움! 기념품샵, 클램차우더</div>
-                    </div>
-                </div>
-                <div class="spot-item">
-                    <div class="spot-emoji">🚋</div>
-                    <div class="spot-info">
-                        <div class="spot-name">케이블카</div>
-                        <div class="spot-desc">$8. 탈 자체가 관광! 파웰역에서 출발</div>
-                    </div>
-                </div>
-                <div class="spot-item free">
-                    <div class="spot-emoji">⛵</div>
-                    <div class="spot-info">
-                        <div class="spot-name">사우살리토 (Sausalito)</div>
-                        <div class="spot-desc">금문교 건너편 예쁜 마을. 페리로 돌아오기 가능</div>
-                    </div>
-                </div>
-                <div class="spot-item free">
-                    <div class="spot-emoji">🌄</div>
-                    <div class="spot-info">
-                        <div class="spot-name">트윈 픽스 (Twin Peaks)</div>
-                        <div class="spot-desc">무료! 샌프란 전체 야경. 바람 강하니 따뜻하게</div>
-                    </div>
-                </div>
-                <div class="spot-item free">
-                    <div class="spot-emoji">🏮</div>
-                    <div class="spot-info">
-                        <div class="spot-name">차이나타운</div>
-                        <div class="spot-desc">미국에서 가장 오래된 차이나타운. 거리 걷기 좋음</div>
-                    </div>
-                </div>
-                <div class="spot-item">
-                    <div class="spot-emoji">🛍️</div>
-                    <div class="spot-info">
-                        <div class="spot-name">유니온스퀘어</div>
-                        <div class="spot-desc">쇼핑 중심지. 백화점, 브랜드 매장 밀집</div>
-                    </div>
-                </div>
-                <div class="spot-item">
-                    <div class="spot-emoji">🍎</div>
-                    <div class="spot-info">
-                        <div class="spot-name">실리콘밸리 (선택)</div>
-                        <div class="spot-desc">Apple Park, Googleplex 외관. 차 30~40분</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="spots-divider"></div>
-            <h4>🍽️ 샌프란 맛집/먹거리</h4>
-            <div class="spot-list">
-                <div class="spot-item food">
-                    <div class="spot-emoji">🍲</div>
-                    <div class="spot-info">
-                        <div class="spot-name">클램차우더 브레드볼</div>
-                        <div class="spot-desc">피셔맨스 워프 Boudin Bakery. 빵 속 수프!</div>
-                    </div>
-                </div>
-                <div class="spot-item food">
-                    <div class="spot-emoji">🌮</div>
-                    <div class="spot-info">
-                        <div class="spot-name">La Taqueria (미션)</div>
-                        <div class="spot-desc">미국 최고 부리토로 선정. $12~15. 줄 각오</div>
-                    </div>
-                </div>
-                <div class="spot-item food">
-                    <div class="spot-emoji">🦀</div>
-                    <div class="spot-info">
-                        <div class="spot-name">Dungeness Crab (제철!)</div>
-                        <div class="spot-desc">12월이 제철! 피셔맨스워프에서 삶은 크랩</div>
-                    </div>
-                </div>
-                <div class="spot-item food">
-                    <div class="spot-emoji">🍕</div>
-                    <div class="spot-info">
-                        <div class="spot-name">Tony's Pizza Napoletana</div>
-                        <div class="spot-desc">세계 피자 챔피언. 노스비치. $15~25</div>
-                    </div>
-                </div>
-                <div class="spot-item food">
-                    <div class="spot-emoji">☕</div>
-                    <div class="spot-info">
-                        <div class="spot-name">Philz Coffee</div>
-                        <div class="spot-desc">샌프란 로컬 커피. Mint Mojito Iced 추천</div>
-                    </div>
-                </div>
-                <div class="spot-item food">
-                    <div class="spot-emoji">🥟</div>
-                    <div class="spot-info">
-                        <div class="spot-name">차이나타운 딤섬</div>
-                        <div class="spot-desc">Good Mong Kok 추천. 저렴하고 양 많음</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="spots-divider"></div>
-            <h4>🛍️ 샌프란 쇼핑 스팟</h4>
-            <div class="spot-list">
-                <div class="spot-item">
-                    <div class="spot-emoji">🛍️</div>
-                    <div class="spot-info">
-                        <div class="spot-name">유니온스퀘어 (Union Square)</div>
-                        <div class="spot-desc">시내 중심 쇼핑지구! Nordstrom, Bloomingdale's, Apple Store, Sephora</div>
-                    </div>
-                </div>
-                <div class="spot-item">
-                    <div class="spot-emoji">🏷️</div>
-                    <div class="spot-info">
-                        <div class="spot-name">San Francisco Premium Outlets</div>
-                        <div class="spot-desc">시내에서 차 40분 (Livermore). 나이키, 코치, 타미힐피거. 규모 큼</div>
-                    </div>
-                </div>
-                <div class="spot-item">
-                    <div class="spot-emoji">👗</div>
-                    <div class="spot-info">
-                        <div class="spot-name">Valencia Street (미션)</div>
-                        <div class="spot-desc">독립 부티크, 빈티지숍, 로컬 디자이너. 힙한 분위기</div>
-                    </div>
-                </div>
-                <div class="spot-item">
-                    <div class="spot-emoji">🧴</div>
-                    <div class="spot-info">
-                        <div class="spot-name">Ferry Building Marketplace</div>
-                        <div class="spot-desc">로컬 식품/기념품! 수제 초콜릿, 치즈, 올리브오일. 선물 사기 좋음</div>
-                    </div>
-                </div>
-                <div class="spot-item">
-                    <div class="spot-emoji">🛍️</div>
-                    <div class="spot-info">
-                        <div class="spot-name">Westfield San Francisco Centre</div>
-                        <div class="spot-desc">유니온스퀘어 옆 실내 쇼핑몰. 비 올 때 좋음! Nordstrom Rack (할인매장)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- TAB: Atlanta -->
     <div class="tab-content" id="tab-atlanta">
         <div class="city-page-header">
             <div class="big-emoji">🍑</div>
             <h2>애틀란타 + Athens</h2>
-            <div class="city-meta">12/13 ~ 12/16 · 4일 · Day 11~14</div>
+            <div class="city-meta">12/9 ~ 12/12 · 4일 · Day 8~11</div>
             <div class="city-weather">🌤️ 3~12°C · 쌀쌀하고 가끔 비</div>
             <div class="city-clothing">
                 <strong>👗 뭐 입지?</strong>
@@ -1278,30 +1043,30 @@
         </div>
 
         <div class="day-card">
-            <div class="day-num east">D11</div>
+            <div class="day-num east">D8</div>
             <div class="day-info">
-                <div class="day-date">12/13 (토)</div>
-                <div class="day-content">샌프란 → 애틀란타! 🚗 공항에서 렌트카 픽업 → 숙소 → 남부 음식 저녁 🍗</div>
+                <div class="day-date">12/9 (화) — 베가스→애틀란타!</div>
+                <div class="day-content">베가스 → 애틀란타 비행 ✈️ 공항에서 렌트카 픽업 → 숙소 → 남부 음식 저녁 🍗</div>
             </div>
         </div>
         <div class="day-card">
-            <div class="day-num east">D12</div>
+            <div class="day-num east">D9</div>
             <div class="day-info">
-                <div class="day-date">12/14 (일)</div>
+                <div class="day-date">12/10 (수)</div>
                 <div class="day-content">🐠 조지아 아쿠아리움 → 코카콜라 월드 🥤 → 올림픽 공원 → 벨트라인 → BBQ 저녁</div>
             </div>
         </div>
         <div class="day-card">
-            <div class="day-num east">D13</div>
+            <div class="day-num east">D10</div>
             <div class="day-info">
-                <div class="day-date">12/15 (월)</div>
+                <div class="day-date">12/11 (목)</div>
                 <div class="day-content">🚗 Athens 드라이브! UGA 캠퍼스 🐶 → 다운타운 카페 → 살았던 동네 방문 💕 → 저녁 복귀</div>
             </div>
         </div>
         <div class="day-card">
-            <div class="day-num east">D14</div>
+            <div class="day-num east">D11</div>
             <div class="day-info">
-                <div class="day-date">12/16 (화)</div>
+                <div class="day-date">12/12 (금)</div>
                 <div class="day-content">🛍️ 아울렛 쇼핑 (세금 저렴!) → 피치트리 스트릿 → 소울푸드 마지막 식사 → 렌트카 반납</div>
             </div>
         </div>
@@ -1462,7 +1227,7 @@
         <div class="city-page-header">
             <div class="big-emoji">🗽</div>
             <h2>뉴욕</h2>
-            <div class="city-meta">12/17 ~ 12/21 · 5일 · Day 15~19</div>
+            <div class="city-meta">12/12 ~ 12/18 · 7일 · Day 12~18</div>
             <div class="city-weather">❄️ -2~7°C · 추움! 눈 올 수 있고 바람 강함</div>
             <div class="city-clothing">
                 <strong>👗 뭐 입지? (제일 중요!!)</strong>
@@ -1498,38 +1263,52 @@
         </div>
 
         <div class="day-card">
+            <div class="day-num east">D12</div>
+            <div class="day-info">
+                <div class="day-date">12/12 (금) — ATL→NYC!</div>
+                <div class="day-content">애틀란타 → 뉴욕! 숙소 체크인 → 밤에 타임스퀘어 야경 ✨ (진짜 대박임)</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num east">D13</div>
+            <div class="day-info">
+                <div class="day-date">12/13 (토)</div>
+                <div class="day-content">🗽 자유의 여신상 (페리) → 월스트릿 & 9/11 메모리얼 → 브루클린 브릿지 → 덤보 야경 🌃</div>
+            </div>
+        </div>
+        <div class="day-card">
+            <div class="day-num east">D14</div>
+            <div class="day-info">
+                <div class="day-date">12/14 (일)</div>
+                <div class="day-content">🌳 센트럴파크 → MET 미술관 → 5번가 쇼핑 → 록펠러센터 크리스마스 트리 🎄✨</div>
+            </div>
+        </div>
+        <div class="day-card">
             <div class="day-num east">D15</div>
             <div class="day-info">
-                <div class="day-date">12/17 (수)</div>
-                <div class="day-content">애틀란타 → 뉴욕! 숙소 체크인 → 밤에 타임스퀘어 야경 ✨ (진짜 대박임)</div>
+                <div class="day-date">12/15 (월)</div>
+                <div class="day-content">🌿 하이라인 → 첼시마켓 맛집 🤤 → 소호/노리타 쇼핑 → 브로드웨이 뮤지컬 🎭</div>
             </div>
         </div>
         <div class="day-card">
             <div class="day-num east">D16</div>
             <div class="day-info">
-                <div class="day-date">12/18 (목)</div>
-                <div class="day-content">🗽 자유의 여신상 (페리) → 월스트릿 & 9/11 메모리얼 → 브루클린 브릿지 → 덤보 야경 🌃</div>
+                <div class="day-date">12/16 (화)</div>
+                <div class="day-content">🌉 브루클린 (St. Anselm, Lilia, DUMBO) 맛집 투어 + 동네 구경</div>
             </div>
         </div>
         <div class="day-card">
             <div class="day-num east">D17</div>
             <div class="day-info">
-                <div class="day-date">12/19 (금)</div>
-                <div class="day-content">🌳 센트럴파크 → MET 미술관 → 5번가 쇼핑 → 록펠러센터 크리스마스 트리 🎄✨</div>
+                <div class="day-date">12/17 (수)</div>
+                <div class="day-content">🛍️ 자유시간 / 쇼핑 (Woodbury Commons 아울렛)</div>
             </div>
         </div>
         <div class="day-card">
             <div class="day-num east">D18</div>
             <div class="day-info">
-                <div class="day-date">12/20 (토)</div>
-                <div class="day-content">🌿 하이라인 → 첼시마켓 맛집 🤤 → 소호/노리타 쇼핑 → 브로드웨이 뮤지컬 🎭</div>
-            </div>
-        </div>
-        <div class="day-card">
-            <div class="day-num east">D19</div>
-            <div class="day-info">
-                <div class="day-date">12/21 (일) — 마지막 날 😢</div>
-                <div class="day-content">코리아타운 브런치 → 자유시간/쇼핑 → JFK 공항 → 인천으로! ✈️🏠 수고했어 우리!</div>
+                <div class="day-date">12/18 (목) — 마지막 날 😢</div>
+                <div class="day-content">코리아타운 브런치 → JFK 공항 → 인천으로! ✈️🏠 수고했어 우리!</div>
             </div>
         </div>
 
@@ -1767,7 +1546,7 @@
         <div class="tip-card">
             <h3>📱 필수 앱 다운받기</h3>
             <ul>
-                <li><strong>Uber / Lyft</strong> — 택시 대용 (LA, 베가스, 샌프란)</li>
+                <li><strong>Uber / Lyft</strong> — 택시 대용 (LA, 베가스)</li>
                 <li><strong>Google Maps</strong> — 길찾기 필수</li>
                 <li><strong>Waze</strong> — 운전 내비 (애틀란타 렌트카 때 유용!)</li>
                 <li><strong>NYC Subway</strong> — 뉴욕 지하철</li>
@@ -1811,7 +1590,7 @@
                 <li>남편 ESTA 신청 (출발 최소 72시간 전!) — 나는 미국 여권이니까 불필요</li>
                 <li>남편 여권 유효기간 확인 (입국일 기준 6개월 이상)</li>
                 <li>여행자 보험 가입 (미국 병원비 무서움 😱)</li>
-                <li>국내선 항공편 예약 (LA→베가스→샌프란→ATL→뉴욕)</li>
+                <li>국내선 항공편 예약 (LA→베가스→ATL→뉴욕)</li>
                 <li>숙소 예약 (에어비앤비 일찍 잡기)</li>
                 <li>애틀란타 렌트카 예약</li>
                 <li>그랜드캐니언 투어 예약 (선택)</li>

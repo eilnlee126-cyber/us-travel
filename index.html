@@ -385,6 +385,27 @@
             </div>
         </div>
 
+        <!-- 실시간 환율 -->
+        <div id="exchange-rate" style="background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 20px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); margin-bottom: 24px; color: #fff; text-align: center;">
+            <div style="font-size: 0.85rem; color: #aaa; margin-bottom: 8px;">💱 실시간 환율 (USD → KRW)</div>
+            <div id="rate-display" style="font-size: 1.8rem; font-weight: 900; color: #4facfe;">불러오는 중...</div>
+            <div id="rate-detail" style="font-size: 0.82rem; color: #888; margin-top: 8px;"></div>
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 14px; flex-wrap: wrap;">
+                <div style="background: rgba(255,255,255,0.06); border-radius: 12px; padding: 10px 16px; flex: 1; min-width: 100px;">
+                    <div style="font-size: 0.7rem; color: #888;">$10</div>
+                    <div id="conv-10" style="font-size: 0.95rem; font-weight: 700; color: #fff;">—</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.06); border-radius: 12px; padding: 10px 16px; flex: 1; min-width: 100px;">
+                    <div style="font-size: 0.7rem; color: #888;">$50</div>
+                    <div id="conv-50" style="font-size: 0.95rem; font-weight: 700; color: #fff;">—</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.06); border-radius: 12px; padding: 10px 16px; flex: 1; min-width: 100px;">
+                    <div style="font-size: 0.7rem; color: #888;">$100</div>
+                    <div id="conv-100" style="font-size: 0.95rem; font-weight: 700; color: #fff;">—</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Calendar -->
         <div class="calendar-wrap">
             <div class="calendar-title">🗓️ 2026년 12월</div>
@@ -1815,6 +1836,26 @@
             if (target) target.classList.add('active');
         });
     });
+
+    // 실시간 환율 (USD → KRW)
+    (async function() {
+        const fmt = n => n.toLocaleString('ko-KR');
+        try {
+            const res = await fetch('https://open.er-api.com/v6/latest/USD');
+            const data = await res.json();
+            if (data.result === 'success' && data.rates && data.rates.KRW) {
+                const rate = data.rates.KRW;
+                document.getElementById('rate-display').textContent = '$1 = ₩' + fmt(Math.round(rate));
+                document.getElementById('rate-detail').textContent = '업데이트: ' + data.time_last_update_utc.slice(0, 16) + ' (페이지 열 때마다 자동 갱신)';
+                document.getElementById('conv-10').textContent = '₩' + fmt(Math.round(rate * 10));
+                document.getElementById('conv-50').textContent = '₩' + fmt(Math.round(rate * 50));
+                document.getElementById('conv-100').textContent = '₩' + fmt(Math.round(rate * 100));
+            } else { throw new Error('fail'); }
+        } catch(e) {
+            document.getElementById('rate-display').textContent = '환율 정보를 가져올 수 없어요 😢';
+            document.getElementById('rate-detail').textContent = '인터넷 연결 확인 후 새로고침 해보세요';
+        }
+    })();
 </script>
 
 

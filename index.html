@@ -327,28 +327,33 @@
         .footer { text-align: center; padding: 50px 20px; color: #bbb; }
         .footer .big-emoji { font-size: 3rem; margin-bottom: 12px; }
 
-        /* Scroll Toggle Button */
-        .scroll-toggle {
+        /* Scroll Buttons */
+        .scroll-btns {
             position: fixed;
             bottom: 24px;
             right: 24px;
-            width: 48px;
-            height: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+        }
+        .scroll-btn {
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             border: none;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: #fff;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             cursor: pointer;
             box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-            z-index: 999;
-            transition: transform 0.2s, opacity 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.2s, opacity 0.2s;
         }
-        .scroll-toggle:hover { transform: scale(1.1); }
-        .scroll-toggle:active { transform: scale(0.95); }
+        .scroll-btn:hover { transform: scale(1.1); }
+        .scroll-btn:active { transform: scale(0.95); }
 
         @media (max-width: 600px) {
             .hero h1 { font-size: 1.9rem; }
@@ -1842,8 +1847,11 @@
     <p>즐거운 여행 되자! 💕</p>
 </div>
 
-<!-- Scroll Toggle Button -->
-<button class="scroll-toggle" id="scroll-toggle" onclick="toggleScroll()" title="맨 위/아래로 이동">↓</button>
+<!-- Scroll Buttons -->
+<div class="scroll-btns">
+    <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+    <button class="scroll-btn" onclick="window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})" title="맨 아래로">↓</button>
+</div>
 
 <script>
     // Tab Navigation
@@ -1882,31 +1890,6 @@
             document.getElementById('rate-detail').textContent = '인터넷 연결 확인 후 새로고침 해보세요';
         }
     })();
-
-    // Scroll Toggle Button
-    const scrollBtn = document.getElementById('scroll-toggle');
-    function updateScrollBtn() {
-        const scrollTop = window.scrollY;
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (scrollTop > scrollHeight * 0.3) {
-            scrollBtn.textContent = '↑';
-            scrollBtn.title = '맨 위로';
-        } else {
-            scrollBtn.textContent = '↓';
-            scrollBtn.title = '맨 아래로';
-        }
-    }
-    function toggleScroll() {
-        const scrollTop = window.scrollY;
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (scrollTop > scrollHeight * 0.3) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
-        }
-    }
-    window.addEventListener('scroll', updateScrollBtn);
-    updateScrollBtn();
 </script>
 
 

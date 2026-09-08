@@ -203,6 +203,46 @@
 
         .section-title { font-size: 1.3rem; font-weight: 900; margin-bottom: 16px; }
 
+        /* Calendar */
+        .calendar-wrap { background: white; border-radius: 24px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 24px; }
+        .calendar-title { text-align: center; font-size: 1.2rem; font-weight: 900; margin-bottom: 4px; }
+        .calendar-sub { text-align: center; font-size: 0.85rem; color: #999; margin-bottom: 18px; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .cal-dow { text-align: center; font-size: 0.75rem; font-weight: 700; color: #aaa; padding-bottom: 4px; }
+        .cal-dow.sun { color: #f5576c; }
+        .cal-dow.sat { color: #4facfe; }
+        .cal-cell { aspect-ratio: 1 / 1; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; background: #f7f7f7; color: #ccc; position: relative; }
+        .cal-cell.empty { background: transparent; }
+        .cal-cell .cal-num { font-size: 0.9rem; }
+        .cal-cell.trip { color: #fff; }
+        .cal-cell.la { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .cal-cell.vegas { background: linear-gradient(135deg, #f6d365, #fda085); }
+        .cal-cell.atlanta { background: linear-gradient(135deg, #4facfe, #00c6fb); }
+        .cal-cell.nyc { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .cal-cell.xmas { box-shadow: 0 0 0 3px #ffd700, 0 4px 12px rgba(255,215,0,0.5); }
+
+        /* Trip Bars (도시별 기간) */
+        .trip-bars { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
+        .trip-bar { display: grid; grid-template-columns: 100px 1fr auto; align-items: center; gap: 12px; }
+        .bar-label .bar-city { font-size: 0.85rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; color: #fff; white-space: nowrap; display: inline-block; }
+        .bar-city.la { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .bar-city.vegas { background: linear-gradient(135deg, #f6d365, #fda085); color: #7a4a00; }
+        .bar-city.atlanta { background: linear-gradient(135deg, #4facfe, #00c6fb); }
+        .bar-city.nyc { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .bar-line { display: flex; align-items: center; gap: 2px; font-weight: 900; }
+        .bar-line .bar-arrow { font-size: 0.9rem; }
+        .bar-line .bar-track { flex: 1; height: 6px; border-radius: 6px; }
+        .bar-line.la { color: #f5576c; } .bar-line.la .bar-track { background: linear-gradient(90deg, #f093fb, #f5576c); }
+        .bar-line.vegas { color: #fda085; } .bar-line.vegas .bar-track { background: linear-gradient(90deg, #f6d365, #fda085); }
+        .bar-line.atlanta { color: #4facfe; } .bar-line.atlanta .bar-track { background: linear-gradient(90deg, #4facfe, #00c6fb); }
+        .bar-line.nyc { color: #764ba2; } .bar-line.nyc .bar-track { background: linear-gradient(90deg, #667eea, #764ba2); }
+        .bar-range { font-size: 0.78rem; font-weight: 600; color: #888; white-space: nowrap; }
+        @media (max-width: 600px) {
+            .trip-bar { grid-template-columns: 80px 1fr; grid-template-areas: "label line" "range range"; row-gap: 4px; }
+            .bar-label { grid-area: label; } .bar-line { grid-area: line; } .bar-range { grid-area: range; text-align: right; }
+            .bar-label .bar-city { font-size: 0.78rem; padding: 3px 8px; }
+        }
+
         /* Stay Recommendations */
         .stay-reco {
             display: flex;
@@ -342,6 +382,84 @@
                 <span class="route-city east">🗽 뉴욕</span>
                 <span class="route-arrow">→</span>
                 <span style="font-size:1.2rem;">🏠</span>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="calendar-wrap">
+            <div class="calendar-title">🗓️ 2026년 12월</div>
+            <div class="calendar-sub">12/3 출발 ~ 12/26 귀국 · 크리스마스는 뉴욕에서 🎄</div>
+            <div class="calendar-grid">
+                <div class="cal-dow sun">일</div>
+                <div class="cal-dow">월</div>
+                <div class="cal-dow">화</div>
+                <div class="cal-dow">수</div>
+                <div class="cal-dow">목</div>
+                <div class="cal-dow">금</div>
+                <div class="cal-dow sat">토</div>
+
+                <!-- 1일은 화요일: 일,월 빈칸 2개 -->
+                <div class="cal-cell empty"></div>
+                <div class="cal-cell empty"></div>
+                <div class="cal-cell"><span class="cal-num">1</span></div>
+                <div class="cal-cell"><span class="cal-num">2</span></div>
+                <div class="cal-cell trip la"><span class="cal-num">3</span></div>
+                <div class="cal-cell trip la"><span class="cal-num">4</span></div>
+                <div class="cal-cell trip la"><span class="cal-num">5</span></div>
+
+                <div class="cal-cell trip la"><span class="cal-num">6</span></div>
+                <div class="cal-cell trip vegas"><span class="cal-num">7</span></div>
+                <div class="cal-cell trip vegas"><span class="cal-num">8</span></div>
+                <div class="cal-cell trip atlanta"><span class="cal-num">9</span></div>
+                <div class="cal-cell trip atlanta"><span class="cal-num">10</span></div>
+                <div class="cal-cell trip atlanta"><span class="cal-num">11</span></div>
+                <div class="cal-cell trip atlanta"><span class="cal-num">12</span></div>
+
+                <div class="cal-cell trip atlanta"><span class="cal-num">13</span></div>
+                <div class="cal-cell trip atlanta"><span class="cal-num">14</span></div>
+                <div class="cal-cell trip atlanta"><span class="cal-num">15</span></div>
+                <div class="cal-cell trip nyc"><span class="cal-num">16</span></div>
+                <div class="cal-cell trip nyc"><span class="cal-num">17</span></div>
+                <div class="cal-cell trip nyc"><span class="cal-num">18</span></div>
+                <div class="cal-cell trip nyc"><span class="cal-num">19</span></div>
+
+                <div class="cal-cell trip nyc"><span class="cal-num">20</span></div>
+                <div class="cal-cell trip nyc"><span class="cal-num">21</span></div>
+                <div class="cal-cell trip nyc"><span class="cal-num">22</span></div>
+                <div class="cal-cell trip nyc"><span class="cal-num">23</span></div>
+                <div class="cal-cell trip nyc"><span class="cal-num">24</span></div>
+                <div class="cal-cell trip nyc xmas"><span class="cal-num">25</span></div>
+                <div class="cal-cell trip nyc"><span class="cal-num">26</span></div>
+
+                <div class="cal-cell"><span class="cal-num">27</span></div>
+                <div class="cal-cell"><span class="cal-num">28</span></div>
+                <div class="cal-cell"><span class="cal-num">29</span></div>
+                <div class="cal-cell"><span class="cal-num">30</span></div>
+                <div class="cal-cell"><span class="cal-num">31</span></div>
+            </div>
+
+            <!-- 도시별 기간 바 -->
+            <div class="trip-bars">
+                <div class="trip-bar">
+                    <div class="bar-label"><span class="bar-city la">🌴 LA</span></div>
+                    <div class="bar-line la"><span class="bar-arrow">&lt;</span><span class="bar-track"></span><span class="bar-arrow">&gt;</span></div>
+                    <div class="bar-range">12/3 ~ 12/7 · 4박 5일</div>
+                </div>
+                <div class="trip-bar">
+                    <div class="bar-label"><span class="bar-city vegas">🎰 베가스</span></div>
+                    <div class="bar-line vegas"><span class="bar-arrow">&lt;</span><span class="bar-track"></span><span class="bar-arrow">&gt;</span></div>
+                    <div class="bar-range">12/7 ~ 12/9 · 2박 3일</div>
+                </div>
+                <div class="trip-bar">
+                    <div class="bar-label"><span class="bar-city atlanta">🍑 애틀란타</span></div>
+                    <div class="bar-line atlanta"><span class="bar-arrow">&lt;</span><span class="bar-track"></span><span class="bar-arrow">&gt;</span></div>
+                    <div class="bar-range">12/9 ~ 12/16 · 7박 8일</div>
+                </div>
+                <div class="trip-bar">
+                    <div class="bar-label"><span class="bar-city nyc">🗽 뉴욕</span></div>
+                    <div class="bar-line nyc"><span class="bar-arrow">&lt;</span><span class="bar-track"></span><span class="bar-arrow">&gt;</span></div>
+                    <div class="bar-range">12/16 ~ 12/26 · 10박 11일 🎄</div>
+                </div>
             </div>
         </div>
 

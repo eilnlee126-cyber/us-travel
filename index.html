@@ -418,6 +418,7 @@
             <div style="font-size: 0.85rem; color: #aaa; margin-bottom: 8px;">💱 실시간 환율 (USD → KRW)</div>
             <div id="rate-display" style="font-size: 1.8rem; font-weight: 900; color: #4facfe;">불러오는 중...</div>
             <div id="rate-detail" style="font-size: 0.82rem; color: #888; margin-top: 8px;"></div>
+            <div id="rate-history" style="font-size: 0.8rem; color: #aaa; margin-top: 8px;"></div>
             <div style="display: flex; gap: 10px; justify-content: center; margin-top: 14px; flex-wrap: wrap;">
                 <div style="background: rgba(255,255,255,0.06); border-radius: 12px; padding: 10px 16px; flex: 1; min-width: 100px;">
                     <div style="font-size: 0.7rem; color: #888;">$10</div>
@@ -2002,19 +2003,79 @@
         });
     });
 
-    // 실시간 환율 (USD → KRW)
+    // 실시간 환율 (USD → KRW) + localStorage 히스토리
     (async function() {
         const fmt = n => n.toLocaleString('ko-KR');
+        const STORAGE_KEY = 'krw_rate_history';
+
+        // 날짜 키 (YYYY-MM-DD)
+        function todayKey() {
+            const d = new Date();
+            return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+        }
+
+        // 저장된 히스토리 가져오기
+        function getHistory() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
+        }
+
+        // 히스토리 저장 (최근 30일만 유지)
+        function saveRate(date, rate) {
+            const hist = getHistory();
+            hist[date] = rate;
+            const keys = Object.keys(hist).sort().reverse();
+            if (keys.length > 30) {
+                keys.slice(30).forEach(k => delete hist[k]);
+            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(hist));
+        }
+
+        // 변동 표시 텍스트 만들기
+        function diffText(label, todayRate, prevRate) {
+            if (!prevRate) return '';
+            const diff = Math.round(todayRate - prevRate);
+            if (diff === 0) return label + ' ₩' + fmt(Math.round(prevRate)) + ' (→ 변동 없음)';
+            const arrow = diff > 0 ? '▲' : '▼';
+            const color = diff > 0 ? '#ff6b6b' : '#69db7c';
+            return label + ' ₩' + fmt(Math.round(prevRate)) + ' (<span style="color:' + color + '">' + arrow + Math.abs(diff) + '원</span>)';
+        }
+
         try {
             const res = await fetch('https://open.er-api.com/v6/latest/USD');
             const data = await res.json();
             if (data.result === 'success' && data.rates && data.rates.KRW) {
                 const rate = data.rates.KRW;
+                const today = todayKey();
+
+                // 오늘 환율 저장
+                saveRate(today, rate);
+
+                // 화면 표시
                 document.getElementById('rate-display').textContent = '$1 = ₩' + fmt(Math.round(rate));
                 document.getElementById('rate-detail').textContent = '업데이트: ' + data.time_last_update_utc.slice(0, 16) + ' (페이지 열 때마다 자동 갱신)';
                 document.getElementById('conv-10').textContent = '₩' + fmt(Math.round(rate * 10));
                 document.getElementById('conv-50').textContent = '₩' + fmt(Math.round(rate * 50));
                 document.getElementById('conv-100').textContent = '₩' + fmt(Math.round(rate * 100));
+
+                // 히스토리에서 어제/그제 가져오기
+                const hist = getHistory();
+                const dates = Object.keys(hist).sort().reverse();
+                const prevDates = dates.filter(d => d < today);
+
+                let histHtml = '';
+                if (prevDates.length >= 1) {
+                    const y = prevDates[0];
+                    histHtml += diffText('어제(' + y.slice(5) + ')', rate, hist[y]);
+                }
+                if (prevDates.length >= 2) {
+                    const yy = prevDates[1];
+                    histHtml += ' · ' + diffText('그제(' + yy.slice(5) + ')', rate, hist[yy]);
+                }
+                if (histHtml) {
+                    document.getElementById('rate-history').innerHTML = '📊 ' + histHtml;
+                } else {
+                    document.getElementById('rate-history').innerHTML = '📊 내일부터 환율 변동 추이가 표시돼요!';
+                }
             } else { throw new Error('fail'); }
         } catch(e) {
             document.getElementById('rate-display').textContent = '환율 정보를 가져올 수 없어요 😢';

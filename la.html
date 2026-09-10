@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌴 LA — 남편이랑 첫 미국여행</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans KR', -apple-system, sans-serif; background: #fef9f4; color: #3d3d3d; line-height: 1.7; }
+        .hero { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a8edea 100%); padding: 70px 20px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: "✈️"; position: absolute; font-size: 3.5rem; top: 20px; right: 10%; animation: float 3s ease-in-out infinite; }
+        .hero::after { content: "🧳"; position: absolute; font-size: 2.5rem; bottom: 20px; left: 10%; animation: float 3s ease-in-out infinite 1s; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .hero h1 { font-size: 2.5rem; font-weight: 900; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); margin-bottom: 8px; }
+        .hero .subtitle { font-size: 1.2rem; color: #fff; opacity: 0.9; font-weight: 600; }
+        .hero .dates { margin-top: 16px; display: inline-block; background: rgba(255,255,255,0.85); padding: 8px 24px; border-radius: 30px; font-weight: 700; color: #e75480; }
+        .container { max-width: 850px; margin: 0 auto; padding: 20px; }
+        .nav-wrap { background: white; border-radius: 20px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin: 30px 0; }
+        .nav-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+        .nav-tab { padding: 10px 18px; border-radius: 30px; border: none; font-family: 'Noto Sans KR', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; background: #f5f5f5; color: #666; text-decoration: none; }
+        .nav-tab:hover { background: #eee; }
+        .nav-tab.active { color: white; transform: scale(1.05); }
+        .nav-tab[data-tab="overview"].active { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .nav-tab[data-tab="la"].active { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .nav-tab[data-tab="vegas"].active { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .nav-tab[data-tab="atlanta"].active { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
+        .nav-tab[data-tab="nyc"].active { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
+        .nav-tab[data-tab="tips"].active { background: linear-gradient(135deg, #f6d365, #fda085); }
+        .city-page-header { background: white; border-radius: 24px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center; margin-bottom: 24px; }
+        .city-page-header .big-emoji { font-size: 3.5rem; margin-bottom: 10px; }
+        .city-page-header h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 6px; }
+        .city-page-header .city-meta { color: #888; font-size: 0.95rem; }
+        .city-page-header .city-weather { margin-top: 14px; display: inline-block; background: #fff3e0; padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; }
+        .city-page-header .city-clothing { margin-top: 10px; background: #e8f5e9; padding: 12px 20px; border-radius: 16px; text-align: left; font-size: 0.85rem; }
+        .city-page-header .city-clothing ul { list-style: none; margin-top: 6px; }
+        .city-page-header .city-clothing li { padding: 3px 0; padding-left: 20px; position: relative; }
+        .city-page-header .city-clothing li::before { content: "👕"; position: absolute; left: 0; font-size: 0.75rem; }
+        .footer { text-align: center; padding: 50px 20px; color: #bbb; }
+        .footer .big-emoji { font-size: 3rem; margin-bottom: 12px; }
+        .scroll-btns { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
+        .scroll-btn { width: 44px; height: 44px; border-radius: 50%; border: none; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; font-size: 1.3rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        .scroll-btn:hover { transform: scale(1.1); }
+        @media (max-width: 600px) { .hero h1 { font-size: 1.9rem; } .hero::before, .hero::after { font-size: 2rem; } .nav-tab { padding: 8px 14px; font-size: 0.8rem; } .city-page-header .big-emoji { font-size: 2.5rem; } }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1 style="cursor:pointer;" onclick="window.location='index.html'">남편이랑 첫 미국여행 🇺🇸</h1>
+    <p class="subtitle">남편 첫 미국! 서부부터 동부까지 🎉</p>
+    <div class="dates">📅 2026.12.3 ~ 12.26 (24 days)</div>
+</div>
+
+<div class="container">
+    <div class="nav-wrap">
+        <div class="nav-tabs">
+            <a class="nav-tab" data-tab="overview" href="index.html">🗺️ 전체보기</a>
+            <a class="nav-tab active" data-tab="la" href="la.html">🌴 LA</a>
+            <a class="nav-tab" data-tab="vegas" href="vegas.html">🎰 베가스</a>
+            <a class="nav-tab" data-tab="atlanta" href="atlanta.html">🍑 애틀란타</a>
+            <a class="nav-tab" data-tab="nyc" href="nyc.html">🗽 뉴욕</a>
+            <a class="nav-tab" data-tab="tips" href="tips.html">💡 팁/준비물</a>
+        </div>
+    </div>
+
+    <div class="city-page-header">
+        <div class="big-emoji">🌴</div>
+        <h2>LA (로스앤젤레스)</h2>
+        <div class="city-meta">12/3 ~ 12/7 · 4박 5일 · Day 1~5</div>
+        <div class="city-weather">☀️ 15~20°C (59~68°F) · 맑고 쾌적, 비 거의 없음</div>
+        <div class="city-clothing">
+            <strong>👗 뭐 입지?</strong>
+            <ul>
+                <li>긴팔 + 가벼운 자켓 (패딩은 캐리어에)</li>
+                <li>낮엔 반팔도 OK</li>
+                <li>편한 운동화 + 선글라스 🕶️</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 항공권 예약 카드 -->
+    <div id="la-flight" style="background: linear-gradient(135deg, #1a1a2e, #0f2040); border: 2px solid #4facfe; border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <span style="font-size:1.5rem;">✅</span>
+            <span style="color:#4facfe; font-weight:900; font-size:1rem;">항공권 예약 완료</span>
+            <span style="margin-left:auto; background:rgba(79,172,254,0.15); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">CONFIRMED</span>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.04); border-radius:12px; padding:16px; margin-bottom:12px;">
+            <div style="text-align:center;">
+                <div style="font-size:1.6rem; font-weight:900; color:#fff;">ICN</div>
+                <div style="font-size:0.75rem; color:#888; margin-top:2px;">서울/인천</div>
+                <div style="font-size:1rem; font-weight:800; color:#4facfe; margin-top:4px;">13:20</div>
+                <div style="font-size:0.72rem; color:#aaa;">12월 3일 (수)</div>
+            </div>
+            <div style="text-align:center; flex:1;">
+                <div style="font-size:0.72rem; color:#666; margin-bottom:4px;">YP101 · B787-9</div>
+                <div style="border-top:1px dashed #333; position:relative; margin:0 12px;">
+                    <span style="position:absolute; right:-4px; top:-7px; color:#4facfe;">✈</span>
+                </div>
+                <div style="font-size:0.72rem; color:#666; margin-top:4px;">10시간 · 직항</div>
+            </div>
+            <div style="text-align:center;">
+                <div style="font-size:1.6rem; font-weight:900; color:#fff;">LAX</div>
+                <div style="font-size:0.75rem; color:#888; margin-top:2px;">로스앤젤레스</div>
+                <div style="font-size:1rem; font-weight:800; color:#4facfe; margin-top:4px;">07:20</div>
+                <div style="font-size:0.72rem; color:#aaa;">12월 3일 (수)</div>
+            </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:10px 12px;">
+                <div style="font-size:0.68rem; color:#888; margin-bottom:3px;">탑승객 1</div>
+                <div style="font-size:0.88rem; font-weight:700; color:#fff;">YOUNGMIN / LEE</div>
+                <div style="font-size:0.75rem; color:#aaa;">좌석 10H · 위탁수하물 23kg</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:10px 12px;">
+                <div style="font-size:0.68rem; color:#888; margin-bottom:3px;">탑승객 2</div>
+                <div style="font-size:0.88rem; font-weight:700; color:#fff;">WOOHYEON / KIM</div>
+                <div style="font-size:0.75rem; color:#aaa;">좌석 10J · 위탁수하물 23kg</div>
+            </div>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">✈️ 에어프레미아</span>
+            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">이코노미 라이트 (K)</span>
+            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">🧳 위탁 23kg × 2</span>
+            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">터미널 1 출발</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; font-size:0.8rem; color:#aaa; line-height:1.9;">
+            <div>📋 <span style="color:#ddd;">예약번호:</span> <span style="color:#fff; font-weight:800; font-family:monospace; font-size:0.95rem;">R4EJWF</span></div>
+            <div>⏰ <span style="color:#ddd;">체크인 카운터:</span> <span style="color:#fff;">10:20 ~ 12:20 (출발 1시간 전까지 필수)</span></div>
+            <div>💰 <span style="color:#ddd;">총 결제:</span> <span style="color:#fff; font-weight:700;">₩1,672,600</span></div>
+        </div>
+    </div>
+
+    <!-- 호텔 예약 카드 -->
+    <div id="la-hotel" style="background: linear-gradient(135deg, #2e1a2e, #3a1e30); border: 2px solid #f093fb; border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <span style="font-size:1.5rem;">✅</span>
+            <span style="color:#f093fb; font-weight:900; font-size:1rem;">호텔 예약 완료</span>
+            <span style="margin-left:auto; background:rgba(240,147,251,0.15); color:#f093fb; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">CONFIRMED</span>
+        </div>
+        <div style="font-size:1.2rem; font-weight:900; color:#fff; margin-bottom:4px;">🏨 Short Stories Hotel</div>
+        <div style="font-size:0.85rem; color:#aaa; margin-bottom:16px;">📍 115 South Fairfax Avenue, Los Angeles, CA 90036 · Mid-Wilshire / Fairfax</div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:14px;">
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;"><div style="font-size:0.7rem; color:#888; margin-bottom:4px;">체크인</div><div style="font-size:1rem; font-weight:800; color:#fff;">12월 3일 (수) 15:00</div></div>
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;"><div style="font-size:0.7rem; color:#888; margin-bottom:4px;">체크아웃</div><div style="font-size:1rem; font-weight:800; color:#fff;">12월 7일 (일) 11:00</div></div>
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;"><div style="font-size:0.7rem; color:#888; margin-bottom:4px;">숙박</div><div style="font-size:0.9rem; font-weight:700; color:#fff;">4박 5일</div></div>
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;"><div style="font-size:0.7rem; color:#888; margin-bottom:4px;">인원</div><div style="font-size:0.9rem; font-weight:700; color:#fff;">성인 2명 👫</div></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:14px;">
+            <div style="font-size:0.7rem; color:#888; margin-bottom:6px;">객실 타입</div>
+            <div style="font-size:0.95rem; font-weight:700; color:#fff; margin-bottom:6px;">네이처뷰 · 29m² · 킹베드 1개</div>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <span style="background:rgba(240,147,251,0.12); color:#f093fb; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🏞️ 네이처뷰</span>
+                <span style="background:rgba(240,147,251,0.12); color:#f093fb; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🛏️ 킹베드</span>
+                <span style="background:rgba(240,147,251,0.12); color:#f093fb; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">📶 Wi-Fi</span>
+            </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; font-size:0.8rem; color:#aaa; line-height:1.9; margin-bottom:14px;">
+            <div>📋 <span style="color:#ddd;">예약 플랫폼:</span> <span style="color:#fff; font-weight:700;">아고다 (Agoda)</span></div>
+            <div>🎫 <span style="color:#ddd;">예약번호:</span> <span style="color:#fff; font-weight:800; font-family:monospace; font-size:0.95rem;">1771933890</span></div>
+            <div>🔖 <span style="color:#ddd;">참조 코드:</span> <span style="color:#fff; font-weight:800; font-family:monospace; font-size:0.85rem;">K3068012780</span></div>
+            <div>📞 <span style="color:#ddd;">호텔 전화:</span> <span style="color:#fff; font-weight:700;">+1-323-937-3930</span></div>
+            <div>👤 <span style="color:#ddd;">대표 투숙객:</span> <span style="color:#fff; font-weight:700;">YOUNGMIN LEE</span></div>
+        </div>
+        <div style="background:rgba(240,147,251,0.08); border:1px solid rgba(240,147,251,0.2); border-radius:10px; padding:12px; margin-bottom:14px;">
+            <div style="font-size:0.7rem; color:#888; margin-bottom:6px;">💳 결제 정보</div>
+            <div style="font-size:1.1rem; font-weight:900; color:#fff; margin-bottom:4px;">USD $996.72 (세금 포함)</div>
+            <div style="font-size:0.8rem; color:#ccc; margin-bottom:4px;">객실 $847.87 + 세금·봉사료 $148.85</div>
+            <div style="font-size:0.78rem; color:#aaa;">후지불 · 2026년 11월 29일 자동 결제 예정</div>
+            <div style="font-size:0.72rem; color:#999; margin-top:4px;">⚠️ 불포함: 세금·봉사료 ₩18,556 + 리조트 이용료 ₩115,996 (현장 결제)</div>
+            <div style="font-size:0.72rem; color:#f6d365; margin-top:6px; border-top:1px solid rgba(255,255,255,0.08); padding-top:6px;">📝 As of 09.10.2026 — 원화 환산 약 ₩1,401,763 (환율 ~1,340원대, 5% 수수료 포함)</div>
+        </div>
+        <div style="background:rgba(255,59,48,0.12); border:2px solid rgba(255,59,48,0.5); border-radius:10px; padding:14px; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size:1.3rem;">⚠️</span>
+                <div>
+                    <div style="font-size:0.95rem; font-weight:900; color:#ff3b30;">무료 취소 마감: 2026년 11월 30일 (일) 23:59 LA 현지시간</div>
+                    <div style="font-size:0.78rem; color:#ff8a80; margin-top:2px;">12/1부터 환불 불가! 취소 필요하면 반드시 11/30까지!</div>
+                </div>
+            </div>
+        </div>
+        <div style="background:rgba(240,147,251,0.08); border:1px solid rgba(240,147,251,0.2); border-radius:10px; padding:12px; font-size:0.78rem; color:#f8bbf8; line-height:1.8;">
+            <div style="font-weight:700; color:#f093fb; margin-bottom:4px;">📍 위치가 좋은 이유</div>
+            <div>• The Grove 쇼핑몰 근처 (도보권)</div>
+            <div>• LACMA 미술관 바로 근처</div>
+            <div>• 디즈니·헐리우드·산타모니카·게티 어디든 고르게 가까워 동선 최적</div>
+            <div>• Mid-Wilshire 지역 — 치안 무난</div>
+        </div>
+    </div>
+
+    <!-- 디즈니 -->
+    <div style="background: white; border-radius: 20px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px;">
+        <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 16px;">🏰 디즈니 언제 갈까?</h4>
+        <div style="background:#f5f5f5; border-radius:10px; padding:12px; margin-bottom:16px; font-size:0.82rem; color:#666;">
+            ✈️ 12/3 (수) 오전 7:20 LA 도착 → 시차+피로로 당일 디즈니 ❌
+        </div>
+        <div style="background:#fff9e6; border:1px solid #ffe082; border-radius:10px; padding:12px; margin-bottom:16px; font-size:0.82rem;">
+            <strong>📊 디즈니 Tier (가격 등급) — 마이리얼트립 쿠폰 적용 기준, 2명:</strong>
+            <div style="margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="background:#ff8a80; color:#fff; padding:4px 12px; border-radius:20px; font-weight:700; font-size:0.78rem; min-width:130px; text-align:center;">금 12/4 — Tier 5</span>
+                    <span style="font-weight:700; color:#d32f2f;">₩771,728</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="background:#ff8a80; color:#fff; padding:4px 12px; border-radius:20px; font-weight:700; font-size:0.78rem; min-width:130px; text-align:center;">토 12/5 — Tier 5</span>
+                    <span style="font-weight:700; color:#d32f2f;">₩771,728</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="background:#69db7c; color:#fff; padding:4px 12px; border-radius:20px; font-weight:700; font-size:0.78rem; min-width:130px; text-align:center;">일 12/6 — Tier 4 🎂</span>
+                    <span style="font-weight:700; color:#2e7d32;">₩711,997</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="background:#4facfe; color:#fff; padding:4px 12px; border-radius:20px; font-weight:700; font-size:0.78rem; min-width:130px; text-align:center;">월 12/7 — Tier 3</span>
+                    <span style="font-weight:700; color:#1565c0;">₩676,159</span>
+                </div>
+            </div>
+            <div style="margin-top:8px; color:#999; font-size:0.75rem;">Tier 5 vs Tier 4 = 약 ₩60,000 차이 · Tier 5 vs Tier 3 = 약 ₩95,000 차이</div>
+            <div style="margin-top:4px; color:#ff3b30; font-size:0.75rem; font-weight:700;">⚠️ 마이리얼트립 쿠폰 9/11까지! 쿠폰 만료 전에 예약 필요!</div>
+        </div>
+        <div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-left: 4px solid #4caf50; border-radius: 14px; padding: 16px 18px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                <span style="font-size:1.3rem;">🎂</span>
+                <span style="font-weight:800; font-size:0.95rem;">12/6 (일) 생일 디즈니 — Tier 4</span>
+            </div>
+            <div style="font-size:0.82rem; color:#666; line-height:1.8;">
+                <div>🎫 1 Day Park Hopper + Lightning Lane Multi Pass</div>
+                <div>💰 2명: ₩711,997 (마이리얼트립 쿠폰 적용)</div>
+                <div>🏰 디즈니랜드 파크 + 캘리포니아 어드벤처 둘 다 입장</div>
+            </div>
+            <div style="background:rgba(0,0,0,0.04); border-radius:8px; padding:10px; margin-top:10px; font-size:0.78rem; color:#555; line-height:1.8;">
+                <strong>🏷️ 무료 뱃지 꼭 받기! (입구 게이트 or Guest Relations)</strong><br>
+                🎂 <strong>Happy Birthday</strong> — 나 (생일!)<br>
+                🎉 <strong>First Visit</strong> — 남편 (첫 디즈니!)<br>
+                💍 <strong>Happily Ever After</strong> — 둘 다 (신혼부부!)<br>
+                <span style="color:#999;">→ "It's my birthday, it's his first visit, and we're newlyweds!" 하면 다 줘요!</span>
+            </div>
+            <div style="background:rgba(0,0,0,0.04); border-radius:8px; padding:10px; margin-top:10px; font-size:0.78rem; color:#555; line-height:1.8;">
+                <strong>🎒 디즈니 갈 때 챙기기!</strong><br>
+                🥤 텀블러 (파크 안 무료 물 리필 가능!)<br>
+                💧 물<br>
+                🍙 간식 (샌드위치, 스낵 등 외부 음식 반입 OK)<br>
+                🌧️ 우비 or 큰 비닐봉투 (물 어트랙션 대비! 12월에 젖으면 추움 ❄️)
+            </div>
+        </div>
+    </div>
+
+    <!-- 디즈니 추천 코스 -->
+    <div style="background: white; border-radius: 20px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px;">
+        <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 6px;">🎢 디즈니 추천 코스 (꿀팁 순서!)</h4>
+        <p style="font-size: 0.75rem; color: #aaa; margin-bottom: 14px;">ref: <a href="https://blog.naver.com/jive0_0y/224385007411" target="_blank" style="color:#4facfe;">블로그 참고</a></p>
+        <div style="font-size:0.82rem; color:#555; line-height:2.2;">
+            <div style="font-weight:700; color:#333; margin-bottom:6px;">🏰 디즈니랜드 파크</div>
+            <div>1️⃣ <strong>Star Wars: Rise of the Resistance</strong> — 첫타자! 스타워즈 몰입형 라이드</div>
+            <div>2️⃣ <strong>Tiana's Bayou Adventure</strong> — ⚠️ 신발+하의 젖음 각오! 대형 낙하 플룸라이드</div>
+            <div>3️⃣ <strong>Space Mountain</strong> — 실내 롤러코스터</div>
+            <div>4️⃣ <strong>Finding Nemo Submarine Voyage</strong> — 쉬는 타임 🐠</div>
+            <div>5️⃣ <strong>Matterhorn Bobsleds</strong> — 스릴 라이드</div>
+            <div>6️⃣ <strong>It's a Small World</strong> — 디즈니 클래식 🎶</div>
+            <div>7️⃣ <strong>Mickey & Minnie's Runaway Railway</strong> — 가족형 다크라이드</div>
+            <div>8️⃣ <strong>Pirates of the Caribbean</strong> — 대표 클래식 보트 라이드</div>
+            <div>9️⃣ <strong>Haunted Mansion (Nightmare Before Christmas)</strong> — 크리스마스 시즌 특별 버전!</div>
+            <div>🔟 <strong>Jungle Cruise</strong> — 유머 가득 보트 투어</div>
+            <div>✂️ <strong>실루엣 커팅</strong> — 얼굴 옆모습을 실루엣으로 오려주는 기념품! 특별한 추억</div>
+        </div>
+        <div style="margin-top:16px; font-size:0.82rem; color:#555; line-height:2.2;">
+            <div style="font-weight:700; color:#333; margin-bottom:6px;">🎡 디즈니 캘리포니아 어드벤처 핵심</div>
+            <div>🏎️ <strong>Radiator Springs Racers</strong> — 카즈랜드 대표! 인기 1위</div>
+            <div>🎢 <strong>Guardians of the Galaxy</strong> — 반복 낙하형 스릴 라이드</div>
+            <div>🚀 <strong>Incredicoaster</strong> — 고속 롤러코스터</div>
+            <div>🦅 <strong>Soarin' Around the World</strong> — 비행 시뮬레이터</div>
+            <div>🕷️ <strong>WEB SLINGERS</strong> — 스파이더맨 체험형 라이드</div>
+            <div>🤠 <strong>Toy Story Midway Mania!</strong> — 슈팅 게임 라이드</div>
+            <div>🧜 <strong>Little Mermaid Adventure</strong> — 가족형 다크라이드</div>
+        </div>
+        <div style="margin-top:16px; background:#f3e8ff; border-radius:10px; padding:12px; font-size:0.82rem; color:#555; line-height:2;">
+            <div style="font-weight:700; color:#333; margin-bottom:4px;">🎆 쇼 & 퍼레이드 (어플로 시간 확인!)</div>
+            <div>🎄 <strong>크리스마스 퍼레이드</strong> — 오후 3:30 / 6:30</div>
+            <div>✨ <strong>Wondrous Journeys & Fireworks</strong> — 밤 9:35 (15분 전 자리잡기!)</div>
+            <div>🐉 <strong>Fantasmic!</strong> — 밤 9:05 / 10:30</div>
+        </div>
+    </div>
+
+    <!-- LA Google Maps 리스트 -->
+    <div style="background: white; border-radius: 20px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px;">
+        <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">📍 LA 장소 리스트 (Google Maps)</h4>
+        <p style="font-size: 0.85rem; color: #888; margin-bottom: 16px;">맛집, 관광지, 쇼핑 등 — Google Maps에서 실시간 업데이트 중!</p>
+        <a href="https://maps.app.goo.gl/4ukCWhsu2ZUTkpjB8" target="_blank" style="display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #3a1e30 0%, #2e1a2e 100%); border: 2px solid #f093fb; border-radius: 16px; padding: 18px 22px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <span style="font-size:2.2rem;">🗺️</span>
+            <div style="flex:1;">
+                <div style="color:white; font-weight:800; font-size:1rem; margin-bottom:3px;">LA · Eileen — Google Maps에서 보기</div>
+                <div style="color:#aaa; font-size:0.8rem;">북마크한 장소 전체 확인 · 계속 추가 중 📌</div>
+            </div>
+            <span style="color:#f093fb; font-size:1.2rem; font-weight:700;">→</span>
+        </a>
+    </div>
+
+</div>
+
+<div class="footer">
+    <div class="big-emoji">🎉✈️🇺🇸</div>
+    <p>즐거운 여행 되자! 💕</p>
+</div>
+
+<div class="scroll-btns">
+    <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+    <button class="scroll-btn" onclick="window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})" title="맨 아래로">↓</button>
+</div>
+
+</body>
+</html>

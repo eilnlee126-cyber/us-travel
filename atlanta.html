@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍑 애틀란타 — 남편이랑 첫 미국여행</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans KR', -apple-system, sans-serif; background: #fef9f4; color: #3d3d3d; line-height: 1.7; }
+        .hero { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a8edea 100%); padding: 70px 20px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: "✈️"; position: absolute; font-size: 3.5rem; top: 20px; right: 10%; animation: float 3s ease-in-out infinite; }
+        .hero::after { content: "🧳"; position: absolute; font-size: 2.5rem; bottom: 20px; left: 10%; animation: float 3s ease-in-out infinite 1s; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .hero h1 { font-size: 2.5rem; font-weight: 900; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); margin-bottom: 8px; }
+        .hero .subtitle { font-size: 1.2rem; color: #fff; opacity: 0.9; font-weight: 600; }
+        .hero .dates { margin-top: 16px; display: inline-block; background: rgba(255,255,255,0.85); padding: 8px 24px; border-radius: 30px; font-weight: 700; color: #e75480; }
+        .container { max-width: 850px; margin: 0 auto; padding: 20px; }
+        .nav-wrap { background: white; border-radius: 20px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin: 30px 0; }
+        .nav-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+        .nav-tab { padding: 10px 18px; border-radius: 30px; border: none; font-family: 'Noto Sans KR', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; background: #f5f5f5; color: #666; text-decoration: none; }
+        .nav-tab:hover { background: #eee; }
+        .nav-tab.active { color: white; transform: scale(1.05); }
+        .nav-tab[data-tab="atlanta"].active { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
+        .city-page-header { background: white; border-radius: 24px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center; margin-bottom: 24px; }
+        .city-page-header .big-emoji { font-size: 3.5rem; margin-bottom: 10px; }
+        .city-page-header h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 6px; }
+        .city-page-header .city-meta { color: #888; font-size: 0.95rem; }
+        .city-page-header .city-weather { margin-top: 14px; display: inline-block; background: #fff3e0; padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; }
+        .city-page-header .city-clothing { margin-top: 10px; background: #e8f5e9; padding: 12px 20px; border-radius: 16px; text-align: left; font-size: 0.85rem; }
+        .city-page-header .city-clothing ul { list-style: none; margin-top: 6px; }
+        .city-page-header .city-clothing li { padding: 3px 0; padding-left: 20px; position: relative; }
+        .city-page-header .city-clothing li::before { content: "👕"; position: absolute; left: 0; font-size: 0.75rem; }
+        .footer { text-align: center; padding: 50px 20px; color: #bbb; }
+        .footer .big-emoji { font-size: 3rem; margin-bottom: 12px; }
+        .scroll-btns { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
+        .scroll-btn { width: 44px; height: 44px; border-radius: 50%; border: none; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; font-size: 1.3rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        .scroll-btn:hover { transform: scale(1.1); }
+        @media (max-width: 600px) { .hero h1 { font-size: 1.9rem; } .hero::before, .hero::after { font-size: 2rem; } .nav-tab { padding: 8px 14px; font-size: 0.8rem; } .city-page-header .big-emoji { font-size: 2.5rem; } }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1 style="cursor:pointer;" onclick="window.location='index.html'">남편이랑 첫 미국여행 🇺🇸</h1>
+    <p class="subtitle">남편 첫 미국! 서부부터 동부까지 🎉</p>
+    <div class="dates">📅 2026.12.3 ~ 12.26 (24 days)</div>
+</div>
+
+<div class="container">
+    <div class="nav-wrap">
+        <div class="nav-tabs">
+            <a class="nav-tab" data-tab="overview" href="index.html">🗺️ 전체보기</a>
+            <a class="nav-tab" data-tab="la" href="la.html">🌴 LA</a>
+            <a class="nav-tab" data-tab="vegas" href="vegas.html">🎰 베가스</a>
+            <a class="nav-tab active" data-tab="atlanta" href="atlanta.html">🍑 애틀란타</a>
+            <a class="nav-tab" data-tab="nyc" href="nyc.html">🗽 뉴욕</a>
+            <a class="nav-tab" data-tab="tips" href="tips.html">💡 팁/준비물</a>
+        </div>
+    </div>
+
+    <div class="city-page-header">
+        <div class="big-emoji">🍑</div>
+        <h2>애틀란타 + Athens</h2>
+        <div class="city-meta">12/9 ~ 12/16 · 7박 8일 · Day 7~14</div>
+        <div class="city-weather">🌤️ 3~12°C (37~54°F) · 쌀쌀하고 가끔 비</div>
+        <div class="city-clothing">
+            <strong>👗 뭐 입지?</strong>
+            <ul>
+                <li>코트 or 패딩</li>
+                <li>니트/맨투맨 + 겉옷 (레이어드)</li>
+                <li>차 안에서 벗을 수 있게!</li>
+                <li>우산 ☂️</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <div class="big-emoji">🎉✈️🇺🇸</div>
+    <p>즐거운 여행 되자! 💕</p>
+</div>
+
+<div class="scroll-btns">
+    <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+    <button class="scroll-btn" onclick="window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})" title="맨 아래로">↓</button>
+</div>
+
+</body>
+</html>

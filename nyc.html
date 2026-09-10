@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🗽 뉴욕 — 남편이랑 첫 미국여행</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans KR', -apple-system, sans-serif; background: #fef9f4; color: #3d3d3d; line-height: 1.7; }
+        .hero { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a8edea 100%); padding: 70px 20px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: "✈️"; position: absolute; font-size: 3.5rem; top: 20px; right: 10%; animation: float 3s ease-in-out infinite; }
+        .hero::after { content: "🧳"; position: absolute; font-size: 2.5rem; bottom: 20px; left: 10%; animation: float 3s ease-in-out infinite 1s; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .hero h1 { font-size: 2.5rem; font-weight: 900; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); margin-bottom: 8px; }
+        .hero .subtitle { font-size: 1.2rem; color: #fff; opacity: 0.9; font-weight: 600; }
+        .hero .dates { margin-top: 16px; display: inline-block; background: rgba(255,255,255,0.85); padding: 8px 24px; border-radius: 30px; font-weight: 700; color: #e75480; }
+        .container { max-width: 850px; margin: 0 auto; padding: 20px; }
+        .nav-wrap { background: white; border-radius: 20px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin: 30px 0; }
+        .nav-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+        .nav-tab { padding: 10px 18px; border-radius: 30px; border: none; font-family: 'Noto Sans KR', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; background: #f5f5f5; color: #666; text-decoration: none; }
+        .nav-tab:hover { background: #eee; }
+        .nav-tab.active { color: white; transform: scale(1.05); }
+        .nav-tab[data-tab="nyc"].active { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
+        .city-page-header { background: white; border-radius: 24px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center; margin-bottom: 24px; }
+        .city-page-header .big-emoji { font-size: 3.5rem; margin-bottom: 10px; }
+        .city-page-header h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 6px; }
+        .city-page-header .city-meta { color: #888; font-size: 0.95rem; }
+        .city-page-header .city-weather { margin-top: 14px; display: inline-block; background: #fff3e0; padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; }
+        .city-page-header .city-clothing { margin-top: 10px; background: #e8f5e9; padding: 12px 20px; border-radius: 16px; text-align: left; font-size: 0.85rem; }
+        .city-page-header .city-clothing ul { list-style: none; margin-top: 6px; }
+        .city-page-header .city-clothing li { padding: 3px 0; padding-left: 20px; position: relative; }
+        .city-page-header .city-clothing li::before { content: "👕"; position: absolute; left: 0; font-size: 0.75rem; }
+        .footer { text-align: center; padding: 50px 20px; color: #bbb; }
+        .footer .big-emoji { font-size: 3rem; margin-bottom: 12px; }
+        .scroll-btns { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
+        .scroll-btn { width: 44px; height: 44px; border-radius: 50%; border: none; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; font-size: 1.3rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        .scroll-btn:hover { transform: scale(1.1); }
+        @media (max-width: 600px) { .hero h1 { font-size: 1.9rem; } .hero::before, .hero::after { font-size: 2rem; } .nav-tab { padding: 8px 14px; font-size: 0.8rem; } .city-page-header .big-emoji { font-size: 2.5rem; } }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1 style="cursor:pointer;" onclick="window.location='index.html'">남편이랑 첫 미국여행 🇺🇸</h1>
+    <p class="subtitle">남편 첫 미국! 서부부터 동부까지 🎉</p>
+    <div class="dates">📅 2026.12.3 ~ 12.26 (24 days)</div>
+</div>
+
+<div class="container">
+    <div class="nav-wrap">
+        <div class="nav-tabs">
+            <a class="nav-tab" data-tab="overview" href="index.html">🗺️ 전체보기</a>
+            <a class="nav-tab" data-tab="la" href="la.html">🌴 LA</a>
+            <a class="nav-tab" data-tab="vegas" href="vegas.html">🎰 베가스</a>
+            <a class="nav-tab" data-tab="atlanta" href="atlanta.html">🍑 애틀란타</a>
+            <a class="nav-tab active" data-tab="nyc" href="nyc.html">🗽 뉴욕</a>
+            <a class="nav-tab" data-tab="tips" href="tips.html">💡 팁/준비물</a>
+        </div>
+    </div>
+
+    <div class="city-page-header">
+        <div class="big-emoji">🗽</div>
+        <h2>뉴욕</h2>
+        <div class="city-meta">12/16 ~ 12/26 · 10박 11일 · Day 14~24</div>
+        <div class="city-weather">❄️ -2~7°C (28~45°F) · 추움! 눈 올 수 있고 바람 강함</div>
+        <div class="city-clothing">
+            <strong>👗 뭐 입지? (제일 중요!!)</strong>
+            <ul>
+                <li>롱패딩 꺼내 입기! 🧥</li>
+                <li>히트텍 + 목도리 + 비니 + 장갑</li>
+                <li>핫팩 붙이기 (등, 주머니, 발)</li>
+                <li>방수 부츠 (눈 대비) 🥾</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- NYC 호텔 예약 완료 카드 -->
+    <div id="nyc-hotel" style="background: linear-gradient(135deg, #1a1a2e, #0f2040); border: 2px solid #4facfe; border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <span style="font-size:1.5rem;">✅</span>
+            <span style="color:#4facfe; font-weight:900; font-size:1rem;">호텔 예약 완료</span>
+            <span style="margin-left:auto; background:rgba(79,172,254,0.15); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">CONFIRMED</span>
+        </div>
+        <div style="font-size:1.2rem; font-weight:900; color:#fff; margin-bottom:4px;">🏨 TownePlace Suites by Marriott Manhattan/Chelsea</div>
+        <div style="font-size:0.85rem; color:#aaa; margin-bottom:16px;">📍 140 West 28th Street, New York, NY 10001 · Chelsea 지역 (맨해튼 중심부)</div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:14px;">
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;"><div style="font-size:0.7rem; color:#888; margin-bottom:4px;">체크인</div><div style="font-size:1rem; font-weight:800; color:#fff;">12월 16일 (수) 16:00</div></div>
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;"><div style="font-size:0.7rem; color:#888; margin-bottom:4px;">체크아웃</div><div style="font-size:1rem; font-weight:800; color:#fff;">12월 26일 (토) 11:00</div></div>
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;"><div style="font-size:0.7rem; color:#888; margin-bottom:4px;">숙박</div><div style="font-size:0.9rem; font-weight:700; color:#fff;">10박 11일</div></div>
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;"><div style="font-size:0.7rem; color:#888; margin-bottom:4px;">인원</div><div style="font-size:0.9rem; font-weight:700; color:#fff;">성인 2명 👫</div></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:14px;">
+            <div style="font-size:0.7rem; color:#888; margin-bottom:6px;">객실 타입</div>
+            <div style="font-size:0.95rem; font-weight:700; color:#fff; margin-bottom:6px;">Studio with Full Kitchenette · 킹사이즈 침대 1개</div>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🍳 키친 포함</span>
+                <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🥐 뷔페 조식 무료</span>
+                <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">📶 Wi-Fi 무료</span>
+                <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🏋️ 24시간 피트니스</span>
+                <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🏷️ Marriott Bonvoy</span>
+            </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:14px;">
+            <div style="font-size:0.7rem; color:#888; margin-bottom:4px;">🥐 조식 시간</div>
+            <div style="font-size:0.9rem; font-weight:700; color:#fff;">매일 06:30 ~ 09:30 (뷔페)</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; font-size:0.8rem; color:#aaa; line-height:1.9; margin-bottom:14px;">
+            <div>📋 <span style="color:#ddd;">예약 플랫폼:</span> <span style="color:#fff; font-weight:700;">마이리얼트립</span></div>
+            <div>🎫 <span style="color:#ddd;">마이리얼트립 예약번호:</span> <span style="color:#fff; font-weight:800; font-family:monospace; font-size:0.95rem;">ACM-20260910-00000429</span></div>
+            <div>🏨 <span style="color:#ddd;">공급사 예약번호:</span> <span style="color:#fff; font-weight:800; font-family:monospace; font-size:0.85rem;">9103415266396</span></div>
+            <div>📞 <span style="color:#ddd;">호텔 전화:</span> <span style="color:#fff; font-weight:700;">+1-929-990-2800</span></div>
+            <div>👤 <span style="color:#ddd;">예약자:</span> <span style="color:#fff; font-weight:700;">아일린 / YOUNGMIN LEE</span></div>
+        </div>
+        <div style="background:rgba(79,172,254,0.08); border:1px solid rgba(79,172,254,0.2); border-radius:10px; padding:12px; margin-bottom:14px;">
+            <div style="font-size:0.7rem; color:#888; margin-bottom:6px;">💳 결제 정보</div>
+            <div style="font-size:1.1rem; font-weight:900; color:#fff; margin-bottom:4px;">₩4,527,545</div>
+            <div style="font-size:0.8rem; color:#aaa;">삼성카드 · 3개월 할부</div>
+        </div>
+        <div style="background:rgba(255,59,48,0.12); border:2px solid rgba(255,59,48,0.5); border-radius:10px; padding:14px; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size:1.3rem;">⚠️</span>
+                <div>
+                    <div style="font-size:0.95rem; font-weight:900; color:#ff3b30;">무료 환불 마감: 2026년 12월 14일 (월)</div>
+                    <div style="font-size:0.78rem; color:#ff8a80; margin-top:2px;">12/15일부터 환불 불가! 취소 필요하면 반드시 12/14까지!</div>
+                </div>
+            </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; font-size:0.78rem; color:#aaa; line-height:1.8;">
+            <div style="font-weight:700; color:#ddd; margin-bottom:4px;">📌 체크인 시 참고사항</div>
+            <div>• 사진 있는 유효한 신분증 + 신용카드 필요 (보증금용)</div>
+            <div>• 현금 결제 불가 (카드만 가능)</div>
+            <div>• 최소 체크인 나이: 만 21세</div>
+            <div>• 비대면 체크인/체크아웃 가능</div>
+            <div>• 정오(12시) 이후 도착 시 사전에 호텔 연락 필요</div>
+            <div>• 시트/타월 교체: 요청 시 무료 (프론트에 전화하면 됨!)</div>
+            <div>• 셀프 주차: $65/일 (주차할 일 없겠지만 참고)</div>
+        </div>
+        <div style="background:rgba(79,172,254,0.08); border:1px solid rgba(79,172,254,0.2); border-radius:10px; padding:12px; margin-top:14px; font-size:0.78rem; color:#90caf9; line-height:1.8;">
+            <div style="font-weight:700; color:#4facfe; margin-bottom:4px;">📍 위치가 좋은 이유</div>
+            <div>• 매디슨 스퀘어 가든 도보 5분 (0.5km)</div>
+            <div>• 엠파이어 스테이트 빌딩 도보 10분 (0.9km)</div>
+            <div>• 타임스퀘어 지하철 1정거장 (1.2km)</div>
+            <div>• 코리아타운 (32nd St) 도보 5분 — 한식, H Mart 🇰🇷</div>
+            <div>• 하이라인 파크, 첼시마켓 도보권</div>
+            <div>• Penn Station 도보 10분 (근교 이동 편리)</div>
+        </div>
+    </div>
+
+    <!-- NYC Google Maps 리스트 -->
+    <div style="background: white; border-radius: 20px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px;">
+        <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">📍 뉴욕 장소 리스트 (Google Maps)</h4>
+        <p style="font-size: 0.85rem; color: #888; margin-bottom: 16px;">맛집, 관광지, 쇼핑, 기념품 등 — Google Maps에서 실시간 업데이트 중!</p>
+        <a href="https://maps.app.goo.gl/Y2MwxycJjMbQfLs67?g_st=i" target="_blank" style="display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #1a472a 0%, #0f2b1a 100%); border: 2px solid #34d399; border-radius: 16px; padding: 18px 22px; text-decoration: none; transition: transform 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <span style="font-size:2.2rem;">🗺️</span>
+            <div style="flex:1;">
+                <div style="color:white; font-weight:800; font-size:1rem; margin-bottom:3px;">NYC · Eileen — Google Maps에서 보기</div>
+                <div style="color:#aaa; font-size:0.8rem;">북마크한 장소 전체 확인 · 계속 추가 중 📌</div>
+            </div>
+            <span style="color:#34d399; font-size:1.2rem; font-weight:700;">→</span>
+        </a>
+        <a href="newyorkeat.html" target="_blank" style="display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 18px 22px; margin-top: 12px; text-decoration: none; transition: transform 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <span style="font-size:2.2rem;">🗽</span>
+            <div style="flex:1;">
+                <div style="color:white; font-weight:800; font-size:1rem; margin-bottom:3px;">뉴욕 찐 맛집 가이드 (Full Ver.)</div>
+                <div style="color:#aaa; font-size:0.8rem;">5년 유학 현지인이 직접 다닌 동네별 맛집 · 베이글 · 숨은 찐맛집 총정리</div>
+            </div>
+            <span style="color:#4facfe; font-size:1.2rem; font-weight:700;">→</span>
+        </a>
+    </div>
+
+</div>
+
+<div class="footer">
+    <div class="big-emoji">🎉✈️🇺🇸</div>
+    <p>즐거운 여행 되자! 💕</p>
+</div>
+
+<div class="scroll-btns">
+    <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+    <button class="scroll-btn" onclick="window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})" title="맨 아래로">↓</button>
+</div>
+
+</body>
+</html>

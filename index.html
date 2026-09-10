@@ -1550,20 +1550,58 @@
     // 체크리스트 (localStorage 저장 + 체크한 항목 맨 아래로)
     (function() {
         const STORAGE_KEY = 'travel_checklist';
-        const defaultItems = [
-            { id: 'c1', text: '⚠️ 결혼증명서 준비 (영문) — 제일 중요! 남편 입국 시 필요할 수 있음' },
-            { id: 'c2', text: '남편 ESTA 신청 (출발 최소 72시간 전!) — 나는 미국 여권이니까 불필요' },
-            { id: 'c3', text: '남편 여권 유효기간 확인 (입국일 기준 6개월 이상)' },
-            { id: 'c4', text: '여행자 보험 가입 (미국 병원비 무서움 😱)' },
-            { id: 'c5', text: '국내선 항공편 예약 (LA→베가스→ATL→뉴욕)' },
-            { id: 'c6', text: '숙소 예약' },
-            { id: 'c7', text: '애틀란타 렌트카 예약' },
-            { id: 'c8', text: '브로드웨이 티켓 예약 (인기 공연은 미리!)' },
-            { id: 'c9', text: '자유의 여신상 페리 예약' },
-            { id: 'c10', text: '핫팩 & 히트텍 챙기기' },
-            { id: 'c11', text: '미국 여권 유효기간 확인 (나)' },
-            { id: 'c12', text: 'TSA PreCheck / Global Entry 알아보기 (나만 가능, $78~100)' },
+        const categories = [
+            {
+                label: '🌐 General',
+                color: '#667eea',
+                items: [
+                    { id: 'g1', text: '⚠️ 결혼증명서 준비 (영문) — 제일 중요! 남편 입국 시 필요할 수 있음' },
+                    { id: 'g2', text: '남편 ESTA 신청 (출발 최소 72시간 전! / 2년 유효 / $21)' },
+                    { id: 'g3', text: '남편 여권 유효기간 확인 (입국일 기준 6개월 이상)' },
+                    { id: 'g4', text: '여행자 보험 가입 (미국 병원비 무서움 😱)' },
+                    { id: 'g5', text: '미국 여권 유효기간 확인 (나)' },
+                    { id: 'g6', text: 'TSA PreCheck / Global Entry 알아보기 (나만 가능, $78~100)' },
+                    { id: 'g7', text: '핫팩 & 히트텍 챙기기' },
+                    { id: 'g8', text: '국내선 항공편 예약 (LA→베가스→ATL→뉴욕)' },
+                ]
+            },
+            {
+                label: '🌴 LA',
+                color: '#f5576c',
+                items: [
+                    { id: 'la1', text: '인천→LA 항공권 예약' },
+                    { id: 'la2', text: 'LA 숙소 예약 (Short Stories Hotel)' },
+                ]
+            },
+            {
+                label: '🎰 Vegas',
+                color: '#fda085',
+                items: [
+                    { id: 'vg1', text: '베가스 숙소 예약' },
+                    { id: 'vg2', text: '베가스 쇼 티켓 예약 (태양의 서커스 등)' },
+                ]
+            },
+            {
+                label: '🍑 Atlanta',
+                color: '#4facfe',
+                items: [
+                    { id: 'at1', text: '애틀란타 숙소 예약' },
+                    { id: 'at2', text: '애틀란타 렌트카 예약' },
+                ]
+            },
+            {
+                label: '🗽 NYC',
+                color: '#764ba2',
+                items: [
+                    { id: 'ny1', text: 'NYC 숙소 예약 (TownePlace Suites Chelsea)' },
+                    { id: 'ny2', text: '브로드웨이 티켓 예약 (인기 공연은 미리!)' },
+                    { id: 'ny3', text: '자유의 여신상 페리 예약' },
+                    { id: 'ny4', text: '뉴욕→인천 귀국 항공편 예약' },
+                ]
+            },
         ];
+
+        const allItems = categories.flatMap(c => c.items);
 
         function getChecked() {
             try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
@@ -1575,33 +1613,43 @@
             const container = document.getElementById('checklist-container');
             if (!container) return;
 
-            const unchecked = defaultItems.filter(i => !checked[i.id]);
-            const checkedItems = defaultItems.filter(i => checked[i.id]);
-            const sorted = [...unchecked, ...checkedItems];
-
-            const totalCount = defaultItems.length;
-            const doneCount = checkedItems.length;
+            const totalCount = allItems.length;
+            const doneCount = allItems.filter(i => checked[i.id]).length;
 
             let html = '';
             // 진행률 바
             html += '<div style="background:#e0e0e0; border-radius:10px; height:8px; margin-bottom:16px; overflow:hidden;">';
             html += '<div style="background:linear-gradient(90deg,#96e6a1,#4facfe); height:100%; width:' + (doneCount/totalCount*100) + '%; border-radius:10px; transition:width 0.3s;"></div>';
             html += '</div>';
-            html += '<div style="font-size:0.8rem; color:#888; margin-bottom:14px; text-align:right;">' + doneCount + ' / ' + totalCount + ' 완료</div>';
+            html += '<div style="font-size:0.8rem; color:#888; margin-bottom:18px; text-align:right;">' + doneCount + ' / ' + totalCount + ' 완료</div>';
 
-            sorted.forEach(function(item) {
-                const isDone = !!checked[item.id];
-                html += '<label style="display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid #f0f0f0; cursor:pointer; transition: opacity 0.3s;'
-                    + (isDone ? ' opacity:0.45;' : '') + '">';
-                html += '<input type="checkbox" data-id="' + item.id + '"' + (isDone ? ' checked' : '')
-                    + ' style="margin-top:3px; width:18px; height:18px; accent-color:#4facfe; cursor:pointer; flex-shrink:0;">';
-                html += '<span style="font-size:0.9rem;' + (isDone ? ' text-decoration:line-through; color:#bbb;' : ' color:#444;') + '">' + item.text + '</span>';
-                html += '</label>';
+            categories.forEach(function(cat) {
+                const catDone = cat.items.filter(i => checked[i.id]).length;
+                const unchecked = cat.items.filter(i => !checked[i.id]);
+                const checkedItems = cat.items.filter(i => checked[i.id]);
+                const sorted = [...unchecked, ...checkedItems];
+
+                html += '<div style="margin-bottom:20px;">';
+                html += '<div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">';
+                html += '<span style="background:' + cat.color + '; color:#fff; font-size:0.8rem; font-weight:700; padding:4px 12px; border-radius:20px;">' + cat.label + '</span>';
+                html += '<span style="font-size:0.75rem; color:#aaa;">' + catDone + '/' + cat.items.length + '</span>';
+                html += '</div>';
+
+                sorted.forEach(function(item) {
+                    const isDone = !!checked[item.id];
+                    html += '<label style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #f0f0f0; cursor:pointer; transition: opacity 0.3s;'
+                        + (isDone ? ' opacity:0.4;' : '') + '">';
+                    html += '<input type="checkbox" data-id="' + item.id + '"' + (isDone ? ' checked' : '')
+                        + ' style="margin-top:3px; width:18px; height:18px; accent-color:' + cat.color + '; cursor:pointer; flex-shrink:0;">';
+                    html += '<span style="font-size:0.88rem;' + (isDone ? ' text-decoration:line-through; color:#bbb;' : ' color:#444;') + '">' + item.text + '</span>';
+                    html += '</label>';
+                });
+
+                html += '</div>';
             });
 
             container.innerHTML = html;
 
-            // 이벤트 바인딩
             container.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
                 cb.addEventListener('change', function() {
                     const c = getChecked();

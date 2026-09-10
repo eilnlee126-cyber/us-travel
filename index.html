@@ -1448,25 +1448,108 @@
             </div>
         </div>
 
-        <!-- NYC 숙소 추천 -->
+        <!-- NYC 호텔 예약 완료 -->
         <div class="city-transport">
             <h4>🏨 어디에서 잘까?</h4>
 
-            <div class="stay-reco">
-                <div class="stay-option best">
-                    <div class="stay-badge">👑 추천 1순위</div>
-                    <div class="stay-name">롱아일랜드시티 (Long Island City, 퀸즈)</div>
-                    <div class="stay-why">맨하탄 지하철 1~2정거장! 에어비앤비 맨하탄의 절반 가격. 야경 뷰도 좋음</div>
+            <!-- 호텔 예약 완료 카드 -->
+            <div style="background: linear-gradient(135deg, #1a1a2e, #0f2040); border: 2px solid #4facfe; border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+                    <span style="font-size:1.5rem;">✅</span>
+                    <span style="color:#4facfe; font-weight:900; font-size:1rem;">호텔 예약 완료</span>
+                    <span style="margin-left:auto; background:rgba(79,172,254,0.15); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">CONFIRMED</span>
                 </div>
-                <div class="stay-option">
-                    <div class="stay-badge">🌉 힙한 동네</div>
-                    <div class="stay-name">윌리엄스버그 (Williamsburg, 브루클린)</div>
-                    <div class="stay-why">카페/바 많고 분위기 좋음. 맨하탄까지 지하철 15분</div>
+
+                <div style="font-size:1.2rem; font-weight:900; color:#fff; margin-bottom:4px;">🏨 TownePlace Suites by Marriott Manhattan/Chelsea</div>
+                <div style="font-size:0.85rem; color:#aaa; margin-bottom:16px;">📍 140 West 28th Street, New York, NY 10001 · Chelsea 지역 (맨해튼 중심부)</div>
+
+                <!-- 체크인/아웃 -->
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:14px;">
+                    <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;">
+                        <div style="font-size:0.7rem; color:#888; margin-bottom:4px;">체크인</div>
+                        <div style="font-size:1rem; font-weight:800; color:#fff;">12월 16일 (수) 16:00</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;">
+                        <div style="font-size:0.7rem; color:#888; margin-bottom:4px;">체크아웃</div>
+                        <div style="font-size:1rem; font-weight:800; color:#fff;">12월 26일 (토) 11:00</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;">
+                        <div style="font-size:0.7rem; color:#888; margin-bottom:4px;">숙박</div>
+                        <div style="font-size:0.9rem; font-weight:700; color:#fff;">10박 11일</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;">
+                        <div style="font-size:0.7rem; color:#888; margin-bottom:4px;">인원</div>
+                        <div style="font-size:0.9rem; font-weight:700; color:#fff;">성인 2명 👫</div>
+                    </div>
                 </div>
-                <div class="stay-option">
-                    <div class="stay-badge">🗽 관광 올인</div>
-                    <div class="stay-name">미드타운 맨하탄 (Midtown)</div>
-                    <div class="stay-why">타임스퀘어, 록펠러 걸어서 가능. 비싸지만 위치 최고 (호텔 $200+)</div>
+
+                <!-- 객실 정보 -->
+                <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:14px;">
+                    <div style="font-size:0.7rem; color:#888; margin-bottom:6px;">객실 타입</div>
+                    <div style="font-size:0.95rem; font-weight:700; color:#fff; margin-bottom:6px;">Studio with Full Kitchenette · 킹사이즈 침대 1개</div>
+                    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                        <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🍳 키친 포함</span>
+                        <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🥐 뷔페 조식 무료</span>
+                        <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">📶 Wi-Fi 무료</span>
+                        <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🏋️ 24시간 피트니스</span>
+                        <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🏷️ Marriott Bonvoy</span>
+                    </div>
+                </div>
+
+                <!-- 조식 시간 -->
+                <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:14px;">
+                    <div style="font-size:0.7rem; color:#888; margin-bottom:4px;">🥐 조식 시간</div>
+                    <div style="font-size:0.9rem; font-weight:700; color:#fff;">매일 06:30 ~ 09:30 (뷔페)</div>
+                </div>
+
+                <!-- 예약 정보 -->
+                <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; font-size:0.8rem; color:#aaa; line-height:1.9; margin-bottom:14px;">
+                    <div>📋 <span style="color:#ddd;">예약 플랫폼:</span> <span style="color:#fff; font-weight:700;">마이리얼트립</span></div>
+                    <div>🎫 <span style="color:#ddd;">마이리얼트립 예약번호:</span> <span style="color:#fff; font-weight:800; font-family:monospace; font-size:0.95rem;">ACM-20260910-00000429</span></div>
+                    <div>🏨 <span style="color:#ddd;">공급사 예약번호:</span> <span style="color:#fff; font-weight:800; font-family:monospace; font-size:0.85rem;">9103415266396</span></div>
+                    <div>📞 <span style="color:#ddd;">호텔 전화:</span> <span style="color:#fff; font-weight:700;">+1-929-990-2800</span></div>
+                    <div>👤 <span style="color:#ddd;">예약자:</span> <span style="color:#fff; font-weight:700;">아일린 / YOUNGMIN LEE</span></div>
+                </div>
+
+                <!-- 결제 정보 -->
+                <div style="background:rgba(79,172,254,0.08); border:1px solid rgba(79,172,254,0.2); border-radius:10px; padding:12px; margin-bottom:14px;">
+                    <div style="font-size:0.7rem; color:#888; margin-bottom:6px;">💳 결제 정보</div>
+                    <div style="font-size:1.1rem; font-weight:900; color:#fff; margin-bottom:4px;">₩4,527,545</div>
+                    <div style="font-size:0.8rem; color:#aaa;">삼성카드 · 3개월 할부</div>
+                </div>
+
+                <!-- 무료 환불 기한 -->
+                <div style="background:rgba(255,59,48,0.12); border:2px solid rgba(255,59,48,0.5); border-radius:10px; padding:14px; margin-bottom:14px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:1.3rem;">⚠️</span>
+                        <div>
+                            <div style="font-size:0.95rem; font-weight:900; color:#ff3b30;">무료 환불 마감: 2026년 12월 14일 (월)</div>
+                            <div style="font-size:0.78rem; color:#ff8a80; margin-top:2px;">12/15일부터 환불 불가! 취소 필요하면 반드시 12/14까지!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 체크인 시 참고 -->
+                <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; font-size:0.78rem; color:#aaa; line-height:1.8;">
+                    <div style="font-weight:700; color:#ddd; margin-bottom:4px;">📌 체크인 시 참고사항</div>
+                    <div>• 사진 있는 유효한 신분증 + 신용카드 필요 (보증금용)</div>
+                    <div>• 현금 결제 불가 (카드만 가능)</div>
+                    <div>• 최소 체크인 나이: 만 21세</div>
+                    <div>• 비대면 체크인/체크아웃 가능</div>
+                    <div>• 정오(12시) 이후 도착 시 사전에 호텔 연락 필요</div>
+                    <div>• 시트/타월 교체: 요청 시 무료 (프론트에 전화하면 됨!)</div>
+                    <div>• 셀프 주차: $65/일 (주차할 일 없겠지만 참고)</div>
+                </div>
+
+                <!-- 위치 장점 -->
+                <div style="background:rgba(79,172,254,0.08); border:1px solid rgba(79,172,254,0.2); border-radius:10px; padding:12px; margin-top:14px; font-size:0.78rem; color:#90caf9; line-height:1.8;">
+                    <div style="font-weight:700; color:#4facfe; margin-bottom:4px;">📍 위치가 좋은 이유</div>
+                    <div>• 매디슨 스퀘어 가든 도보 5분 (0.5km)</div>
+                    <div>• 엠파이어 스테이트 빌딩 도보 10분 (0.9km)</div>
+                    <div>• 타임스퀘어 지하철 1정거장 (1.2km)</div>
+                    <div>• 코리아타운 (32nd St) 도보 5분 — 한식, H Mart 🇰🇷</div>
+                    <div>• 하이라인 파크, 첼시마켓 도보권</div>
+                    <div>• Penn Station 도보 10분 (근교 이동 편리)</div>
                 </div>
             </div>
         </div>

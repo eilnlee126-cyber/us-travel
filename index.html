@@ -1509,38 +1509,9 @@
             </ul>
         </div>
 
-        <div class="tip-card" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);">
-            <h3>🧳 미니멀 패킹 (적게 갈수록 이득!)</h3>
-            <ul>
-                <li><strong>핵심 원칙:</strong> 최대한 적게 가져가기! 쇼핑할 거니까 돌아올 때 캐리어 공간 남겨두기</li>
-                <li><strong>아우터:</strong> 두꺼운 롱패딩 1개면 끝. 서부에서는 캐리어에, 동부에서만 꺼내 입기</li>
-                <li><strong>상의:</strong> 히트텍 2~3벌 + 긴팔 3~4벌 돌려입기 (빨래 가능)</li>
-                <li><strong>하의:</strong> 청바지 2벌 + 편한 바지 1벌이면 충분</li>
-                <li><strong>방한:</strong> 목도리 + 비니 + 장갑 (작고 가벼움, 효과 큼)</li>
-                <li><strong>핫팩:</strong> 한국에서 넉넉히 사가기 (미국 비쌈). 뉴욕에서 생존템!</li>
-                <li><strong>신발:</strong> 편한 운동화 1 + 방수 부츠 1 (뉴욕 눈 대비). 2켤레 MAX</li>
-                <li><strong>압축팩:</strong> 필수! 옷 부피 반으로 줄여줌</li>
-                <li><strong>캐리어:</strong> 반은 비워서 가기. 쇼핑한 거 넣을 공간 확보!</li>
-                <li>💡 부족하면 미국에서 사면 됨 (아울렛 더 쌈!)</li>
-            </ul>
-        </div>
-
-        <div class="tip-card checklist">
+        <div class="tip-card" id="checklist-card">
             <h3>✅ 출발 전 체크리스트</h3>
-            <ul>
-                <li>⚠️ 결혼증명서 준비 (영문) — 제일 중요! 남편 입국 시 필요할 수 있음</li>
-                <li>남편 ESTA 신청 (출발 최소 72시간 전!) — 나는 미국 여권이니까 불필요</li>
-                <li>남편 여권 유효기간 확인 (입국일 기준 6개월 이상)</li>
-                <li>여행자 보험 가입 (미국 병원비 무서움 😱)</li>
-                <li>국내선 항공편 예약 (LA→베가스→ATL→뉴욕)</li>
-                <li>숙소 예약 (에어비앤비 일찍 잡기)</li>
-                <li>애틀란타 렌트카 예약</li>
-                <li>브로드웨이 티켓 예약 (인기 공연은 미리!)</li>
-                <li>자유의 여신상 페리 예약</li>
-                <li>핫팩 & 히트텍 챙기기</li>
-                <li>미국 여권 유효기간 확인 (나)</li>
-                <li>TSA PreCheck / Global Entry 알아보기 (나만 가능, $78~100, 국내선 보안검색 빠름)</li>
-            </ul>
+            <div id="checklist-container"></div>
         </div>
     </div>
 
@@ -1575,6 +1546,74 @@
             if (target) target.classList.add('active');
         });
     });
+
+    // 체크리스트 (localStorage 저장 + 체크한 항목 맨 아래로)
+    (function() {
+        const STORAGE_KEY = 'travel_checklist';
+        const defaultItems = [
+            { id: 'c1', text: '⚠️ 결혼증명서 준비 (영문) — 제일 중요! 남편 입국 시 필요할 수 있음' },
+            { id: 'c2', text: '남편 ESTA 신청 (출발 최소 72시간 전!) — 나는 미국 여권이니까 불필요' },
+            { id: 'c3', text: '남편 여권 유효기간 확인 (입국일 기준 6개월 이상)' },
+            { id: 'c4', text: '여행자 보험 가입 (미국 병원비 무서움 😱)' },
+            { id: 'c5', text: '국내선 항공편 예약 (LA→베가스→ATL→뉴욕)' },
+            { id: 'c6', text: '숙소 예약' },
+            { id: 'c7', text: '애틀란타 렌트카 예약' },
+            { id: 'c8', text: '브로드웨이 티켓 예약 (인기 공연은 미리!)' },
+            { id: 'c9', text: '자유의 여신상 페리 예약' },
+            { id: 'c10', text: '핫팩 & 히트텍 챙기기' },
+            { id: 'c11', text: '미국 여권 유효기간 확인 (나)' },
+            { id: 'c12', text: 'TSA PreCheck / Global Entry 알아보기 (나만 가능, $78~100)' },
+        ];
+
+        function getChecked() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
+        }
+        function saveChecked(obj) { localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); }
+
+        function render() {
+            const checked = getChecked();
+            const container = document.getElementById('checklist-container');
+            if (!container) return;
+
+            const unchecked = defaultItems.filter(i => !checked[i.id]);
+            const checkedItems = defaultItems.filter(i => checked[i.id]);
+            const sorted = [...unchecked, ...checkedItems];
+
+            const totalCount = defaultItems.length;
+            const doneCount = checkedItems.length;
+
+            let html = '';
+            // 진행률 바
+            html += '<div style="background:#e0e0e0; border-radius:10px; height:8px; margin-bottom:16px; overflow:hidden;">';
+            html += '<div style="background:linear-gradient(90deg,#96e6a1,#4facfe); height:100%; width:' + (doneCount/totalCount*100) + '%; border-radius:10px; transition:width 0.3s;"></div>';
+            html += '</div>';
+            html += '<div style="font-size:0.8rem; color:#888; margin-bottom:14px; text-align:right;">' + doneCount + ' / ' + totalCount + ' 완료</div>';
+
+            sorted.forEach(function(item) {
+                const isDone = !!checked[item.id];
+                html += '<label style="display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid #f0f0f0; cursor:pointer; transition: opacity 0.3s;'
+                    + (isDone ? ' opacity:0.45;' : '') + '">';
+                html += '<input type="checkbox" data-id="' + item.id + '"' + (isDone ? ' checked' : '')
+                    + ' style="margin-top:3px; width:18px; height:18px; accent-color:#4facfe; cursor:pointer; flex-shrink:0;">';
+                html += '<span style="font-size:0.9rem;' + (isDone ? ' text-decoration:line-through; color:#bbb;' : ' color:#444;') + '">' + item.text + '</span>';
+                html += '</label>';
+            });
+
+            container.innerHTML = html;
+
+            // 이벤트 바인딩
+            container.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
+                cb.addEventListener('change', function() {
+                    const c = getChecked();
+                    if (this.checked) { c[this.dataset.id] = true; } else { delete c[this.dataset.id]; }
+                    saveChecked(c);
+                    setTimeout(render, 200);
+                });
+            });
+        }
+
+        render();
+    })();
 
     // 실시간 환율 (USD → KRW) + localStorage 히스토리
     (async function() {

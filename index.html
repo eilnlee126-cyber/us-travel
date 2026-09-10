@@ -1569,8 +1569,8 @@
                 label: '🌴 LA',
                 color: '#f5576c',
                 items: [
-                    { id: 'la1', text: '인천→LA 항공권 예약' },
-                    { id: 'la2', text: 'LA 숙소 예약 (Short Stories Hotel)' },
+                    { id: 'la1', text: '인천→LA 항공권 예약', link: 'la' },
+                    { id: 'la2', text: 'LA 숙소 예약 (Short Stories Hotel)', link: 'la' },
                 ]
             },
             {
@@ -1593,7 +1593,7 @@
                 label: '🗽 NYC',
                 color: '#764ba2',
                 items: [
-                    { id: 'ny1', text: 'NYC 숙소 예약 (TownePlace Suites Chelsea)' },
+                    { id: 'ny1', text: 'NYC 숙소 예약 (TownePlace Suites Chelsea)', link: 'nyc' },
                     { id: 'ny2', text: '브로드웨이 티켓 예약 (인기 공연은 미리!)' },
                     { id: 'ny3', text: '자유의 여신상 페리 예약' },
                     { id: 'ny4', text: '뉴욕→인천 귀국 항공편 예약' },
@@ -1642,6 +1642,9 @@
                     html += '<input type="checkbox" data-id="' + item.id + '"' + (isDone ? ' checked' : '')
                         + ' style="margin-top:3px; width:18px; height:18px; accent-color:' + cat.color + '; cursor:pointer; flex-shrink:0;">';
                     html += '<span style="font-size:0.88rem;' + (isDone ? ' text-decoration:line-through; color:#bbb;' : ' color:#444;') + '">' + item.text + '</span>';
+                    if (item.link) {
+                        html += '<span data-tab="' + item.link + '" style="margin-left:auto; flex-shrink:0; background:' + cat.color + '; color:#fff; font-size:0.68rem; font-weight:700; padding:3px 10px; border-radius:20px; cursor:pointer; white-space:nowrap;">확인 →</span>';
+                    }
                     html += '</label>';
                 });
 
@@ -1656,6 +1659,21 @@
                     if (this.checked) { c[this.dataset.id] = true; } else { delete c[this.dataset.id]; }
                     saveChecked(c);
                     setTimeout(render, 200);
+                });
+            });
+
+            container.querySelectorAll('[data-tab]').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var tab = this.dataset.tab;
+                    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+                    document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+                    var tabBtn = document.querySelector('[data-tab="' + tab + '"]');
+                    if (tabBtn) tabBtn.classList.add('active');
+                    var tabContent = document.getElementById('tab-' + tab);
+                    if (tabContent) tabContent.classList.add('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             });
         }

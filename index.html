@@ -291,16 +291,20 @@
         </a>
 
         <!-- Atlanta -->
-        <div style="background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.15); border-radius:14px; padding:14px 16px; margin-bottom:10px;">
+        <a href="atlanta.html#atlanta-hotel" style="display:block; text-decoration:none; background:rgba(255,255,255,0.05); border:1px solid rgba(79,172,254,0.3); border-radius:14px; padding:14px 16px; margin-bottom:10px; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <span style="background:linear-gradient(135deg, #4facfe, #00c6fb); color:#1a1a2e; font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px;">🍑 애틀란타</span>
-                    <span style="color:#666; font-weight:800; font-size:0.9rem;">미정</span>
+                    <span style="color:#fff; font-weight:800; font-size:0.9rem;">Classy Getaway Midtown</span>
                 </div>
-                <span style="background:rgba(255,255,255,0.08); color:#888; font-size:0.68rem; font-weight:700; padding:3px 8px; border-radius:20px;">⏳ 예약 필요</span>
+                <span style="background:rgba(79,172,254,0.15); color:#4facfe; font-size:0.68rem; font-weight:700; padding:3px 8px; border-radius:20px;">✅ 확정</span>
             </div>
-            <div style="font-size:0.78rem; color:#666;">12/10~12/16 · 6박</div>
-        </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; font-size:0.78rem;">
+                <span style="color:#aaa;">12/10~12/16 · 6박 · Airbnb</span>
+                <span style="color:#f6d365; font-weight:800;">₩1,272,344</span>
+            </div>
+            <div style="font-size:0.7rem; color:#90caf9; margin-top:4px;">🏊 수영장 · Atlantic Station · Lockbox 체크인</div>
+        </a>
 
         <!-- NYC -->
         <a href="nyc.html#nyc-hotel" style="display:block; text-decoration:none; background:rgba(255,255,255,0.05); border:1px solid rgba(103,126,234,0.3); border-radius:14px; padding:14px 16px; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
@@ -388,13 +392,13 @@
                     <span style="font-weight:800; color:#4facfe;">₩925,681</span>
                 </div>
             </div>
-            <div style="background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.15); border-radius:10px; padding:12px; margin-bottom:6px;">
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <div>
-                        <div style="font-size:0.85rem; font-weight:700; color:#666;">🍑 애틀란타 · 미정</div>
-                        <div style="font-size:0.72rem; color:#555;">6박 · 미정</div>
+                        <div style="font-size:0.85rem; font-weight:700;">🍑 애틀란타 · Classy Getaway Midtown</div>
+                        <div style="font-size:0.72rem; color:#aaa;">6박 · Airbnb</div>
                     </div>
-                    <span style="font-weight:800; color:#888;">⏳ 미정</span>
+                    <span style="font-weight:800; color:#4facfe;">₩1,272,344</span>
                 </div>
             </div>
             <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;">
@@ -420,7 +424,7 @@
 
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <span style="font-size:0.9rem; font-weight:700; color:#888;">⏳ 미확정</span>
-            <span style="font-size:0.95rem; font-weight:800; color:#888;">귀국편 + 국내선 + 애틀란타 숙소</span>
+            <span style="font-size:0.95rem; font-weight:800; color:#888;">귀국편 + 국내선 + 애틀란타 렌트카(검토중)</span>
         </div>
 
         <div style="background:rgba(246,211,101,0.1); border:1px solid rgba(246,211,101,0.3); border-radius:10px; padding:12px; margin-top:12px; text-align:center;">
@@ -708,7 +712,7 @@ const db = getFirestore(app);
 
 (async function() {
     const HOTEL_USD = 996.72;
-    const FIXED_KRW = { flight: 1672600, vegas: 925681, nyc: 4527545 };
+    const FIXED_KRW = { flight: 1672600, vegas: 925681, atlanta: 1272344, nyc: 4527545 };
     const fmt = n => n.toLocaleString('ko-KR');
 
     function todayKey() {
@@ -792,7 +796,7 @@ const db = getFirestore(app);
             const laBudget = document.getElementById('idx-la-budget');
             if (laBudget) laBudget.textContent = '₩' + fmt(laKrw);
 
-            const hotelTotal = laKrw + FIXED_KRW.vegas + FIXED_KRW.nyc;
+            const hotelTotal = laKrw + FIXED_KRW.vegas + FIXED_KRW.atlanta + FIXED_KRW.nyc;
             const grandTotal = FIXED_KRW.flight + hotelTotal;
             const totalEl = document.getElementById('idx-total');
             if (totalEl) totalEl.textContent = '약 ₩' + fmt(grandTotal);

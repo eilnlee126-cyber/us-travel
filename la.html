@@ -183,6 +183,11 @@
             <div style="font-size:0.78rem; color:#aaa;">후지불 · 2026년 11월 29일 자동 결제 예정</div>
             <div style="font-size:0.72rem; color:#999; margin-top:4px;">⚠️ 불포함: 세금·봉사료 ₩18,556 + 리조트 이용료 ₩115,996 (현장 결제)</div>
             <div style="font-size:0.72rem; color:#f6d365; margin-top:6px; border-top:1px solid rgba(255,255,255,0.08); padding-top:6px;">📝 As of 09.10.2026 — 원화 환산 약 ₩1,401,763 (환율 ~1,340원대, 5% 수수료 포함)</div>
+            <!-- 환율 히스토리 버튼 -->
+            <div style="margin-top:10px; display:flex; align-items:center; gap:10px;">
+                <div id="la-hotel-krw" style="font-size:0.85rem; font-weight:800; color:#4facfe;">오늘 환율 계산 중...</div>
+                <button onclick="document.getElementById('la-rate-modal').style.display='flex'" style="background:linear-gradient(135deg, #f093fb, #f5576c); color:#fff; border:none; border-radius:20px; padding:5px 14px; font-size:0.72rem; font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif;">📊 History →</button>
+            </div>
         </div>
         <div style="background:rgba(255,59,48,0.12); border:2px solid rgba(255,59,48,0.5); border-radius:10px; padding:14px; margin-bottom:14px;">
             <div style="display:flex; align-items:center; gap:8px;">
@@ -335,6 +340,135 @@
     <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
     <button class="scroll-btn" onclick="window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})" title="맨 아래로">↓</button>
 </div>
+
+<!-- LA 호텔 환율 히스토리 모달 -->
+<div id="la-rate-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; padding:20px;" onclick="if(event.target===this)this.style.display='none'">
+    <div style="background:#1a1a2e; border-radius:20px; padding:24px; max-width:420px; width:100%; max-height:80vh; overflow-y:auto; color:#fff; box-shadow:0 8px 40px rgba(0,0,0,0.4);">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+            <div>
+                <div style="font-size:1.1rem; font-weight:900;">📊 LA 호텔 환율 히스토리</div>
+                <div style="font-size:0.75rem; color:#aaa; margin-top:2px;">Short Stories Hotel · USD $996.72</div>
+            </div>
+            <button onclick="document.getElementById('la-rate-modal').style.display='none'" style="background:rgba(255,255,255,0.1); border:none; color:#fff; font-size:1.2rem; width:32px; height:32px; border-radius:50%; cursor:pointer;">✕</button>
+        </div>
+        <div id="la-rate-history-list" style="font-size:0.82rem;"></div>
+        <div style="margin-top:14px; text-align:center; font-size:0.7rem; color:#666;">페이지 열 때마다 오늘 환율 자동 기록 · 매일 1회 저장</div>
+    </div>
+</div>
+
+<script>
+// LA Hotel Rate History Tracker
+(async function() {
+    const HOTEL_USD = 996.72;
+    const STORAGE_KEY = 'la_hotel_rate_history';
+    const fmt = n => n.toLocaleString('ko-KR');
+
+    function todayKey() {
+        const d = new Date();
+        return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    }
+
+    function getHistory() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; }
+    }
+
+    function saveHistory(arr) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+    }
+
+    function renderHistory() {
+        const hist = getHistory();
+        const container = document.getElementById('la-rate-history-list');
+        if (!container || hist.length === 0) {
+            if (container) container.innerHTML = '<div style="text-align:center; color:#666; padding:20px;">아직 기록이 없어요. 페이지를 새로고침하면 오늘 환율이 기록돼요!</div>';
+            return;
+        }
+
+        let html = '';
+        // Header
+        html += '<div style="display:grid; grid-template-columns:80px 70px 1fr 70px; gap:8px; padding:8px 6px; border-bottom:1px solid rgba(255,255,255,0.1); font-size:0.7rem; color:#888; font-weight:700;">';
+        html += '<span>날짜</span><span style="text-align:right;">환율</span><span style="text-align:right;">원화 환산</span><span style="text-align:right;">변동</span>';
+        html += '</div>';
+
+        for (let i = hist.length - 1; i >= 0; i--) {
+            const entry = hist[i];
+            const krw = Math.round(entry.rate * HOTEL_USD);
+            let diffHtml = '';
+            if (i > 0) {
+                const prevKrw = Math.round(hist[i-1].rate * HOTEL_USD);
+                const diff = krw - prevKrw;
+                if (diff !== 0) {
+                    const color = diff < 0 ? '#69db7c' : '#ff6b6b';
+                    const arrow = diff < 0 ? '▼' : '▲';
+                    diffHtml = '<span style="color:' + color + '; font-weight:700;">' + arrow + fmt(Math.abs(diff)) + '</span>';
+                } else {
+                    diffHtml = '<span style="color:#666;">—</span>';
+                }
+            } else {
+                diffHtml = '<span style="color:#666; font-size:0.68rem;">첫 기록</span>';
+            }
+
+            const dateLabel = entry.date.slice(5); // MM-DD
+            const isToday = entry.date === todayKey();
+
+            html += '<div style="display:grid; grid-template-columns:80px 70px 1fr 70px; gap:8px; padding:8px 6px; border-bottom:1px solid rgba(255,255,255,0.05); align-items:center;' + (isToday ? ' background:rgba(79,172,254,0.08); border-radius:8px;' : '') + '">';
+            html += '<span style="color:' + (isToday ? '#4facfe' : '#ccc') + '; font-weight:' + (isToday ? '800' : '400') + ';">' + dateLabel + (isToday ? ' 📌' : '') + '</span>';
+            html += '<span style="text-align:right; color:#aaa;">₩' + fmt(Math.round(entry.rate)) + '</span>';
+            html += '<span style="text-align:right; font-weight:800; color:#fff;">₩' + fmt(krw) + '</span>';
+            html += '<span style="text-align:right;">' + diffHtml + '</span>';
+            html += '</div>';
+        }
+
+        // Summary
+        if (hist.length >= 2) {
+            const firstKrw = Math.round(hist[0].rate * HOTEL_USD);
+            const lastKrw = Math.round(hist[hist.length-1].rate * HOTEL_USD);
+            const totalDiff = lastKrw - firstKrw;
+            const color = totalDiff < 0 ? '#69db7c' : totalDiff > 0 ? '#ff6b6b' : '#888';
+            const arrow = totalDiff < 0 ? '▼' : totalDiff > 0 ? '▲' : '';
+            html += '<div style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.05); border-radius:10px; text-align:center;">';
+            html += '<span style="font-size:0.75rem; color:#aaa;">첫 기록 대비: </span>';
+            html += '<span style="font-size:0.85rem; font-weight:800; color:' + color + ';">' + arrow + ' ₩' + fmt(Math.abs(totalDiff)) + '</span>';
+            html += '</div>';
+        }
+
+        container.innerHTML = html;
+    }
+
+    try {
+        const res = await fetch('https://open.er-api.com/v6/latest/USD');
+        const data = await res.json();
+        if (data.result === 'success' && data.rates && data.rates.KRW) {
+            const rate = data.rates.KRW;
+            const today = todayKey();
+            const krw = Math.round(rate * HOTEL_USD);
+
+            // Update display
+            const display = document.getElementById('la-hotel-krw');
+            if (display) display.innerHTML = '오늘 환율 기준: <span style="color:#f6d365;">₩' + fmt(krw) + '</span> ($1=₩' + fmt(Math.round(rate)) + ')';
+
+            // Save to history (one entry per day)
+            const hist = getHistory();
+            const existing = hist.findIndex(h => h.date === today);
+            if (existing >= 0) {
+                hist[existing].rate = rate;
+            } else {
+                hist.push({ date: today, rate: rate });
+            }
+            // Keep max 90 days
+            while (hist.length > 90) hist.shift();
+            saveHistory(hist);
+            renderHistory();
+        } else {
+            throw new Error('fail');
+        }
+    } catch(e) {
+        const display = document.getElementById('la-hotel-krw');
+        if (display) display.textContent = '환율 정보를 가져올 수 없어요 😢';
+        renderHistory();
+    }
+})();
+</script>
 
 </body>
 </html>

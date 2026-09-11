@@ -98,7 +98,16 @@
 
 <script>
     (function() {
-        const STORAGE_KEY = 'travel_checklist';
+        const STORAGE_KEY = 'travel_checklist_v2';
+
+        // Migrate from old key if exists
+        (function migrateOldData() {
+            const old = localStorage.getItem('travel_checklist');
+            if (old && !localStorage.getItem('travel_checklist_v2')) {
+                localStorage.setItem('travel_checklist_v2', old);
+            }
+        })();
+
         const categories = [
             {
                 label: '🌐 General', color: '#667eea',
@@ -151,9 +160,29 @@
         const allItems = categories.flatMap(c => c.items);
 
         function getChecked() {
-            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
+            // Try localStorage first
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) return JSON.parse(stored);
+            } catch(e) {}
+            // Fallback: try reading from URL hash
+            try {
+                if (window.location.hash.startsWith('#checklist=')) {
+                    const data = JSON.parse(decodeURIComponent(window.location.hash.slice('#checklist='.length)));
+                    return data || {};
+                }
+            } catch(e) {}
+            return {};
         }
-        function saveChecked(obj) { localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); }
+        function saveChecked(obj) {
+            // Save to localStorage
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); } catch(e) {}
+            // Also save to URL hash as backup (won't trigger page reload)
+            try {
+                const encoded = encodeURIComponent(JSON.stringify(obj));
+                history.replaceState(null, '', '#checklist=' + encoded);
+            } catch(e) {}
+        }
 
         function render() {
             const checked = getChecked();

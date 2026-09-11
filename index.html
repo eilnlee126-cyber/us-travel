@@ -243,6 +243,9 @@
                 <div id="conv-100" style="font-size: 0.95rem; font-weight: 700; color: #fff;">—</div>
             </div>
         </div>
+        <div style="margin-top:14px;">
+            <button onclick="document.getElementById('exchange-rate-modal').style.display='flex'" style="background:linear-gradient(135deg, #4facfe, #00f2fe); color:#1a1a2e; border:none; border-radius:20px; padding:8px 20px; font-size:0.82rem; font-weight:800; cursor:pointer; font-family:'Noto Sans KR',sans-serif;">📊 환율 History 보기</button>
+        </div>
     </div>
 
     <!-- 호텔 예약 현황 -->
@@ -514,7 +517,7 @@
 </div>
 
 <script>
-    // 실시간 환율 (USD → KRW) + localStorage 히스토리
+    // 실시간 환율 (USD → KRW) + localStorage 히스토리 + 팝업
     (async function() {
         const fmt = n => n.toLocaleString('ko-KR');
         const STORAGE_KEY = 'krw_rate_history';
@@ -532,8 +535,8 @@
             const hist = getHistory();
             hist[date] = rate;
             const keys = Object.keys(hist).sort().reverse();
-            if (keys.length > 30) {
-                keys.slice(30).forEach(k => delete hist[k]);
+            if (keys.length > 90) {
+                keys.slice(90).forEach(k => delete hist[k]);
             }
             localStorage.setItem(STORAGE_KEY, JSON.stringify(hist));
         }
@@ -545,6 +548,55 @@
             const arrow = diff > 0 ? '▲' : '▼';
             const color = diff > 0 ? '#ff6b6b' : '#69db7c';
             return label + ' ₩' + fmt(Math.round(prevRate)) + ' (<span style="color:' + color + '">' + arrow + Math.abs(diff) + '원</span>)';
+        }
+
+        function renderExchangeHistory() {
+            const hist = getHistory();
+            const container = document.getElementById('exchange-rate-history-list');
+            if (!container) return;
+            const dates = Object.keys(hist).sort();
+            if (dates.length === 0) {
+                container.innerHTML = '<div style="text-align:center; color:#666; padding:20px;">아직 기록이 없어요.</div>';
+                return;
+            }
+            let html = '';
+            html += '<div style="display:grid; grid-template-columns:80px 1fr 80px; gap:8px; padding:8px 6px; border-bottom:1px solid rgba(255,255,255,0.1); font-size:0.7rem; color:#888; font-weight:700;">';
+            html += '<span>날짜</span><span style="text-align:right;">$1 = ₩</span><span style="text-align:right;">변동</span>';
+            html += '</div>';
+            const today = todayKey();
+            for (let i = dates.length - 1; i >= 0; i--) {
+                const date = dates[i];
+                const rate = Math.round(hist[date]);
+                let diffHtml = '';
+                if (i > 0) {
+                    const prevRate = Math.round(hist[dates[i-1]]);
+                    const diff = rate - prevRate;
+                    if (diff !== 0) {
+                        const color = diff > 0 ? '#ff6b6b' : '#69db7c';
+                        const arrow = diff > 0 ? '▲' : '▼';
+                        diffHtml = '<span style="color:' + color + '; font-weight:700;">' + arrow + ' ' + fmt(Math.abs(diff)) + '</span>';
+                    } else { diffHtml = '<span style="color:#666;">—</span>'; }
+                } else { diffHtml = '<span style="color:#666; font-size:0.68rem;">첫 기록</span>'; }
+                const dateLabel = date.slice(5);
+                const isToday = date === today;
+                html += '<div style="display:grid; grid-template-columns:80px 1fr 80px; gap:8px; padding:8px 6px; border-bottom:1px solid rgba(255,255,255,0.05); align-items:center;' + (isToday ? ' background:rgba(79,172,254,0.08); border-radius:8px;' : '') + '">';
+                html += '<span style="color:' + (isToday ? '#4facfe' : '#ccc') + '; font-weight:' + (isToday ? '800' : '400') + ';">' + dateLabel + (isToday ? ' 📌' : '') + '</span>';
+                html += '<span style="text-align:right; font-weight:800; color:#fff;">₩' + fmt(rate) + '</span>';
+                html += '<span style="text-align:right;">' + diffHtml + '</span>';
+                html += '</div>';
+            }
+            if (dates.length >= 2) {
+                const firstRate = Math.round(hist[dates[0]]);
+                const lastRate = Math.round(hist[dates[dates.length-1]]);
+                const totalDiff = lastRate - firstRate;
+                const color = totalDiff > 0 ? '#ff6b6b' : totalDiff < 0 ? '#69db7c' : '#888';
+                const arrow = totalDiff > 0 ? '▲' : totalDiff < 0 ? '▼' : '';
+                html += '<div style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.05); border-radius:10px; text-align:center;">';
+                html += '<span style="font-size:0.75rem; color:#aaa;">첫 기록 대비: </span>';
+                html += '<span style="font-size:0.85rem; font-weight:800; color:' + color + ';">' + arrow + ' ₩' + fmt(Math.abs(totalDiff)) + '</span>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
         }
 
         try {
@@ -580,13 +632,31 @@
                 } else {
                     document.getElementById('rate-history').innerHTML = '📊 내일부터 환율 변동 추이가 표시돼요!';
                 }
+
+                renderExchangeHistory();
             } else { throw new Error('fail'); }
         } catch(e) {
             document.getElementById('rate-display').textContent = '환율 정보를 가져올 수 없어요 😢';
             document.getElementById('rate-detail').textContent = '인터넷 연결 확인 후 새로고침 해보세요';
+            renderExchangeHistory();
         }
     })();
 </script>
+
+<!-- 실시간 환율 히스토리 모달 -->
+<div id="exchange-rate-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; padding:20px;" onclick="if(event.target===this)this.style.display='none'">
+    <div style="background:#1a1a2e; border-radius:20px; padding:24px; max-width:420px; width:100%; max-height:80vh; overflow-y:auto; color:#fff; box-shadow:0 8px 40px rgba(0,0,0,0.4);">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+            <div>
+                <div style="font-size:1.1rem; font-weight:900;">💱 환율 히스토리</div>
+                <div style="font-size:0.75rem; color:#aaa; margin-top:2px;">USD → KRW · 매일 자동 기록</div>
+            </div>
+            <button onclick="document.getElementById('exchange-rate-modal').style.display='none'" style="background:rgba(255,255,255,0.1); border:none; color:#fff; font-size:1.2rem; width:32px; height:32px; border-radius:50%; cursor:pointer;">✕</button>
+        </div>
+        <div id="exchange-rate-history-list" style="font-size:0.82rem;"></div>
+        <div style="margin-top:14px; text-align:center; font-size:0.7rem; color:#666;">페이지 열 때마다 오늘 환율 자동 기록 · 매일 1회 저장</div>
+    </div>
+</div>
 
 <!-- LA 호텔 환율 히스토리 모달 (index.html) -->
 <div id="idx-rate-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; padding:20px;" onclick="if(event.target===this)this.style.display='none'">

@@ -96,18 +96,23 @@
     <button class="scroll-btn" onclick="window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})" title="맨 아래로">↓</button>
 </div>
 
-<script>
-    (function() {
-        const STORAGE_KEY = 'travel_checklist_v2';
+<script type="module">
+    // 체크리스트 (Firebase Firestore)
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+    import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
-        // Migrate from old key if exists
-        (function migrateOldData() {
-            const old = localStorage.getItem('travel_checklist');
-            if (old && !localStorage.getItem('travel_checklist_v2')) {
-                localStorage.setItem('travel_checklist_v2', old);
-            }
-        })();
+    const firebaseConfig = {
+        apiKey: "AIzaSyDsa9pz-O_s4KUXvJ5duuRIWCQx_umspuc",
+        authDomain: "ustravel-513fb.firebaseapp.com",
+        projectId: "ustravel-513fb",
+        storageBucket: "ustravel-513fb.firebasestorage.app",
+        messagingSenderId: "57988064191",
+        appId: "1:57988064191:web:5f08645b91ed9d21c3370a"
+    };
+    const app = initializeApp(firebaseConfig, 'checklist');
+    const db = getFirestore(app);
 
+    (async function() {
         const categories = [
             {
                 label: '🌐 General', color: '#667eea',
@@ -159,33 +164,24 @@
 
         const allItems = categories.flatMap(c => c.items);
 
-        function getChecked() {
-            // Try localStorage first
+        async function getChecked() {
             try {
-                const stored = localStorage.getItem(STORAGE_KEY);
-                if (stored) return JSON.parse(stored);
-            } catch(e) {}
-            // Fallback: try reading from URL hash
-            try {
-                if (window.location.hash.startsWith('#checklist=')) {
-                    const data = JSON.parse(decodeURIComponent(window.location.hash.slice('#checklist='.length)));
-                    return data || {};
-                }
-            } catch(e) {}
+                const snap = await getDoc(doc(db, 'checklist', 'state'));
+                if (snap.exists()) return snap.data();
+            } catch(e) { console.error('Firebase read error:', e); }
             return {};
         }
-        function saveChecked(obj) {
-            // Save to localStorage
-            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); } catch(e) {}
-            // Also save to URL hash as backup (won't trigger page reload)
+
+        async function saveChecked(obj) {
             try {
-                const encoded = encodeURIComponent(JSON.stringify(obj));
-                history.replaceState(null, '', '#checklist=' + encoded);
-            } catch(e) {}
+                await setDoc(doc(db, 'checklist', 'state'), obj);
+            } catch(e) { console.error('Firebase write error:', e); }
         }
 
+        let checkedState = {};
+
         function render() {
-            const checked = getChecked();
+            const checked = checkedState;
             const container = document.getElementById('checklist-container');
             if (!container) return;
 
@@ -230,9 +226,8 @@
 
             container.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
                 cb.addEventListener('change', function() {
-                    const c = getChecked();
-                    if (this.checked) { c[this.dataset.id] = true; } else { delete c[this.dataset.id]; }
-                    saveChecked(c);
+                    if (this.checked) { checkedState[this.dataset.id] = true; } else { delete checkedState[this.dataset.id]; }
+                    saveChecked(checkedState);
                     setTimeout(render, 200);
                 });
             });
@@ -246,6 +241,8 @@
             });
         }
 
+        // Load from Firebase and render
+        checkedState = await getChecked();
         render();
     })();
 </script>

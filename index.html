@@ -516,29 +516,43 @@
     <button class="scroll-btn" onclick="window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})" title="맨 아래로">↓</button>
 </div>
 
-<script>
-    // 실시간 환율 (USD → KRW) + localStorage 히스토리 + 팝업
+<script type="module">
+    // 실시간 환율 (USD → KRW) + Firebase Firestore 히스토리 + 팝업
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+    import { getFirestore, doc, setDoc, getDocs, collection } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDsa9pz-O_s4KUXvJ5duuRIWCQx_umspuc",
+        authDomain: "ustravel-513fb.firebaseapp.com",
+        projectId: "ustravel-513fb",
+        storageBucket: "ustravel-513fb.firebasestorage.app",
+        messagingSenderId: "57988064191",
+        appId: "1:57988064191:web:5f08645b91ed9d21c3370a"
+    };
+    const app = initializeApp(firebaseConfig, 'exchangeRate');
+    const db = getFirestore(app);
+
     (async function() {
         const fmt = n => n.toLocaleString('ko-KR');
-        const STORAGE_KEY = 'krw_rate_history';
 
         function todayKey() {
             const d = new Date();
             return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
         }
 
-        function getHistory() {
-            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
+        async function getHistory() {
+            try {
+                const snap = await getDocs(collection(db, 'exchangeRates'));
+                const hist = {};
+                snap.forEach(d => { hist[d.id] = d.data().rate; });
+                return hist;
+            } catch(e) { console.error('Firebase read error:', e); return {}; }
         }
 
-        function saveRate(date, rate) {
-            const hist = getHistory();
-            hist[date] = rate;
-            const keys = Object.keys(hist).sort().reverse();
-            if (keys.length > 90) {
-                keys.slice(90).forEach(k => delete hist[k]);
-            }
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(hist));
+        async function saveRate(date, rate) {
+            try {
+                await setDoc(doc(db, 'exchangeRates', date), { rate: rate, updatedAt: new Date().toISOString() });
+            } catch(e) { console.error('Firebase write error:', e); }
         }
 
         function diffText(label, todayRate, prevRate) {
@@ -550,8 +564,7 @@
             return label + ' ₩' + fmt(Math.round(prevRate)) + ' (<span style="color:' + color + '">' + arrow + Math.abs(diff) + '원</span>)';
         }
 
-        function renderExchangeHistory() {
-            const hist = getHistory();
+        function renderExchangeHistory(hist) {
             const container = document.getElementById('exchange-rate-history-list');
             if (!container) return;
             const dates = Object.keys(hist).sort();
@@ -606,7 +619,7 @@
                 const rate = data.rates.KRW;
                 const today = todayKey();
 
-                saveRate(today, rate);
+                await saveRate(today, rate);
 
                 document.getElementById('rate-display').textContent = '$1 = ₩' + fmt(Math.round(rate));
                 document.getElementById('rate-detail').textContent = '업데이트: ' + data.time_last_update_utc.slice(0, 16) + ' (페이지 열 때마다 자동 갱신)';
@@ -614,7 +627,7 @@
                 document.getElementById('conv-50').textContent = '₩' + fmt(Math.round(rate * 50));
                 document.getElementById('conv-100').textContent = '₩' + fmt(Math.round(rate * 100));
 
-                const hist = getHistory();
+                const hist = await getHistory();
                 const dates = Object.keys(hist).sort().reverse();
                 const prevDates = dates.filter(d => d < today);
 
@@ -633,12 +646,13 @@
                     document.getElementById('rate-history').innerHTML = '📊 내일부터 환율 변동 추이가 표시돼요!';
                 }
 
-                renderExchangeHistory();
+                renderExchangeHistory(hist);
             } else { throw new Error('fail'); }
         } catch(e) {
             document.getElementById('rate-display').textContent = '환율 정보를 가져올 수 없어요 😢';
             document.getElementById('rate-detail').textContent = '인터넷 연결 확인 후 새로고침 해보세요';
-            renderExchangeHistory();
+            const hist = await getHistory();
+            renderExchangeHistory(hist);
         }
     })();
 </script>
@@ -673,11 +687,24 @@
     </div>
 </div>
 
-<script>
-// Index page: LA Hotel Rate + Budget Tracker (shares localStorage with la.html)
+<script type="module">
+// Index page: LA Hotel Rate + Budget Tracker (Firebase Firestore)
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import { getFirestore, doc, setDoc, getDocs, collection } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDsa9pz-O_s4KUXvJ5duuRIWCQx_umspuc",
+    authDomain: "ustravel-513fb.firebaseapp.com",
+    projectId: "ustravel-513fb",
+    storageBucket: "ustravel-513fb.firebasestorage.app",
+    messagingSenderId: "57988064191",
+    appId: "1:57988064191:web:5f08645b91ed9d21c3370a"
+};
+const app = initializeApp(firebaseConfig, 'laHotelRate');
+const db = getFirestore(app);
+
 (async function() {
     const HOTEL_USD = 996.72;
-    const STORAGE_KEY = 'la_hotel_rate_history';
     const FIXED_KRW = { flight: 1672600, vegas: 925681, nyc: 4527545 };
     const fmt = n => n.toLocaleString('ko-KR');
 
@@ -686,16 +713,23 @@
         return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
     }
 
-    function getHistory() {
-        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; }
+    async function getHistory() {
+        try {
+            const snap = await getDocs(collection(db, 'exchangeRates'));
+            const arr = [];
+            snap.forEach(d => { arr.push({ date: d.id, rate: d.data().rate }); });
+            arr.sort((a, b) => a.date.localeCompare(b.date));
+            return arr;
+        } catch(e) { console.error('Firebase read error:', e); return []; }
     }
 
-    function saveHistory(arr) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+    async function saveRate(date, rate) {
+        try {
+            await setDoc(doc(db, 'exchangeRates', date), { rate: rate, updatedAt: new Date().toISOString() }, { merge: true });
+        } catch(e) { console.error('Firebase write error:', e); }
     }
 
-    function renderHistory() {
-        const hist = getHistory();
+    function renderHistory(hist) {
         const container = document.getElementById('idx-rate-history-list');
         if (!container || hist.length === 0) {
             if (container) container.innerHTML = '<div style="text-align:center; color:#666; padding:20px;">아직 기록이 없어요.</div>';
@@ -749,15 +783,12 @@
             const today = todayKey();
             const laKrw = Math.round(rate * HOTEL_USD);
 
-            // Update hotel summary LA card
             const laLabel = document.getElementById('idx-la-krw');
             if (laLabel) laLabel.innerHTML = '오늘: <span style="color:#f6d365; font-weight:700;">₩' + fmt(laKrw) + '</span> ($1=₩' + fmt(Math.round(rate)) + ')';
 
-            // Update budget tracker LA
             const laBudget = document.getElementById('idx-la-budget');
             if (laBudget) laBudget.textContent = '₩' + fmt(laKrw);
 
-            // Update total
             const hotelTotal = laKrw + FIXED_KRW.vegas + FIXED_KRW.nyc;
             const grandTotal = FIXED_KRW.flight + hotelTotal;
             const totalEl = document.getElementById('idx-total');
@@ -765,19 +796,15 @@
             const detailEl = document.getElementById('idx-total-detail');
             if (detailEl) detailEl.textContent = '항공 ₩' + fmt(FIXED_KRW.flight) + ' + 호텔 ₩' + fmt(hotelTotal);
 
-            // Save to shared history
-            const hist = getHistory();
-            const existing = hist.findIndex(h => h.date === today);
-            if (existing >= 0) { hist[existing].rate = rate; }
-            else { hist.push({ date: today, rate: rate }); }
-            while (hist.length > 90) hist.shift();
-            saveHistory(hist);
-            renderHistory();
+            await saveRate(today, rate);
+            const hist = await getHistory();
+            renderHistory(hist);
         } else { throw new Error('fail'); }
     } catch(e) {
         const laLabel = document.getElementById('idx-la-krw');
         if (laLabel) laLabel.textContent = '환율 정보 불러오기 실패';
-        renderHistory();
+        const hist = await getHistory();
+        renderHistory(hist);
     }
 })();
 </script>

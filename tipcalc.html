@@ -73,17 +73,6 @@
             </div>
         </div>
 
-        <!-- 인원수 -->
-        <div style="margin-bottom:24px;">
-            <label style="font-size:0.82rem; color:#aaa; display:block; margin-bottom:8px;">👥 인원수 (N빵 계산)</label>
-            <div style="display:flex; gap:8px;">
-                <button onclick="setPeople(1)" id="ppl-1" class="ppl-btn" style="flex:1; padding:10px; border-radius:10px; border:2px solid rgba(79,172,254,0.3); background:rgba(79,172,254,0.15); color:#4facfe; font-weight:800; font-size:0.9rem; cursor:pointer; font-family:'Noto Sans KR',sans-serif;">1명</button>
-                <button onclick="setPeople(2)" id="ppl-2" class="ppl-btn" style="flex:1; padding:10px; border-radius:10px; border:2px solid rgba(246,211,101,0.5); background:rgba(246,211,101,0.15); color:#f6d365; font-weight:800; font-size:0.9rem; cursor:pointer; font-family:'Noto Sans KR',sans-serif;">2명 👫</button>
-                <button onclick="setPeople(3)" id="ppl-3" class="ppl-btn" style="flex:1; padding:10px; border-radius:10px; border:2px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.05); color:#888; font-weight:800; font-size:0.9rem; cursor:pointer; font-family:'Noto Sans KR',sans-serif;">3명</button>
-                <button onclick="setPeople(4)" id="ppl-4" class="ppl-btn" style="flex:1; padding:10px; border-radius:10px; border:2px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.05); color:#888; font-weight:800; font-size:0.9rem; cursor:pointer; font-family:'Noto Sans KR',sans-serif;">4명</button>
-            </div>
-        </div>
-
         <!-- 팁 결과 -->
         <div id="tipResults" style="display:none;">
             <!-- 팁 % 버튼들 -->
@@ -122,7 +111,7 @@
 
             <!-- 선택 결과 -->
             <div id="tipSummary" style="display:none; background:rgba(79,172,254,0.08); border:2px solid rgba(79,172,254,0.3); border-radius:16px; padding:18px; margin-bottom:16px;">
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
                     <div style="text-align:center;">
                         <div style="font-size:0.72rem; color:#888;">음식값</div>
                         <div id="sum-bill" style="font-size:1rem; font-weight:800; color:#fff;">$0.00</div>
@@ -132,12 +121,8 @@
                         <div id="sum-tip" style="font-size:1rem; font-weight:800; color:#f6d365;">$0.00</div>
                     </div>
                     <div style="text-align:center;">
-                        <div style="font-size:0.72rem; color:#888;">총 결제</div>
-                        <div id="sum-total" style="font-size:1.2rem; font-weight:900; color:#4facfe;">$0.00</div>
-                    </div>
-                    <div style="text-align:center;">
-                        <div style="font-size:0.72rem; color:#888;">1인당</div>
-                        <div id="sum-perperson" style="font-size:1.2rem; font-weight:900; color:#69db7c;">$0.00</div>
+                        <div style="font-size:0.72rem; color:#888;">💳 총 결제</div>
+                        <div id="sum-total" style="font-size:1.3rem; font-weight:900; color:#4facfe;">$0.00</div>
                     </div>
                 </div>
             </div>
@@ -195,26 +180,7 @@
 </div>
 
 <script>
-    let people = 2;
     let selectedTipPct = null;
-
-    function setPeople(n) {
-        people = n;
-        [1,2,3,4].forEach(i => {
-            const btn = document.getElementById('ppl-' + i);
-            if (i === n) {
-                btn.style.borderColor = 'rgba(79,172,254,0.5)';
-                btn.style.background = 'rgba(79,172,254,0.15)';
-                btn.style.color = '#4facfe';
-            } else {
-                btn.style.borderColor = 'rgba(255,255,255,0.15)';
-                btn.style.background = 'rgba(255,255,255,0.05)';
-                btn.style.color = '#888';
-            }
-        });
-        calculateTip();
-        if (selectedTipPct) selectTip(selectedTipPct);
-    }
 
     function calculateTip() {
         const amount = parseFloat(document.getElementById('tipAmount').value) || 0;
@@ -239,13 +205,11 @@
 
         const tip = amount * pct / 100;
         const total = amount + tip;
-        const perPerson = total / people;
 
         document.getElementById('sum-bill').textContent = '$' + amount.toFixed(2);
         document.getElementById('sum-pct').textContent = pct;
         document.getElementById('sum-tip').textContent = '$' + tip.toFixed(2);
         document.getElementById('sum-total').textContent = '$' + total.toFixed(2);
-        document.getElementById('sum-perperson').textContent = '$' + perPerson.toFixed(2);
         document.getElementById('tipSummary').style.display = 'block';
 
         // Highlight selected
@@ -268,11 +232,7 @@
         document.getElementById('tipResults').style.display = 'none';
         document.getElementById('tipSummary').style.display = 'none';
         selectedTipPct = null;
-        setPeople(2);
     }
-
-    // Init with 2 people selected
-    setPeople(2);
 </script>
 
 </body>

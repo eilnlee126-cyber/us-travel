@@ -355,10 +355,10 @@
             <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <div>
-                        <div style="font-size:0.85rem; font-weight:700;">LAS → ATL (사우스웨스트)</div>
-                        <div style="font-size:0.72rem; color:#aaa;">12/10 · 2인 · 아고다 · 캐리온 포함</div>
+                        <div style="font-size:0.85rem; font-weight:700;">LAS → ATL (델타 DL466)</div>
+                        <div style="font-size:0.72rem; color:#aaa;">12/10 · 2인 · 메인 클래식 · 위탁 별도</div>
                     </div>
-                    <span style="font-weight:800; color:#4facfe;">₩337,051</span>
+                    <span style="font-weight:800; color:#4facfe;">$556.80</span>
                 </div>
             </div>
             <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
@@ -725,7 +725,7 @@ const db = getFirestore(app);
 
 (async function() {
     const HOTEL_USD = 996.72;
-    const FIXED_KRW = { flight: 1672600, returnFlight: 2174400, domestic_lax_las: 377700, domestic_las_atl: 337051, la: 1410999, vegas: 925681, atlanta: 1272344, nyc: 4527545 };
+    const FIXED_KRW = { flight: 1672600, returnFlight: 2174400, domestic_lax_las: 377700, domestic_las_atl: 760032, la: 1410999, vegas: 925681, atlanta: 1272344, nyc: 4527545 };
     const fmt = n => n.toLocaleString('ko-KR');
 
     function todayKey() {

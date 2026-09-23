@@ -267,12 +267,8 @@
                 <span style="background:rgba(79,172,254,0.15); color:#4facfe; font-size:0.68rem; font-weight:700; padding:3px 8px; border-radius:20px;">✅ 확정</span>
             </div>
             <div style="display:flex; align-items:center; justify-content:space-between; font-size:0.78rem;">
-                <span style="color:#aaa;">12/3~12/7 · 4박 · 아고다</span>
-                <span style="color:#f6d365; font-weight:800;">USD $996.72</span>
-            </div>
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:4px;">
-                <span id="idx-la-krw" style="font-size:0.7rem; color:#aaa;">환율 계산 중...</span>
-                <button onclick="event.preventDefault();event.stopPropagation();document.getElementById('idx-rate-modal').style.display='flex'" style="background:linear-gradient(135deg, #f093fb, #f5576c); color:#fff; border:none; border-radius:20px; padding:3px 10px; font-size:0.68rem; font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif;">📊 History</button>
+                <span style="color:#aaa;">12/3~12/7 · 4박 · 트립닷컴</span>
+                <span style="color:#f6d365; font-weight:800;">₩1,410,999</span>
             </div>
         </a>
 
@@ -386,12 +382,9 @@
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <div>
                         <div style="font-size:0.85rem; font-weight:700;">🌴 LA · Short Stories Hotel</div>
-                        <div style="font-size:0.72rem; color:#aaa;">4박 · 아고다 · $996.72</div>
+                        <div style="font-size:0.72rem; color:#aaa;">4박 · 트립닷컴</div>
                     </div>
-                    <span id="idx-la-budget" style="font-weight:800; color:#4facfe;">≈₩1,345,000</span>
-                </div>
-                <div style="display:flex; justify-content:flex-end; margin-top:6px;">
-                    <button onclick="document.getElementById('idx-rate-modal').style.display='flex'" style="background:linear-gradient(135deg, #f093fb, #f5576c); color:#fff; border:none; border-radius:20px; padding:3px 10px; font-size:0.68rem; font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif;">📊 History</button>
+                    <span style="font-weight:800; color:#4facfe;">₩1,410,999</span>
                 </div>
             </div>
             <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
@@ -723,7 +716,7 @@ const db = getFirestore(app);
 
 (async function() {
     const HOTEL_USD = 996.72;
-    const FIXED_KRW = { flight: 1672600, returnFlight: 2174400, domestic_las_atl: 337051, vegas: 925681, atlanta: 1272344, nyc: 4527545 };
+    const FIXED_KRW = { flight: 1672600, returnFlight: 2174400, domestic_las_atl: 337051, la: 1410999, vegas: 925681, atlanta: 1272344, nyc: 4527545 };
     const fmt = n => n.toLocaleString('ko-KR');
 
     function todayKey() {
@@ -799,15 +792,8 @@ const db = getFirestore(app);
         if (data.result === 'success' && data.rates && data.rates.KRW) {
             const rate = data.rates.KRW;
             const today = todayKey();
-            const laKrw = Math.round(rate * HOTEL_USD);
 
-            const laLabel = document.getElementById('idx-la-krw');
-            if (laLabel) laLabel.innerHTML = '오늘: <span style="color:#f6d365; font-weight:700;">₩' + fmt(laKrw) + '</span> ($1=₩' + fmt(Math.round(rate)) + ')';
-
-            const laBudget = document.getElementById('idx-la-budget');
-            if (laBudget) laBudget.textContent = '₩' + fmt(laKrw);
-
-            const hotelTotal = laKrw + FIXED_KRW.vegas + FIXED_KRW.atlanta + FIXED_KRW.nyc;
+            const hotelTotal = FIXED_KRW.la + FIXED_KRW.vegas + FIXED_KRW.atlanta + FIXED_KRW.nyc;
             const flightTotal = FIXED_KRW.flight + FIXED_KRW.returnFlight + FIXED_KRW.domestic_las_atl;
             const grandTotal = flightTotal + hotelTotal;
             const totalEl = document.getElementById('idx-total');
@@ -820,8 +806,6 @@ const db = getFirestore(app);
             renderHistory(hist);
         } else { throw new Error('fail'); }
     } catch(e) {
-        const laLabel = document.getElementById('idx-la-krw');
-        if (laLabel) laLabel.textContent = '환율 정보 불러오기 실패';
         const hist = await getHistory();
         renderHistory(hist);
     }

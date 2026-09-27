@@ -87,13 +87,131 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Route Visual */
-        .route-visual { background: white; border-radius: 24px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center; margin-bottom: 24px; }
-        .route-cities { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; font-size: 1rem; }
-        .route-city { padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; color: white; }
-        .route-city.west { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .route-city.east { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
-        .route-arrow { font-size: 1.2rem; color: #ccc; }
+        /* Animated Route Map */
+        .route-visual {
+            background: linear-gradient(180deg, #fbfdff 0%, #f3f8fc 100%);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .route-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .route-title-main {
+            font-size: 1rem;
+            font-weight: 900;
+            color: #4a4a4a;
+        }
+        .route-title-sub {
+            font-size: 0.72rem;
+            color: #9a9a9a;
+            font-weight: 600;
+        }
+        .route-map {
+            width: 100%;
+            display: block;
+            border-radius: 18px;
+            background: #eaf2f7;
+        }
+        .route-land {
+            fill: #fdfdfb;
+            stroke: #d8e0e5;
+            stroke-width: 2;
+        }
+        .route-line-shadow {
+            fill: none;
+            stroke: rgba(36, 136, 219, 0.18);
+            stroke-width: 13;
+            stroke-linecap: round;
+        }
+        .route-line {
+            fill: none;
+            stroke: #2488db;
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 9 8;
+            animation: routeDash 1.1s linear infinite;
+        }
+        @keyframes routeDash {
+            to { stroke-dashoffset: -17; }
+        }
+        .route-dot {
+            fill: #fff;
+            stroke: #2488db;
+            stroke-width: 5;
+        }
+        .route-dot-ring {
+            fill: rgba(36,136,219,0.10);
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: routePulse 2s ease-in-out infinite;
+        }
+        @keyframes routePulse {
+            0%,100% { transform: scale(0.75); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+        .route-city-label {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            font-size: 19px;
+            font-weight: 900;
+            fill: #2f3b45;
+        }
+        .route-date-label {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            fill: #84919b;
+        }
+        .route-plane-body {
+            fill: #1479c9;
+            stroke: #fff;
+            stroke-width: 1.6;
+            paint-order: stroke;
+            filter: drop-shadow(0 3px 3px rgba(20,121,201,0.3));
+        }
+        .route-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .route-stop {
+            padding: 9px 8px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.82);
+            border: 1px solid #e6edf2;
+            text-align: center;
+        }
+        .route-stop strong {
+            display: block;
+            font-size: 0.78rem;
+            color: #4a4a4a;
+            margin-bottom: 2px;
+        }
+        .route-stop span {
+            display: block;
+            font-size: 0.67rem;
+            color: #999;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            .route-visual { padding: 16px 12px; }
+            .route-title { align-items: flex-start; }
+            .route-title-sub { font-size: 0.66rem; text-align: right; }
+            .route-summary { grid-template-columns: repeat(2, 1fr); }
+            .route-city-label { font-size: 17px; }
+            .route-date-label { font-size: 12px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .route-line, .route-dot-ring { animation: none; }
+        }
 
         /* Calendar */
         .calendar-wrap {
@@ -318,17 +436,73 @@
 
     <!-- Overview Content -->
     <div class="route-visual">
-        <p style="font-weight:700; margin-bottom:14px; color:#666;">🛫 여행 루트</p>
-        <div class="route-cities">
-            <span class="route-city west">🌴 LA</span>
-            <span class="route-arrow">→</span>
-            <span class="route-city west">🎰 베가스</span>
-            <span class="route-arrow">→</span>
-            <span class="route-city east">🍑 애틀란타</span>
-            <span class="route-arrow">→</span>
-            <span class="route-city east">🗽 뉴욕</span>
-            <span class="route-arrow">→</span>
-            <span style="font-size:1.2rem;">🏠</span>
+        <div class="route-title">
+            <div class="route-title-main">✈️ 미국 여행 루트</div>
+            <div class="route-title-sub">LA → Vegas → Atlanta → New York</div>
+        </div>
+
+        <svg class="route-map" viewBox="0 0 1000 520" role="img" aria-label="LA에서 라스베가스, 애틀란타를 거쳐 뉴욕으로 이동하는 여행 경로">
+            <rect width="1000" height="520" rx="22" fill="#eaf2f7"></rect>
+
+            <!-- simplified continental US silhouette -->
+            <path class="route-land" d="M105 129
+                L161 96 L242 82 L302 91 L361 80 L433 92 L505 85 L573 103
+                L642 98 L700 115 L765 120 L823 153 L869 158 L902 191
+                L888 219 L861 231 L852 265 L823 281 L812 316 L775 328
+                L745 355 L709 363 L679 386 L632 382 L598 404 L541 398
+                L489 419 L423 409 L366 424 L302 408 L250 420 L202 398
+                L166 370 L143 331 L121 293 L104 245 L91 202 Z"></path>
+
+            <!-- travel path -->
+            <path class="route-line-shadow" d="M132 344
+                C164 314 190 290 224 270
+                C357 258 548 294 684 353
+                C742 318 793 264 840 205"></path>
+            <path id="usTravelPath" class="route-line" d="M132 344
+                C164 314 190 290 224 270
+                C357 258 548 294 684 353
+                C742 318 793 264 840 205"></path>
+
+            <!-- city markers -->
+            <g>
+                <circle class="route-dot-ring" cx="132" cy="344" r="16"></circle>
+                <circle class="route-dot" cx="132" cy="344" r="8"></circle>
+                <text class="route-city-label" x="101" y="384">LA</text>
+                <text class="route-date-label" x="82" y="405">12/3–12/7</text>
+            </g>
+            <g>
+                <circle class="route-dot-ring" cx="224" cy="270" r="16"></circle>
+                <circle class="route-dot" cx="224" cy="270" r="8"></circle>
+                <text class="route-city-label" x="188" y="235">Vegas</text>
+                <text class="route-date-label" x="180" y="253">12/7–12/10</text>
+            </g>
+            <g>
+                <circle class="route-dot-ring" cx="684" cy="353" r="16"></circle>
+                <circle class="route-dot" cx="684" cy="353" r="8"></circle>
+                <text class="route-city-label" x="642" y="394">Atlanta</text>
+                <text class="route-date-label" x="638" y="415">12/10–12/16</text>
+            </g>
+            <g>
+                <circle class="route-dot-ring" cx="840" cy="205" r="16"></circle>
+                <circle class="route-dot" cx="840" cy="205" r="8"></circle>
+                <text class="route-city-label" x="855" y="184">New York</text>
+                <text class="route-date-label" x="855" y="204">12/16–12/26</text>
+            </g>
+
+            <!-- moving airplane -->
+            <g>
+                <path class="route-plane-body" d="M0,-15 L5,-3 L18,1 L18,5 L5,4 L2,15 L-2,15 L-4,4 L-15,7 L-18,3 L-5,-3 L-4,-15 Z"></path>
+                <animateMotion dur="8s" repeatCount="indefinite" rotate="auto" keyTimes="0;0.18;0.63;1" keyPoints="0;0.13;0.72;1" calcMode="linear">
+                    <mpath href="#usTravelPath"></mpath>
+                </animateMotion>
+            </g>
+        </svg>
+
+        <div class="route-summary">
+            <div class="route-stop"><strong>🌴 LA</strong><span>12/3–12/7</span></div>
+            <div class="route-stop"><strong>🎰 Vegas</strong><span>12/7–12/10</span></div>
+            <div class="route-stop"><strong>🍑 Atlanta</strong><span>12/10–12/16</span></div>
+            <div class="route-stop"><strong>🗽 New York</strong><span>12/16–12/26</span></div>
         </div>
     </div>
 

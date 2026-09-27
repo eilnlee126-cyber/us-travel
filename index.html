@@ -441,58 +441,68 @@
             <div class="route-title-sub">LA → Vegas → Atlanta → New York</div>
         </div>
 
-        <svg class="route-map" viewBox="0 0 1000 520" role="img" aria-label="LA에서 라스베가스, 애틀란타를 거쳐 뉴욕으로 이동하는 여행 경로">
+                <svg class="route-map" viewBox="0 0 1000 520" role="img" aria-label="실제 위도와 경도를 기준으로 LA에서 라스베가스, 애틀란타, 뉴욕으로 이동하는 여행 경로">
             <rect width="1000" height="520" rx="22" fill="#eaf2f7"></rect>
 
-            <!-- simplified continental US silhouette -->
-            <path class="route-land" d="M105 129
-                L161 96 L242 82 L302 91 L361 80 L433 92 L505 85 L573 103
-                L642 98 L700 115 L765 120 L823 153 L869 158 L902 191
-                L888 219 L861 231 L852 265 L823 281 L812 316 L775 328
-                L745 355 L709 363 L679 386 L632 382 L598 404 L541 398
-                L489 419 L423 409 L366 424 L302 408 L250 420 L202 398
-                L166 370 L143 331 L121 293 L104 245 L91 202 Z"></path>
+            <!--
+              Continental US equirectangular projection:
+              lon -125..-66.5 -> x 80..920
+              lat 49.5..24.5 -> y 70..450
+              City points below are projected from real lat/lon.
+            -->
+            <path class="route-land" d="M84 87
+                L114 123 L91 184 L102 230 L117 260 L152 298 L193 328 L228 325
+                L255 341 L324 347 L345 340 L374 370 L439 428 L475 430 L496 397
+                L582 382 L604 364 L654 370 L697 412 L719 446 L725 412 L707 362
+                L733 326 L762 291 L790 245 L812 215 L855 192 L884 154 L862 131
+                L805 146 L740 169 L683 123 L611 108 L525 78 L367 78 L195 78 Z"></path>
 
-            <!-- travel path -->
-            <path class="route-line-shadow" d="M132 344
-                C164 314 190 290 224 270
-                C357 258 548 294 684 353
-                C742 318 793 264 840 205"></path>
-            <path id="usTravelPath" class="route-line" d="M132 344
-                C164 314 190 290 224 270
-                C357 258 548 294 684 353
-                C742 318 793 264 840 205"></path>
+            <!-- route through projected city coordinates -->
+            <path class="route-line-shadow" d="M177 305
+                C190 295 207 282 222 273
+                C365 252 537 277 663 309
+                C715 294 766 247 812 204"></path>
+            <path id="usTravelPath" class="route-line" d="M177 305
+                C190 295 207 282 222 273
+                C365 252 537 277 663 309
+                C715 294 766 247 812 204"></path>
 
-            <!-- city markers -->
+            <!-- LA: 34.0522, -118.2437 -->
             <g>
-                <circle class="route-dot-ring" cx="132" cy="344" r="16"></circle>
-                <circle class="route-dot" cx="132" cy="344" r="8"></circle>
-                <text class="route-city-label" x="101" y="384">LA</text>
-                <text class="route-date-label" x="82" y="405">12/3–12/7</text>
+                <circle class="route-dot-ring" cx="177" cy="305" r="16"></circle>
+                <circle class="route-dot" cx="177" cy="305" r="8"></circle>
+                <text class="route-city-label" x="133" y="342">LA</text>
+                <text class="route-date-label" x="116" y="362">12/3–12/7</text>
             </g>
+
+            <!-- Las Vegas: 36.1699, -115.1398 -->
             <g>
-                <circle class="route-dot-ring" cx="224" cy="270" r="16"></circle>
-                <circle class="route-dot" cx="224" cy="270" r="8"></circle>
-                <text class="route-city-label" x="188" y="235">Vegas</text>
-                <text class="route-date-label" x="180" y="253">12/7–12/10</text>
+                <circle class="route-dot-ring" cx="222" cy="273" r="16"></circle>
+                <circle class="route-dot" cx="222" cy="273" r="8"></circle>
+                <text class="route-city-label" x="232" y="248">Vegas</text>
+                <text class="route-date-label" x="232" y="267">12/7–12/10</text>
             </g>
+
+            <!-- Atlanta: 33.7490, -84.3880 -->
             <g>
-                <circle class="route-dot-ring" cx="684" cy="353" r="16"></circle>
-                <circle class="route-dot" cx="684" cy="353" r="8"></circle>
-                <text class="route-city-label" x="642" y="394">Atlanta</text>
-                <text class="route-date-label" x="638" y="415">12/10–12/16</text>
+                <circle class="route-dot-ring" cx="663" cy="309" r="16"></circle>
+                <circle class="route-dot" cx="663" cy="309" r="8"></circle>
+                <text class="route-city-label" x="620" y="347">Atlanta</text>
+                <text class="route-date-label" x="616" y="367">12/10–12/16</text>
             </g>
+
+            <!-- New York: 40.7128, -74.0060 -->
             <g>
-                <circle class="route-dot-ring" cx="840" cy="205" r="16"></circle>
-                <circle class="route-dot" cx="840" cy="205" r="8"></circle>
-                <text class="route-city-label" x="855" y="184">New York</text>
-                <text class="route-date-label" x="855" y="204">12/16–12/26</text>
+                <circle class="route-dot-ring" cx="812" cy="204" r="16"></circle>
+                <circle class="route-dot" cx="812" cy="204" r="8"></circle>
+                <text class="route-city-label" x="828" y="182">New York</text>
+                <text class="route-date-label" x="828" y="201">12/16–12/26</text>
             </g>
 
             <!-- moving airplane -->
             <g>
                 <path class="route-plane-body" d="M0,-15 L5,-3 L18,1 L18,5 L5,4 L2,15 L-2,15 L-4,4 L-15,7 L-18,3 L-5,-3 L-4,-15 Z"></path>
-                <animateMotion dur="8s" repeatCount="indefinite" rotate="auto" keyTimes="0;0.18;0.63;1" keyPoints="0;0.13;0.72;1" calcMode="linear">
+                <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
                     <mpath href="#usTravelPath"></mpath>
                 </animateMotion>
             </g>

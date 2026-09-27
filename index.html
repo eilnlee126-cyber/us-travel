@@ -96,43 +96,150 @@
         .route-arrow { font-size: 1.2rem; color: #ccc; }
 
         /* Calendar */
-        .calendar-wrap { background: white; border-radius: 24px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 24px; }
+        .calendar-wrap {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+        }
         .calendar-title { text-align: center; font-size: 1.2rem; font-weight: 900; margin-bottom: 4px; }
         .calendar-sub { text-align: center; font-size: 0.85rem; color: #999; margin-bottom: 18px; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+
+        .calendar-dow-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-bottom: 6px;
+        }
         .cal-dow { text-align: center; font-size: 0.75rem; font-weight: 700; color: #aaa; padding-bottom: 4px; }
         .cal-dow.sun { color: #f5576c; }
         .cal-dow.sat { color: #4facfe; }
-        .cal-cell { aspect-ratio: 1 / 1; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; background: #f7f7f7; color: #ccc; position: relative; }
-        .cal-cell.empty { background: transparent; }
-        .cal-cell .cal-num { font-size: 0.9rem; }
-        .cal-cell.trip { color: #fff; }
-        .cal-cell.la { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .cal-cell.vegas { background: linear-gradient(135deg, #f6d365, #fda085); }
-        .cal-cell.atlanta { background: linear-gradient(135deg, #4facfe, #00c6fb); }
-        .cal-cell.nyc { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .cal-cell.xmas { box-shadow: 0 0 0 3px #ffd700, 0 4px 12px rgba(255,215,0,0.5); }
 
-        /* Trip Bars */
-        .trip-bars { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
-        .trip-bar { display: grid; grid-template-columns: 100px 1fr auto; align-items: center; gap: 12px; }
-        .bar-label .bar-city { font-size: 0.85rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; color: #fff; white-space: nowrap; display: inline-block; }
-        .bar-city.la { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .bar-city.vegas { background: linear-gradient(135deg, #f6d365, #fda085); color: #7a4a00; }
-        .bar-city.atlanta { background: linear-gradient(135deg, #4facfe, #00c6fb); }
-        .bar-city.nyc { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .bar-line { display: flex; align-items: center; gap: 2px; font-weight: 900; }
-        .bar-line .bar-arrow { font-size: 0.9rem; }
-        .bar-line .bar-track { flex: 1; height: 6px; border-radius: 6px; }
-        .bar-line.la { color: #f5576c; } .bar-line.la .bar-track { background: linear-gradient(90deg, #f093fb, #f5576c); }
-        .bar-line.vegas { color: #fda085; } .bar-line.vegas .bar-track { background: linear-gradient(90deg, #f6d365, #fda085); }
-        .bar-line.atlanta { color: #4facfe; } .bar-line.atlanta .bar-track { background: linear-gradient(90deg, #4facfe, #00c6fb); }
-        .bar-line.nyc { color: #764ba2; } .bar-line.nyc .bar-track { background: linear-gradient(90deg, #667eea, #764ba2); }
-        .bar-range { font-size: 0.78rem; font-weight: 600; color: #888; white-space: nowrap; }
+        .calendar-weeks {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .calendar-week {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            grid-template-rows: 34px 22px 22px;
+            column-gap: 6px;
+            row-gap: 4px;
+            min-height: 86px;
+            padding: 6px 0;
+            border-radius: 14px;
+            background: #fbfbfb;
+        }
+        .cal-cell {
+            grid-row: 1;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: #f2f2f2;
+            color: #bbb;
+            position: relative;
+            min-width: 0;
+        }
+        .cal-cell.empty { background: transparent; }
+        .cal-cell.trip-day {
+            background: #fff;
+            color: #555;
+            border: 1px solid #ededed;
+        }
+        .cal-cell .cal-num { font-size: 0.9rem; }
+        .cal-cell.xmas {
+            color: #b8860b;
+            border-color: #ffd76a;
+            box-shadow: inset 0 0 0 1px #ffe6a6;
+        }
+        .cal-cell.xmas::after {
+            content: "🎄";
+            position: absolute;
+            top: -5px;
+            right: -3px;
+            font-size: 0.66rem;
+        }
+
+        /* Calendar trip timeline */
+        .week-trip {
+            height: 22px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 8px;
+            font-size: 0.68rem;
+            font-weight: 900;
+            white-space: nowrap;
+            min-width: 0;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+            z-index: 2;
+        }
+        .week-trip.lane-1 { grid-row: 2; }
+        .week-trip.lane-2 { grid-row: 3; }
+        .week-trip.la {
+            background: linear-gradient(90deg, rgba(240,147,251,0.22), rgba(245,87,108,0.24));
+            color: #d94268;
+            border: 1px solid rgba(245,87,108,0.28);
+        }
+        .week-trip.vegas {
+            background: linear-gradient(90deg, rgba(246,211,101,0.34), rgba(253,160,133,0.30));
+            color: #9a6100;
+            border: 1px solid rgba(253,160,133,0.38);
+        }
+        .week-trip.atlanta {
+            background: linear-gradient(90deg, rgba(79,172,254,0.23), rgba(0,198,251,0.22));
+            color: #1479b8;
+            border: 1px solid rgba(79,172,254,0.32);
+        }
+        .week-trip.nyc {
+            background: linear-gradient(90deg, rgba(102,126,234,0.20), rgba(118,75,162,0.22));
+            color: #6046a3;
+            border: 1px solid rgba(118,75,162,0.30);
+        }
+        .trip-arrow { opacity: 0.72; font-size: 0.72rem; }
+
+        .calendar-note {
+            margin-top: 14px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: #faf7ff;
+            color: #777;
+            text-align: center;
+            font-size: 0.76rem;
+            line-height: 1.55;
+        }
+        .calendar-note strong { color: #5e4b92; }
+
         @media (max-width: 600px) {
-            .trip-bar { grid-template-columns: 80px 1fr; grid-template-areas: "label line" "range range"; row-gap: 4px; }
-            .bar-label { grid-area: label; } .bar-line { grid-area: line; } .bar-range { grid-area: range; text-align: right; }
-            .bar-label .bar-city { font-size: 0.78rem; padding: 3px 8px; }
+            .calendar-wrap { padding: 18px 12px; }
+            .calendar-dow-grid { gap: 3px; }
+            .calendar-weeks { gap: 4px; }
+            .calendar-week {
+                column-gap: 3px;
+                grid-template-rows: 31px 20px 20px;
+                row-gap: 3px;
+                min-height: 79px;
+                padding: 5px 0;
+            }
+            .cal-cell { font-size: 0.73rem; border-radius: 7px; }
+            .cal-cell .cal-num { font-size: 0.82rem; }
+            .week-trip {
+                height: 20px;
+                padding: 0 4px;
+                gap: 2px;
+                font-size: 0.58rem;
+                border-radius: 6px;
+            }
+            .trip-arrow { font-size: 0.62rem; }
+            .calendar-note { font-size: 0.7rem; }
         }
 
         .section-title { font-size: 1.3rem; font-weight: 900; margin-bottom: 16px; }
@@ -434,7 +541,7 @@
     <div class="calendar-wrap">
         <div class="calendar-title">🗓️ 2026년 12월</div>
         <div class="calendar-sub">12/3 출발 ~ 12/26 귀국 · 크리스마스는 뉴욕에서 🎄</div>
-        <div class="calendar-grid">
+        <div class="calendar-dow-grid">
             <div class="cal-dow sun">일</div>
             <div class="cal-dow">월</div>
             <div class="cal-dow">화</div>
@@ -442,68 +549,93 @@
             <div class="cal-dow">목</div>
             <div class="cal-dow">금</div>
             <div class="cal-dow sat">토</div>
-
-            <div class="cal-cell empty"></div>
-            <div class="cal-cell empty"></div>
-            <div class="cal-cell"><span class="cal-num">1</span></div>
-            <div class="cal-cell"><span class="cal-num">2</span></div>
-            <div class="cal-cell trip la"><span class="cal-num">3</span></div>
-            <div class="cal-cell trip la"><span class="cal-num">4</span></div>
-            <div class="cal-cell trip la"><span class="cal-num">5</span></div>
-
-            <div class="cal-cell trip la"><span class="cal-num">6</span></div>
-            <div class="cal-cell trip vegas"><span class="cal-num">7</span></div>
-            <div class="cal-cell trip vegas"><span class="cal-num">8</span></div>
-            <div class="cal-cell trip vegas"><span class="cal-num">9</span></div>
-            <div class="cal-cell trip atlanta"><span class="cal-num">10</span></div>
-            <div class="cal-cell trip atlanta"><span class="cal-num">11</span></div>
-            <div class="cal-cell trip atlanta"><span class="cal-num">12</span></div>
-
-            <div class="cal-cell trip atlanta"><span class="cal-num">13</span></div>
-            <div class="cal-cell trip atlanta"><span class="cal-num">14</span></div>
-            <div class="cal-cell trip atlanta"><span class="cal-num">15</span></div>
-            <div class="cal-cell trip nyc"><span class="cal-num">16</span></div>
-            <div class="cal-cell trip nyc"><span class="cal-num">17</span></div>
-            <div class="cal-cell trip nyc"><span class="cal-num">18</span></div>
-            <div class="cal-cell trip nyc"><span class="cal-num">19</span></div>
-
-            <div class="cal-cell trip nyc"><span class="cal-num">20</span></div>
-            <div class="cal-cell trip nyc"><span class="cal-num">21</span></div>
-            <div class="cal-cell trip nyc"><span class="cal-num">22</span></div>
-            <div class="cal-cell trip nyc"><span class="cal-num">23</span></div>
-            <div class="cal-cell trip nyc"><span class="cal-num">24</span></div>
-            <div class="cal-cell trip nyc xmas"><span class="cal-num">25</span></div>
-            <div class="cal-cell trip nyc"><span class="cal-num">26</span></div>
-
-            <div class="cal-cell"><span class="cal-num">27</span></div>
-            <div class="cal-cell"><span class="cal-num">28</span></div>
-            <div class="cal-cell"><span class="cal-num">29</span></div>
-            <div class="cal-cell"><span class="cal-num">30</span></div>
-            <div class="cal-cell"><span class="cal-num">31</span></div>
         </div>
 
-        <!-- 도시별 기간 바 -->
-        <div class="trip-bars">
-            <div class="trip-bar">
-                <div class="bar-label"><span class="bar-city la">🌴 LA</span></div>
-                <div class="bar-line la"><span class="bar-arrow">&lt;</span><span class="bar-track"></span><span class="bar-arrow">&gt;</span></div>
-                <div class="bar-range">12/3 ~ 12/7 · 4박 5일</div>
+        <div class="calendar-weeks">
+            <!-- 12/1 ~ 12/5 -->
+            <div class="calendar-week">
+                <div class="cal-cell empty" style="grid-column:1;"></div>
+                <div class="cal-cell empty" style="grid-column:2;"></div>
+                <div class="cal-cell" style="grid-column:3;"><span class="cal-num">1</span></div>
+                <div class="cal-cell" style="grid-column:4;"><span class="cal-num">2</span></div>
+                <div class="cal-cell trip-day" style="grid-column:5;"><span class="cal-num">3</span></div>
+                <div class="cal-cell trip-day" style="grid-column:6;"><span class="cal-num">4</span></div>
+                <div class="cal-cell trip-day" style="grid-column:7;"><span class="cal-num">5</span></div>
+
+                <div class="week-trip la lane-1" style="grid-column:5 / 8;">
+                    <span>🌴 LA</span><span class="trip-arrow">→</span>
+                </div>
             </div>
-            <div class="trip-bar">
-                <div class="bar-label"><span class="bar-city vegas">🎰 베가스</span></div>
-                <div class="bar-line vegas"><span class="bar-arrow">&lt;</span><span class="bar-track"></span><span class="bar-arrow">&gt;</span></div>
-                <div class="bar-range">12/7 ~ 12/10 · 3박 4일</div>
+
+            <!-- 12/6 ~ 12/12 : 7일 LA→Vegas, 10일 Vegas→Atlanta -->
+            <div class="calendar-week">
+                <div class="cal-cell trip-day" style="grid-column:1;"><span class="cal-num">6</span></div>
+                <div class="cal-cell trip-day" style="grid-column:2;"><span class="cal-num">7</span></div>
+                <div class="cal-cell trip-day" style="grid-column:3;"><span class="cal-num">8</span></div>
+                <div class="cal-cell trip-day" style="grid-column:4;"><span class="cal-num">9</span></div>
+                <div class="cal-cell trip-day" style="grid-column:5;"><span class="cal-num">10</span></div>
+                <div class="cal-cell trip-day" style="grid-column:6;"><span class="cal-num">11</span></div>
+                <div class="cal-cell trip-day" style="grid-column:7;"><span class="cal-num">12</span></div>
+
+                <div class="week-trip la lane-1" style="grid-column:1 / 3;">
+                    <span class="trip-arrow">←</span><span>LA</span>
+                </div>
+                <div class="week-trip vegas lane-2" style="grid-column:2 / 6;">
+                    <span class="trip-arrow">←</span><span>🎰 VEGAS</span><span class="trip-arrow">→</span>
+                </div>
+                <div class="week-trip atlanta lane-1" style="grid-column:5 / 8;">
+                    <span>🍑 ATLANTA</span><span class="trip-arrow">→</span>
+                </div>
             </div>
-            <div class="trip-bar">
-                <div class="bar-label"><span class="bar-city atlanta">🍑 애틀란타</span></div>
-                <div class="bar-line atlanta"><span class="bar-arrow">&lt;</span><span class="bar-track"></span><span class="bar-arrow">&gt;</span></div>
-                <div class="bar-range">12/10 ~ 12/16 · 6박 7일</div>
+
+            <!-- 12/13 ~ 12/19 : 16일 Atlanta→New York -->
+            <div class="calendar-week">
+                <div class="cal-cell trip-day" style="grid-column:1;"><span class="cal-num">13</span></div>
+                <div class="cal-cell trip-day" style="grid-column:2;"><span class="cal-num">14</span></div>
+                <div class="cal-cell trip-day" style="grid-column:3;"><span class="cal-num">15</span></div>
+                <div class="cal-cell trip-day" style="grid-column:4;"><span class="cal-num">16</span></div>
+                <div class="cal-cell trip-day" style="grid-column:5;"><span class="cal-num">17</span></div>
+                <div class="cal-cell trip-day" style="grid-column:6;"><span class="cal-num">18</span></div>
+                <div class="cal-cell trip-day" style="grid-column:7;"><span class="cal-num">19</span></div>
+
+                <div class="week-trip atlanta lane-1" style="grid-column:1 / 5;">
+                    <span class="trip-arrow">←</span><span>ATLANTA</span>
+                </div>
+                <div class="week-trip nyc lane-2" style="grid-column:4 / 8;">
+                    <span>🗽 NEW YORK</span><span class="trip-arrow">→</span>
+                </div>
             </div>
-            <div class="trip-bar">
-                <div class="bar-label"><span class="bar-city nyc">🗽 뉴욕</span></div>
-                <div class="bar-line nyc"><span class="bar-arrow">&lt;</span><span class="bar-track"></span><span class="bar-arrow">&gt;</span></div>
-                <div class="bar-range">12/16 ~ 12/26 · 10박 11일 🎄</div>
+
+            <!-- 12/20 ~ 12/26 -->
+            <div class="calendar-week">
+                <div class="cal-cell trip-day" style="grid-column:1;"><span class="cal-num">20</span></div>
+                <div class="cal-cell trip-day" style="grid-column:2;"><span class="cal-num">21</span></div>
+                <div class="cal-cell trip-day" style="grid-column:3;"><span class="cal-num">22</span></div>
+                <div class="cal-cell trip-day" style="grid-column:4;"><span class="cal-num">23</span></div>
+                <div class="cal-cell trip-day" style="grid-column:5;"><span class="cal-num">24</span></div>
+                <div class="cal-cell trip-day xmas" style="grid-column:6;"><span class="cal-num">25</span></div>
+                <div class="cal-cell trip-day" style="grid-column:7;"><span class="cal-num">26</span></div>
+
+                <div class="week-trip nyc lane-1" style="grid-column:1 / 8;">
+                    <span class="trip-arrow">←</span><span>🗽 NEW YORK</span><span class="trip-arrow">→</span>
+                </div>
             </div>
+
+            <!-- 12/27 ~ 12/31 -->
+            <div class="calendar-week">
+                <div class="cal-cell" style="grid-column:1;"><span class="cal-num">27</span></div>
+                <div class="cal-cell" style="grid-column:2;"><span class="cal-num">28</span></div>
+                <div class="cal-cell" style="grid-column:3;"><span class="cal-num">29</span></div>
+                <div class="cal-cell" style="grid-column:4;"><span class="cal-num">30</span></div>
+                <div class="cal-cell" style="grid-column:5;"><span class="cal-num">31</span></div>
+                <div class="cal-cell empty" style="grid-column:6;"></div>
+                <div class="cal-cell empty" style="grid-column:7;"></div>
+            </div>
+        </div>
+
+        <div class="calendar-note">
+            ✈️ 이동일은 두 도시가 <strong>겹쳐서 표시</strong>돼요 ·
+            12/7 LA→Vegas · 12/10 Vegas→Atlanta · 12/16 Atlanta→New York
         </div>
     </div>
 

@@ -84,3 +84,15 @@ test('invalid dates, malformed cache, and untrusted remote documents are rejecte
     assert.throws(() => decodeState(JSON.stringify(malformed)));
     assert.equal(activeEntries(applyRemote(emptyState(), [entry({ city: 'unknown' }), entry({ priceCents: -1 })])).length, 0);
 });
+
+test('cash/card choices persist while older records remain readable', () => {
+    let state = queueEntry(emptyState(), entry());
+    assert.equal(activeEntries(decodeState(JSON.stringify(state)))[0].paymentMethod, undefined);
+    state = queueEntry(state, entry({ paymentMethod: 'cash', mutationId: 'cash-edit' }));
+    assert.equal(activeEntries(decodeState(JSON.stringify(state)))[0].paymentMethod, 'cash');
+    state = acknowledge(state, 'expense-1', 'cash-edit');
+    state = applyRemote(state, [entry({ paymentMethod: 'card', mutationId: 'card-edit' })]);
+    assert.equal(activeEntries(state)[0].paymentMethod, 'card');
+    assert.equal(validEntry(entry({ paymentMethod: 'other' })), false);
+    assert.deepEqual(totals(activeEntries(state)), { priceCents: 1234, tipCents: 222, count: 1 });
+});

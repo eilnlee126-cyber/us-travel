@@ -93,6 +93,14 @@ input, select, textarea { width: 100%; min-width: 0; border: 1px solid #dcd8e5; 
 input[type="date"] { appearance: none; -webkit-appearance: none; }
 textarea { resize: vertical; }
 .field-hint { color: #77717d; font-size: .69rem; font-weight: 400; }
+.payment-method { margin: 18px 0 0; padding: 0; border: 0; min-inline-size: 0; }
+.payment-method legend { padding: 0; margin-bottom: 8px; font-size: .81rem; font-weight: 600; }
+.payment-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.payment-choice { position: relative; display: flex; align-items: center; justify-content: center; min-height: 48px; border: 1px solid #dcd8e5; border-radius: 11px; background: #fff; color: #686377; cursor: pointer; padding: 10px 6px; }
+.payment-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; min-height: 0; padding: 0; border: 0; }
+.payment-choice:has(input:checked) { border-color: #5c55a5; background: #eeebfa; color: #49417d; box-shadow: inset 0 0 0 1px #5c55a5; }
+.payment-choice:has(input:focus-visible) { outline: 3px solid #6861ca; outline-offset: 3px; }
+.expense-row .payment-badge { display: inline-block; padding: 2px 7px; border-radius: 6px; background: #f2eff8; color: #514786; margin-top: 6px; }
 .tip-presets { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 16px; font-size: .75rem; }
 .tip-presets button { background: #f3f1fa; border: 1px solid #e7e2f1; padding: 8px 12px; border-radius: 10px; color: #514786; min-height: 44px; }
 .note-label { margin-top: 18px; }

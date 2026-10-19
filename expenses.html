@@ -54,6 +54,13 @@
                 <label>Price · 금액 ($)<input id="expense-price" name="price" type="number" inputmode="decimal" min="0" max="999999.99" step="0.01" placeholder="0.00" required><span class="field-hint">세금 포함 · 팁 제외</span></label>
                 <label>Tip · 팁 ($)<input id="expense-tip" name="tip" type="number" inputmode="decimal" min="0" max="999999.99" step="0.01" value="0" required><span class="field-hint">팁이 없으면 0</span></label>
             </div>
+            <fieldset class="payment-method">
+                <legend>결제수단</legend>
+                <div class="payment-options">
+                    <label class="payment-choice"><input type="radio" name="paymentMethod" value="cash" required><span>💵 Cash · 현금</span></label>
+                    <label class="payment-choice"><input type="radio" name="paymentMethod" value="card" required><span>💳 Card · 카드</span></label>
+                </div>
+            </fieldset>
             <div class="tip-presets" aria-label="팁 빠른 계산"><span>팁 빠르게</span><button type="button" data-tip="0">없음</button><button type="button" data-tip="15">15%</button><button type="button" data-tip="18">18%</button><button type="button" data-tip="20">20%</button></div>
             <p class="field-hint">% 버튼은 입력한 Price 기준으로 계산해요. 실제 지불한 팁으로 수정할 수 있어요.</p>
             <label class="note-label">메모 <span class="field-hint">선택</span><textarea id="expense-note" name="note" rows="2" maxlength="1000" placeholder="무엇을 샀는지, 누가 결제했는지 등"></textarea></label>

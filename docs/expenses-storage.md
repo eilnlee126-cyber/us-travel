@@ -5,6 +5,8 @@ The four destinations are LA/California, Las Vegas/Nevada, Atlanta/Georgia, and
 New York/New York. All amounts are USD, stored as integer cents. Price includes
 tax and excludes tip; totals include both. Existing itinerary estimates are not
 imported as expenses.
+Each new expense stores a `paymentMethod` of `cash` or `card`. Existing records
+without that field remain readable and display 결제수단 미지정 until edited.
 
 ## Persistence and sharing
 
@@ -49,7 +51,7 @@ match /tripExpenses2026/{expenseId} {
     return d.keys().hasAll(['id', 'mutationId', 'city', 'category', 'date',
              'merchant', 'note', 'priceCents', 'tipCents', 'deleted', 'updatedAt'])
       && d.keys().hasOnly(['id', 'mutationId', 'city', 'category', 'date',
-             'merchant', 'note', 'priceCents', 'tipCents', 'deleted', 'updatedAt'])
+             'merchant', 'note', 'priceCents', 'tipCents', 'deleted', 'updatedAt', 'paymentMethod'])
       && d.id == expenseId
       && d.id is string && d.id.matches('^[a-zA-Z0-9_-]{1,100}$')
       && !(d.id in ['__proto__', 'constructor', 'prototype'])
@@ -59,6 +61,7 @@ match /tripExpenses2026/{expenseId} {
       && d.date is string && d.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
       && d.merchant is string && d.merchant.size() > 0 && d.merchant.size() <= 120
       && d.note is string && d.note.size() <= 1000
+      && (!('paymentMethod' in d) || d.paymentMethod in ['cash', 'card'])
       && d.priceCents is int && d.priceCents >= 0 && d.priceCents <= 99999999
       && d.tipCents is int && d.tipCents >= 0 && d.tipCents <= 99999999
       && d.priceCents + d.tipCents > 0

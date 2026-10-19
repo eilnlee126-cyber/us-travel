@@ -118,6 +118,8 @@ function render() {
                     row.setAttribute('aria-label', `${entry.date} ${entry.merchant}, ${money(entry.priceCents + entry.tipCents)}, 상세 및 수정`);
                     const description = element('span');
                     description.append(element('strong', '', entry.merchant), element('small', '', `${entry.date} · 상세 / 수정${state.pending[entry.id] ? ' · 공유 대기' : ''}`));
+                    description.append(element('small', 'payment-badge', entry.paymentMethod === 'cash' ? '💵 Cash · 현금'
+                        : entry.paymentMethod === 'card' ? '💳 Card · 카드' : '결제수단 미지정'));
                     if (entry.note) description.append(element('small', 'expense-note', entry.note));
                     const amount = element('span', 'expense-money');
                     amount.append(element('strong', '', money(entry.priceCents + entry.tipCents)), element('small', '', `Price ${money(entry.priceCents)} · Tip ${money(entry.tipCents)}`));
@@ -168,6 +170,9 @@ function openForm(cityId, entry = null, trigger = null) {
     $('expense-price').value = entry ? (entry.priceCents / 100).toFixed(2) : '';
     $('expense-tip').value = entry ? (entry.tipCents / 100).toFixed(2) : '0';
     $('expense-note').value = entry?.note || '';
+    for (const radio of form.querySelectorAll('input[name="paymentMethod"]')) {
+        radio.checked = radio.value === (entry ? entry.paymentMethod : 'card');
+    }
     $('delete-expense').hidden = !entry;
     $('save-expense').textContent = entry ? '수정 저장' : '저장';
     $('form-error').hidden = true;
@@ -204,12 +209,14 @@ form.addEventListener('submit', event => {
         if (priceCents + tipCents <= 0) throw new Error('금액과 팁의 합계가 0보다 커야 해요.');
         const date = $('expense-date').value;
         const merchant = $('expense-merchant').value.trim();
+        const paymentMethod = form.elements.namedItem('paymentMethod').value;
+        if (!['cash', 'card'].includes(paymentMethod)) throw new Error('Cash 또는 Card를 선택해 주세요.');
         if (!merchant) throw new Error('사용처를 입력해 주세요.');
         if (!validDate(date)) throw new Error('올바른 날짜를 입력해 주세요.');
         if (editingId && (!state.records[editingId] || state.records[editingId].deleted)) throw new Error('다른 기기에서 삭제한 기록이에요. 창을 닫고 다시 확인해 주세요.');
         commit({ id: editingId || crypto.randomUUID(), mutationId: crypto.randomUUID(), city: $('expense-city').value,
             category: $('expense-category').value, date, merchant, priceCents, tipCents,
-            note: $('expense-note').value.trim(), deleted: false, updatedAt: new Date().toISOString() });
+            note: $('expense-note').value.trim(), paymentMethod, deleted: false, updatedAt: new Date().toISOString() });
         closeForm();
     } catch (error) { reportFormError(error); }
 });

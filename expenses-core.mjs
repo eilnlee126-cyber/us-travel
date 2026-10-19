@@ -41,6 +41,8 @@ export function validEntry(entry) {
         && typeof entry.date === 'string' && validDate(entry.date)
         && typeof entry.merchant === 'string' && entry.merchant.trim().length > 0 && entry.merchant.length <= 120
         && typeof entry.note === 'string' && entry.note.length <= 1000
+        // Older records do not have a payment method; keep them readable.
+        && (entry.paymentMethod === undefined || ['cash', 'card'].includes(entry.paymentMethod))
         && [entry.priceCents, entry.tipCents].every(value => Number.isSafeInteger(value) && value >= 0 && value <= MAX_CENTS)
         && entry.priceCents + entry.tipCents > 0 && typeof entry.deleted === 'boolean'
         && typeof entry.updatedAt === 'string' && Number.isFinite(Date.parse(entry.updatedAt));

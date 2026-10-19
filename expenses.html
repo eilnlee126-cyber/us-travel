@@ -37,7 +37,7 @@
 
         <div class="sync-bar"><p id="sync-status" role="status" aria-live="polite">저장된 기록을 불러오는 중…</p><button type="button" id="retry-sync" class="text-button">다시 연결</button></div>
         <p class="error-banner" id="storage-error" role="alert" hidden></p>
-        <p class="guide">지역별로 쌓이는 지출을 한눈에 확인해요. <strong>카테고리를 누르면 사용처와 상세 내역</strong>이 펼쳐져요.</p>
+        <p class="guide">지역별로 쌓이는 지출을 한눈에 확인해요. <strong>카테고리를 펼치면 사용처와 수정·삭제 버튼</strong>이 보여요.</p>
         <div id="city-ledgers" class="city-ledgers"></div>
         <p class="footnote">직접 입력한 지출만 합산돼요. 기존 일정에 있는 항공·숙소 예약금은 자동으로 더하지 않아요.<br>공유 저장된 기록은 이 여행 페이지에 접속한 사람과 함께 보는 내역이에요.</p>
         <noscript><p class="error-banner">가계부를 사용하려면 브라우저의 JavaScript를 켜 주세요.</p></noscript>
@@ -66,6 +66,7 @@
     <dialog id="delete-dialog" aria-labelledby="delete-title">
         <h2 id="delete-title">이 지출을 삭제할까요?</h2>
         <p id="delete-description"></p>
+        <p id="delete-error" class="form-error" role="alert" hidden></p>
         <div class="dialog-actions"><button type="button" id="cancel-delete" class="button secondary">취소</button><button type="button" id="confirm-delete" class="button danger-solid">삭제</button></div>
     </dialog>
 </body>

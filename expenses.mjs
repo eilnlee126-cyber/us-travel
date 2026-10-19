@@ -7,6 +7,8 @@ const dialog = $('expense-dialog');
 let state = emptyState();
 let editingId = null;
 let sourceButton = null;
+let deletingId = null;
+let deleteSourceButton = null;
 let sync = null;
 let connected = false;
 let connectionError = false;
@@ -109,6 +111,7 @@ function render() {
                 const content = element('div', 'category-detail');
                 content.append(element('p', 'category-subtotal', `팁 포함 ${money(categoryTotal.priceCents + categoryTotal.tipCents)}`));
                 for (const entry of matching) {
+                    const item = element('div', 'expense-item');
                     const row = element('button', 'expense-row');
                     row.type = 'button';
                     row.dataset.focusKey = entry.id;
@@ -120,7 +123,20 @@ function render() {
                     amount.append(element('strong', '', money(entry.priceCents + entry.tipCents)), element('small', '', `Price ${money(entry.priceCents)} · Tip ${money(entry.tipCents)}`));
                     row.append(description, amount);
                     row.addEventListener('click', () => openForm(entry.city, entry, row));
-                    content.append(row);
+                    const actions = element('div', 'expense-actions');
+                    const edit = element('button', 'expense-action edit-action', '수정');
+                    edit.type = 'button';
+                    edit.dataset.focusKey = `${entry.id}_edit`;
+                    edit.setAttribute('aria-label', `${entry.merchant} 지출 수정`);
+                    edit.addEventListener('click', () => openForm(entry.city, entry, edit));
+                    const remove = element('button', 'expense-action delete-action', '삭제');
+                    remove.type = 'button';
+                    remove.dataset.focusKey = `${entry.id}_delete`;
+                    remove.setAttribute('aria-label', `${entry.merchant} 지출 삭제`);
+                    remove.addEventListener('click', () => requestDelete(entry, remove));
+                    actions.append(edit, remove);
+                    item.append(row, actions);
+                    content.append(item);
                 }
                 details.append(summary, content);
                 card.append(details);
@@ -215,22 +231,35 @@ dialog.addEventListener('close', () => {
     const target = sourceButton?.isConnected ? sourceButton : key ? document.querySelector(`[data-focus-key="${CSS.escape(key)}"]`) : null;
     (target || $('add-expense')).focus({ preventScroll: true });
 });
-$('delete-expense').addEventListener('click', () => {
-    const entry = state.records[editingId];
-    if (!entry) return;
+function requestDelete(entry, trigger) {
+    if (!entry || entry.deleted) return;
+    deletingId = entry.id;
+    deleteSourceButton = trigger;
     $('delete-description').textContent = `${entry.merchant} · ${money(entry.priceCents + entry.tipCents)} 내역이 두 사람의 가계부에서 삭제돼요.`;
+    $('delete-error').hidden = true;
     $('delete-dialog').showModal();
     $('cancel-delete').focus();
+}
+$('delete-expense').addEventListener('click', event => requestDelete(state.records[editingId], event.currentTarget));
+$('delete-dialog').addEventListener('close', () => {
+    deletingId = null;
+    const key = deleteSourceButton?.dataset.focusKey;
+    const target = deleteSourceButton?.isConnected ? deleteSourceButton
+        : key ? document.querySelector(`[data-focus-key="${CSS.escape(key)}"]`) : null;
+    (target || $('add-expense')).focus({ preventScroll: true });
 });
 $('cancel-delete').addEventListener('click', () => $('delete-dialog').close());
 $('confirm-delete').addEventListener('click', () => {
     try {
-        const entry = latest().records[editingId];
+        const entry = latest().records[deletingId];
         if (!entry) throw new Error('삭제할 기록을 찾을 수 없어요.');
         commit({ ...entry, deleted: true, mutationId: crypto.randomUUID(), updatedAt: new Date().toISOString() });
         $('delete-dialog').close();
-        closeForm();
-    } catch (error) { $('delete-dialog').close(); reportFormError(error); }
+        if (dialog.open && editingId === entry.id) closeForm();
+    } catch (error) {
+        $('delete-error').textContent = error.message;
+        $('delete-error').hidden = false;
+    }
 });
 
 // Shared Firestore records use one document per expense. An offline edit cannot

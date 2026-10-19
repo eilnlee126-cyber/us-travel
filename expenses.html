@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LA, 라스베이거스, 애틀랜타, 뉴욕 여행 지출과 팁을 함께 기록해요.">
+    <title>여행 가계부 — 남편이랑 첫 미국여행</title>
+    <link rel="icon" href="FLAG.webp" type="image/webp">
+    <link rel="stylesheet" href="expenses.css">
+    <script type="module" src="expenses.mjs"></script>
+</head>
+<body>
+    <header class="hero">
+        <a href="index.html">남편이랑 첫 미국여행 🇺🇸</a>
+        <p>둘이 함께 쓰는 여행 가계부</p>
+        <span>2026.12.3 ~ 12.26 · 미국 현지 지출</span>
+    </header>
+    <main class="container">
+        <nav class="nav-wrap" aria-label="여행 메뉴">
+            <a class="nav-tab" href="index.html">🗺️ 전체보기</a>
+            <a class="nav-tab" href="la.html">🌴 LA</a>
+            <a class="nav-tab" href="vegas.html">🎰 베가스</a>
+            <a class="nav-tab" href="atlanta.html">🍑 애틀란타</a>
+            <a class="nav-tab" href="nyc.html">🗽 뉴욕</a>
+            <a class="nav-tab" href="flights.html">✈️ 항공편</a>
+            <a class="nav-tab" href="tips.html">💡 팁/준비물</a>
+            <a class="nav-tab" href="tipcalc.html">💰 팁 계산기</a>
+            <a class="nav-tab active" href="expenses.html" aria-current="page">🧾 여행 가계부</a>
+        </nav>
+
+        <section class="total-card" aria-labelledby="ledger-title">
+            <div class="total-heading"><div><p class="eyebrow">OUR TRAVEL SPENDING</p><h1 id="ledger-title">지금까지 쓴 돈</h1></div><button class="button light" id="add-expense" type="button">＋ 지출 추가</button></div>
+            <p class="grand-total" id="grand-total">$0.00</p>
+            <div class="total-breakdown"><span>Price <strong id="total-price">$0.00</strong></span><span>Tip <strong id="total-tip">$0.00</strong></span><span id="entry-count">0건</span></div>
+            <p class="total-caption">두 사람 지출 합계 · USD · Price는 세금 포함, 팁 제외 금액이에요.</p>
+        </section>
+
+        <div class="sync-bar"><p id="sync-status" role="status" aria-live="polite">저장된 기록을 불러오는 중…</p><button type="button" id="retry-sync" class="text-button">다시 연결</button></div>
+        <p class="error-banner" id="storage-error" role="alert" hidden></p>
+        <p class="guide">지역별로 쌓이는 지출을 한눈에 확인해요. <strong>카테고리를 누르면 사용처와 상세 내역</strong>이 펼쳐져요.</p>
+        <div id="city-ledgers" class="city-ledgers"></div>
+        <p class="footnote">직접 입력한 지출만 합산돼요. 기존 일정에 있는 항공·숙소 예약금은 자동으로 더하지 않아요.<br>공유 저장된 기록은 이 여행 페이지에 접속한 사람과 함께 보는 내역이에요.</p>
+        <noscript><p class="error-banner">가계부를 사용하려면 브라우저의 JavaScript를 켜 주세요.</p></noscript>
+    </main>
+
+    <dialog id="expense-dialog" aria-labelledby="form-title">
+        <form id="expense-form">
+            <div class="dialog-heading"><div><p class="eyebrow">TRAVEL EXPENSE</p><h2 id="form-title">지출 추가</h2></div><button type="button" id="close-dialog" class="icon-button" aria-label="닫기">×</button></div>
+            <div class="field-grid">
+                <label>지역<select id="expense-city" name="city" required></select></label>
+                <label>날짜<input id="expense-date" name="date" type="date" required></label>
+                <label class="full">사용처<input id="expense-merchant" name="merchant" type="text" placeholder="예: 식당 이름, 주차장, 마트" maxlength="120" required></label>
+                <label class="full">Category · 카테고리<select id="expense-category" name="category" required></select></label>
+                <label>Price · 금액 ($)<input id="expense-price" name="price" type="number" inputmode="decimal" min="0" max="999999.99" step="0.01" placeholder="0.00" required><span class="field-hint">세금 포함 · 팁 제외</span></label>
+                <label>Tip · 팁 ($)<input id="expense-tip" name="tip" type="number" inputmode="decimal" min="0" max="999999.99" step="0.01" value="0" required><span class="field-hint">팁이 없으면 0</span></label>
+            </div>
+            <div class="tip-presets" aria-label="팁 빠른 계산"><span>팁 빠르게</span><button type="button" data-tip="0">없음</button><button type="button" data-tip="15">15%</button><button type="button" data-tip="18">18%</button><button type="button" data-tip="20">20%</button></div>
+            <p class="field-hint">% 버튼은 입력한 Price 기준으로 계산해요. 실제 지불한 팁으로 수정할 수 있어요.</p>
+            <label class="note-label">메모 <span class="field-hint">선택</span><textarea id="expense-note" name="note" rows="2" maxlength="1000" placeholder="무엇을 샀는지, 누가 결제했는지 등"></textarea></label>
+            <div class="form-total"><span>팁 포함 합계</span><output id="form-total">$0.00</output></div>
+            <p id="form-error" role="alert" class="form-error" hidden></p>
+            <div class="dialog-actions"><button type="button" id="delete-expense" class="button danger" hidden>삭제</button><button type="button" id="cancel-expense" class="button secondary">취소</button><button type="submit" id="save-expense" class="button primary">저장</button></div>
+        </form>
+    </dialog>
+
+    <dialog id="delete-dialog" aria-labelledby="delete-title">
+        <h2 id="delete-title">이 지출을 삭제할까요?</h2>
+        <p id="delete-description"></p>
+        <div class="dialog-actions"><button type="button" id="cancel-delete" class="button secondary">취소</button><button type="button" id="confirm-delete" class="button danger-solid">삭제</button></div>
+    </dialog>
+</body>
+</html>

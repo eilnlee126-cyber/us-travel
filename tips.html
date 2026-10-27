@@ -33,6 +33,18 @@
         .scroll-btn { width: 44px; height: 44px; border-radius: 50%; border: none; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; font-size: 1.3rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
         .scroll-btn:hover { transform: scale(1.1); }
         @media (max-width: 600px) { .hero h1 { font-size: 1.9rem; } .hero::before, .hero::after { font-size: 2rem; } .nav-tab { padding: 8px 14px; font-size: 0.8rem; } }
+        .check-row {display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid #eee;padding:10px 0;flex-wrap:wrap}
+        .check-label {display:flex;gap:10px;flex:1;min-width:170px;overflow-wrap:anywhere;font-size:.88rem}
+        .check-label input {width:18px;height:18px;margin-top:5px;flex-shrink:0}
+        .check-actions {display:flex;gap:6px}
+        .check-button {border:0;background:#f1eef9;color:#514786;border-radius:8px;padding:8px 10px;min-height:44px;cursor:pointer;font:inherit;font-size:.8rem}
+        .check-delete {background:#fff0f1;color:#a33243}
+        .check-form {display:flex;gap:8px;margin-top:12px;align-items:center}
+        .check-text {flex:1;min-width:0;border:1px solid #ccc;border-radius:8px;padding:10px;font:inherit;font-size:16px}
+        .check-section {margin-bottom:24px}
+        .check-heading {font-size:.9rem;margin-bottom:8px}
+        .check-edit {flex-basis:100%}
+        :focus-visible {outline:3px solid #667eea;outline-offset:2px}
     </style>
 </head>
 <body>
@@ -84,7 +96,7 @@
 
     <div class="tip-card" id="checklist-card">
         <h3>✅ 출발 전 체크리스트</h3>
-        <div id="checklist-container"></div>
+        <p id="checklist-status" role="status" style="font-size:.8rem;margin-bottom:12px"></p><div id="checklist-container"></div>
     </div>
 
 </div>
@@ -99,162 +111,6 @@
     <button class="scroll-btn" onclick="window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})" title="맨 아래로">↓</button>
 </div>
 
-<script type="module">
-    // 체크리스트 (Firebase Firestore)
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-    import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyDsa9pz-O_s4KUXvJ5duuRIWCQx_umspuc",
-        authDomain: "ustravel-513fb.firebaseapp.com",
-        projectId: "ustravel-513fb",
-        storageBucket: "ustravel-513fb.firebasestorage.app",
-        messagingSenderId: "57988064191",
-        appId: "1:57988064191:web:5f08645b91ed9d21c3370a"
-    };
-    const app = initializeApp(firebaseConfig, 'checklist');
-    const db = getFirestore(app);
-
-    (async function() {
-        const categories = [
-            {
-                label: '🌐 General', color: '#667eea',
-                items: [
-                    { id: 'g1', text: '⚠️ 결혼증명서 준비 (영문) — 제일 중요! 남편 입국 시 필요할 수 있음' },
-                    { id: 'g2', text: '남편 ESTA 신청 (출발 최소 72시간 전! / 2년 유효 / $21)' },
-                    { id: 'g3', text: '남편 여권 유효기간 확인 (입국일 기준 6개월 이상)' },
-                    { id: 'g4', text: '여행자 보험 가입 (미국 병원비 무서움 😱)' },
-                    { id: 'g5', text: '미국 여권 유효기간 확인 (나)' },
-                    { id: 'g6', text: 'TSA PreCheck / Global Entry 알아보기 (나만 가능, $78~100)' },
-                    { id: 'g7', text: '핫팩 & 히트텍 챙기기' },
-                    { id: 'g8', text: '국내선 항공편 예약 (LA→베가스→ATL→뉴욕)' },
-                    { id: 'g9', text: 'eSIM 준비 (Klook 사은품 5GB/15일 × 2개 + 나머지 9일 추가 구매)' },
-                ]
-            },
-            {
-                label: '🌴 LA', color: '#f5576c',
-                items: [
-                    { id: 'la1', text: '인천→LA 항공권 예약', link: 'la.html#la-flight' },
-                    { id: 'la2', text: 'LA 숙소 예약 (Short Stories Hotel)', link: 'la.html#la-hotel' },
-                    { id: 'la3', text: '디즈니랜드 티켓 예약' },
-                ]
-            },
-            {
-                label: '🎰 Vegas', color: '#fda085',
-                items: [
-                    { id: 'vg1', text: '베가스 숙소 예약 (The Cosmopolitan · 스튜디오 킹 테라스)', link: 'vegas.html#vegas-hotel' },
-                    { id: 'vg2', text: '베가스 쇼 티켓 예약 (태양의 서커스 등)' },
-                    { id: 'vg3', text: '그랜드캐니언 당일투어 예약 (조이감성투어)', link: 'vegas.html#vegas-tour' },
-                ]
-            },
-            {
-                label: '🍑 Atlanta', color: '#4facfe',
-                items: [
-                    { id: 'at1', text: '애틀란타 숙소 예약' },
-                    { id: 'at2', text: '애틀란타 렌트카 예약' },
-                ]
-            },
-            {
-                label: '🗽 NYC', color: '#764ba2',
-                items: [
-                    { id: 'ny1', text: 'NYC 숙소 예약 (TownePlace Suites Chelsea)', link: 'nyc.html#nyc-hotel' },
-                    { id: 'ny2', text: '브로드웨이 티켓 예약 (인기 공연은 미리!)' },
-                    { id: 'ny3', text: '자유의 여신상 페리 예약' },
-                    { id: 'ny4', text: '뉴욕→인천 귀국 항공편 예약 (아시아나 OZ221)', link: 'nyc.html#nyc-flight' },
-                ]
-            },
-            {
-                label: '⚠️ 출발 전 할 일', color: '#ff3b30',
-                items: [
-                    { id: 'todo1', text: '⚠️ 12/15 델타 ATL→EWR 온라인 체크인 + 마일리지로 위탁수하물 추가! (남은 마일: 10,628 · 수하물 4,500마일 × 2명 = 9,000마일)' },
-                ]
-            },
-        ];
-
-        const allItems = categories.flatMap(c => c.items);
-
-        async function getChecked() {
-            try {
-                const snap = await getDoc(doc(db, 'checklist', 'state'));
-                if (snap.exists()) return snap.data();
-            } catch(e) { console.error('Firebase read error:', e); }
-            return {};
-        }
-
-        async function saveChecked(obj) {
-            try {
-                await setDoc(doc(db, 'checklist', 'state'), obj);
-            } catch(e) { console.error('Firebase write error:', e); }
-        }
-
-        let checkedState = {};
-
-        function render() {
-            const checked = checkedState;
-            const container = document.getElementById('checklist-container');
-            if (!container) return;
-
-            const totalCount = allItems.length;
-            const doneCount = allItems.filter(i => checked[i.id]).length;
-
-            let html = '';
-            html += '<div style="background:#e0e0e0; border-radius:10px; height:8px; margin-bottom:16px; overflow:hidden;">';
-            html += '<div style="background:linear-gradient(90deg,#96e6a1,#4facfe); height:100%; width:' + (doneCount/totalCount*100) + '%; border-radius:10px; transition:width 0.3s;"></div>';
-            html += '</div>';
-            html += '<div style="font-size:0.8rem; color:#888; margin-bottom:18px; text-align:right;">' + doneCount + ' / ' + totalCount + ' 완료</div>';
-
-            categories.forEach(function(cat) {
-                const catDone = cat.items.filter(i => checked[i.id]).length;
-                const unchecked = cat.items.filter(i => !checked[i.id]);
-                const checkedItems = cat.items.filter(i => checked[i.id]);
-                const sorted = [...unchecked, ...checkedItems];
-
-                html += '<div style="margin-bottom:20px;">';
-                html += '<div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">';
-                html += '<span style="background:' + cat.color + '; color:#fff; font-size:0.8rem; font-weight:700; padding:4px 12px; border-radius:20px;">' + cat.label + '</span>';
-                html += '<span style="font-size:0.75rem; color:#aaa;">' + catDone + '/' + cat.items.length + '</span>';
-                html += '</div>';
-
-                sorted.forEach(function(item) {
-                    const isDone = !!checked[item.id];
-                    html += '<label style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #f0f0f0; cursor:pointer; transition: opacity 0.3s;'
-                        + (isDone ? ' opacity:0.4;' : '') + '">';
-                    html += '<input type="checkbox" data-id="' + item.id + '"' + (isDone ? ' checked' : '')
-                        + ' style="margin-top:3px; width:18px; height:18px; accent-color:' + cat.color + '; cursor:pointer; flex-shrink:0;">';
-                    html += '<span style="font-size:0.88rem;' + (isDone ? ' text-decoration:line-through; color:#bbb;' : ' color:#444;') + '">' + item.text + '</span>';
-                    if (item.link) {
-                        html += '<span data-link="' + item.link + '" style="margin-left:auto; flex-shrink:0; background:' + cat.color + '; color:#fff; font-size:0.68rem; font-weight:700; padding:3px 10px; border-radius:20px; cursor:pointer; white-space:nowrap;">확인 →</span>';
-                    }
-                    html += '</label>';
-                });
-
-                html += '</div>';
-            });
-
-            container.innerHTML = html;
-
-            container.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
-                cb.addEventListener('change', function() {
-                    if (this.checked) { checkedState[this.dataset.id] = true; } else { delete checkedState[this.dataset.id]; }
-                    saveChecked(checkedState);
-                    setTimeout(render, 200);
-                });
-            });
-
-            container.querySelectorAll('[data-link]').forEach(function(btn) {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    window.location = this.dataset.link;
-                });
-            });
-        }
-
-        // Load from Firebase and render
-        checkedState = await getChecked();
-        render();
-    })();
-</script>
-
+<script type="module" src="checklist.mjs"></script>
 </body>
 </html>

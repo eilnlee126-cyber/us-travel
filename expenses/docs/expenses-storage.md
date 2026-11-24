@@ -1,6 +1,6 @@
 # Travel expense ledger
 
-Open `expenses.html` from the **여행 가계부** navigation item on any main travel page.
+Open `expenses/index.html` from the **여행 가계부** navigation item on any main travel page.
 The four destinations are LA/California, Las Vegas/Nevada, Atlanta/Georgia, and
 New York/New York. All amounts are USD, stored as integer cents. Price includes
 tax and excludes tip; totals include both. Existing itinerary estimates are not
@@ -80,7 +80,7 @@ key do not provide privacy controls.
 
 ## Verification
 
-Run `node --test tests/expenses.test.mjs` for financial calculation, schema
+Run `node --test expenses/tests/expenses.test.mjs` for financial calculation, schema
 validation, persistence, remote merges, and outbox acknowledgement checks.
 JavaScript syntax and navigation links were checked. A DOM simulation with a
 mocked Firebase adapter additionally exercised adding in all four cities, tip

@@ -16,17 +16,17 @@ const categories = [
             {
                 label: '🌴 LA', color: '#f5576c',
                 items: [
-                    { id: 'la1', text: '인천→LA 항공권 예약', link: 'la.html#la-flight' },
-                    { id: 'la2', text: 'LA 숙소 예약 (Short Stories Hotel)', link: 'la.html#la-hotel' },
+                    { id: 'la1', text: '인천→LA 항공권 예약', link: 'la/index.html#la-flight' },
+                    { id: 'la2', text: 'LA 숙소 예약 (Short Stories Hotel)', link: 'la/index.html#la-hotel' },
                     { id: 'la3', text: '디즈니랜드 티켓 예약' },
                 ]
             },
             {
                 label: '🎰 Vegas', color: '#fda085',
                 items: [
-                    { id: 'vg1', text: '베가스 숙소 예약 (The Cosmopolitan · 스튜디오 킹 테라스)', link: 'vegas.html#vegas-hotel' },
-                    { id: 'vg2', text: '베가스 쇼 티켓 예약 (Mystère · 12/8)', link: 'vegas.html#vegas-show' },
-                    { id: 'vg3', text: '그랜드캐니언 당일투어 예약 (조이감성투어)', link: 'vegas.html#vegas-tour' },
+                    { id: 'vg1', text: '베가스 숙소 예약 (The Cosmopolitan · 스튜디오 킹 테라스)', link: 'vegas/index.html#vegas-hotel' },
+                    { id: 'vg2', text: '베가스 쇼 티켓 예약 (Mystère · 12/8)', link: 'vegas/index.html#vegas-show' },
+                    { id: 'vg3', text: '그랜드캐니언 당일투어 예약 (조이감성투어)', link: 'vegas/index.html' },
                 ]
             },
             {
@@ -39,10 +39,10 @@ const categories = [
             {
                 label: '🗽 NYC', color: '#764ba2',
                 items: [
-                    { id: 'ny1', text: 'NYC 숙소 예약 (TownePlace Suites Chelsea)', link: 'nyc.html#nyc-hotel' },
+                    { id: 'ny1', text: 'NYC 숙소 예약 (TownePlace Suites Chelsea)', link: 'nyc/index.html#nyc-hotel' },
                     { id: 'ny2', text: '브로드웨이 티켓 예약 (인기 공연은 미리!)' },
                     { id: 'ny3', text: '자유의 여신상 페리 예약' },
-                    { id: 'ny4', text: '뉴욕→인천 귀국 항공편 예약 (아시아나 OZ221)', link: 'nyc.html#nyc-flight' },
+                    { id: 'ny4', text: '뉴욕→인천 귀국 항공편 예약 (아시아나 OZ221)', link: 'nyc/index.html#nyc-flight' },
                 ]
             },
             {

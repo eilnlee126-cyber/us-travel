@@ -1,0 +1,18 @@
+/* 사이트 전체 글꼴: 배달의민족 주아체 (BMJUA)
+   각 페이지 <head> 맨 마지막에 넣어서 다른 글꼴 설정보다 우선 적용 */
+
+@font-face {
+    font-family: 'BMJUA';
+    src: url('fonts/BMJUA.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+html body,
+html body *:not(.mono):not(code):not(pre) {
+    font-family: 'BMJUA', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* 주아체는 굵기가 하나뿐이라, 브라우저가 가짜 굵게를 만들지 않도록 막음 */
+html body { font-synthesis: none; letter-spacing: 0.1px; }

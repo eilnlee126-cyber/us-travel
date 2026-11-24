@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🇺🇸 남편이랑 첫 미국여행 ✈️</title>
     <link rel="icon" href="assets/FLAG.webp" type="image/webp">
+    <link rel="stylesheet" href="assets/hero.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -14,36 +15,6 @@
             color: #3d3d3d;
             line-height: 1.7;
         }
-        .hero {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a8edea 100%);
-            padding: 70px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: "✈️";
-            position: absolute;
-            font-size: 3.5rem;
-            top: 20px;
-            right: 10%;
-            animation: float 3s ease-in-out infinite;
-        }
-        .hero::after {
-            content: "🧳";
-            position: absolute;
-            font-size: 2.5rem;
-            bottom: 20px;
-            left: 10%;
-            animation: float 3s ease-in-out infinite 1s;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-        .hero h1 { font-size: 2.5rem; font-weight: 900; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); margin-bottom: 8px; }
-        .hero .subtitle { font-size: 1.2rem; color: #fff; opacity: 0.9; font-weight: 600; }
-        .hero .dates { margin-top: 16px; display: inline-block; background: rgba(255,255,255,0.85); padding: 8px 24px; border-radius: 30px; font-weight: 700; color: #e75480; }
         .container { max-width: 850px; margin: 0 auto; padding: 20px; }
         .summary-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 30px 0; }
         .bubble { background: white; border-radius: 50px; padding: 12px 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
@@ -410,8 +381,6 @@
         .scroll-btn:active { transform: scale(0.95); }
 
         @media (max-width: 600px) {
-            .hero h1 { font-size: 1.9rem; }
-            .hero::before, .hero::after { font-size: 2rem; }
             .nav-tab { padding: 8px 14px; font-size: 0.8rem; }
         }
     </style>
@@ -419,21 +388,20 @@
 <body>
 
 <!-- Hero -->
-<div class="hero">
-    <h1 style="cursor:pointer;" onclick="window.scrollTo({top:0,behavior:'smooth'});">남편이랑 첫 미국여행 🇺🇸</h1>
-    <p class="subtitle">남편 첫 미국! 서부부터 동부까지 🎉</p>
-    <div class="dates">📅 2026.12.3 ~ 12.26 (24 days)</div>
-</div>
+<header class="site-hero">
+    <div class="site-hero-inner">
+        <p class="sh-eyebrow">USA Trip · December 2026</p>
+        <h1 class="sh-title"><a href="index.html">남편이랑 첫 미국여행</a></h1>
+        <p class="sh-route">LA <span>→</span> Las Vegas <span>→</span> Atlanta <span>→</span> New York</p>
+        <dl class="sh-stats">
+            <div><dt>기간</dt><dd>12.3 – 12.26</dd></div>
+            <div><dt>일정</dt><dd>24일</dd></div>
+            <div><dt>도시</dt><dd>4곳</dd></div>
+        </dl>
+    </div>
+</header>
 
 <div class="container">
-
-    <!-- Summary -->
-    <div class="summary-strip">
-        <div class="bubble"><span class="emoji">⏰</span> 24일</div>
-        <div class="bubble"><span class="emoji">🏙️</span> 4개 도시</div>
-        <div class="bubble"><span class="emoji">👫</span> 2명</div>
-        <div class="bubble"><span class="emoji">🗺️</span> 서부→동부</div>
-    </div>
 
     <!-- Navigation -->
     <div class="nav-wrap">

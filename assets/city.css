@@ -57,18 +57,14 @@ b, strong { color: var(--ink); font-weight: 800; }
 
 /* ── 도시 헤더 ── */
 .city-hero {
-    background: linear-gradient(140deg, var(--accent) 0%, var(--accent-ink) 100%);
-    color: #fff; border-radius: 24px; padding: 24px 22px 22px; margin-bottom: 16px;
-    position: relative; overflow: hidden;
+    background: #15181f;
+    color: #f4f2ee; border-radius: 22px; padding: 24px 22px 22px; margin-bottom: 16px;
+    border-top: 5px solid var(--accent);
 }
-.city-hero::after {
-    content: attr(data-emoji); position: absolute; right: -4px; bottom: -16px;
-    font-size: 7rem; opacity: 0.2; line-height: 1; pointer-events: none;
-}
-.city-hero .eyebrow { font-size: 0.85rem; font-weight: 800; opacity: 0.9; letter-spacing: 0.4px; }
-.city-hero h1 { font-size: 2rem; font-weight: 900; line-height: 1.2; margin: 4px 0 14px; color: #fff; }
-.city-hero .meta { display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1; }
-.city-hero .meta span { background: rgba(0,0,0,0.18); border-radius: 999px; padding: 6px 13px; font-size: 0.92rem; font-weight: 800; }
+.city-hero .eyebrow { font-size: 0.8rem; font-weight: 800; letter-spacing: 2px; color: #c9a96e; text-transform: uppercase; }
+.city-hero h1 { font-size: 2rem; font-weight: 900; line-height: 1.2; letter-spacing: -0.5px; margin: 8px 0 16px; color: #fff; }
+.city-hero .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.city-hero .meta span { background: rgba(255,255,255,0.1); color: #fff; border-radius: 999px; padding: 6px 13px; font-size: 0.92rem; font-weight: 700; }
 
 /* ── 한눈에 보기 (일정표) ── */
 .glance { background: var(--card); border-radius: var(--radius); padding: 18px 18px 8px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(20,20,40,0.06); }

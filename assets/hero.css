@@ -1,0 +1,39 @@
+/* 사이트 공통 상단 헤더 — 그라데이션 없이 단색 + 타이포 중심 */
+
+.site-hero {
+    background: #15181f;
+    color: #f4f2ee;
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    word-break: keep-all;
+}
+.site-hero *, .site-hero *::before, .site-hero *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.site-hero-inner { max-width: 720px; margin: 0 auto; padding: 36px 22px 26px; }
+
+.sh-eyebrow {
+    font-size: 0.8rem; font-weight: 800; letter-spacing: 2px;
+    color: #c9a96e; /* 차분한 골드 포인트 */
+    text-transform: uppercase;
+}
+.sh-title { margin-top: 10px; font-size: 2.1rem; font-weight: 900; line-height: 1.2; letter-spacing: -0.5px; }
+.sh-title a { color: #fff; text-decoration: none; }
+.sh-route { margin-top: 12px; font-size: 1rem; font-weight: 600; color: #b9bdc8; line-height: 1.6; }
+.sh-route span { color: #6b7080; margin: 0 4px; }
+
+.sh-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    margin-top: 24px; padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.sh-stats div + div { border-left: 1px solid rgba(255, 255, 255, 0.14); padding-left: 16px; }
+.sh-stats dt { font-size: 0.8rem; font-weight: 700; color: #8d92a0; letter-spacing: 0.5px; }
+.sh-stats dd { margin-top: 2px; font-size: 1.15rem; font-weight: 800; color: #fff; font-variant-numeric: tabular-nums; }
+
+/* 하위 페이지용: 더 낮은 높이 */
+.site-hero.compact .site-hero-inner { padding: 26px 22px 22px; }
+.site-hero.compact .sh-title { font-size: 1.6rem; }
+
+@media (min-width: 640px) {
+    .site-hero-inner { padding: 52px 28px 34px; }
+    .sh-title { font-size: 2.7rem; }
+    .site-hero.compact .sh-title { font-size: 2rem; }
+}

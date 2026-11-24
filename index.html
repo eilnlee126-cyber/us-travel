@@ -380,6 +380,32 @@
         .scroll-btn:hover { transform: scale(1.1); }
         .scroll-btn:active { transform: scale(0.95); }
 
+        /* ── 여행 예산 트래커 (주별) ── */
+        .bt { background: #15181f; color: #f4f2ee; border-radius: 20px; padding: 22px 18px 16px; margin-bottom: 24px; word-break: keep-all; }
+        .bt h2 { font-size: 1.2rem; font-weight: 900; color: #fff; }
+        .bt-sub { font-size: 0.88rem; color: #a7abb6; margin-top: 2px; }
+        .bt-grand { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-top: 18px; }
+        .bt-grand .k { font-size: 0.95rem; color: #c9ccd4; font-weight: 700; }
+        .bt-grand .v { font-size: 1.6rem; font-weight: 900; color: #fff; text-align: right; line-height: 1.2; font-variant-numeric: tabular-nums; }
+        .bt-grand .v small, .bt-state .t small, .bt-item .v small { display: block; font-size: 0.8rem; font-weight: 600; color: #a7abb6; }
+        .bt-bar { display: flex; height: 10px; border-radius: 999px; overflow: hidden; margin: 12px 0 6px; background: rgba(255,255,255,0.08); }
+        .bt-bar span { display: block; height: 100%; transition: width 0.4s; }
+        .bt-state { border-top: 1px solid rgba(255,255,255,0.12); }
+        .bt-state:first-of-type { margin-top: 12px; }
+        .bt-state summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 2px; }
+        .bt-state summary::-webkit-details-marker { display: none; }
+        .bt-state .n { display: flex; align-items: center; gap: 10px; font-size: 1.02rem; font-weight: 800; color: #fff; }
+        .bt-state .n i { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
+        .bt-state .t { font-size: 1.1rem; font-weight: 900; color: #fff; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+        .bt-state .t::after { content: " ▾"; font-size: 0.8rem; color: #8d92a0; }
+        .bt-state[open] .t::after { content: " ▴"; }
+        .bt-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; }
+        .bt-item:last-child { margin-bottom: 14px; }
+        .bt-item .k { font-size: 0.98rem; font-weight: 700; color: #fff; }
+        .bt-item .d { font-size: 0.85rem; color: #a7abb6; margin-top: 2px; }
+        .bt-item .v { font-size: 1rem; font-weight: 800; color: #fff; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+        .bt-note { font-size: 0.85rem; color: #c9a96e; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 12px; margin-top: 2px; }
+
         @media (max-width: 600px) {
             .nav-tab { padding: 8px 14px; font-size: 0.8rem; }
         }
@@ -527,124 +553,53 @@
         <span style="color:#4facfe; font-size:1.2rem; font-weight:700; margin-left:auto;">→</span>
     </a>
 
-    <!-- 예산 트래커 -->
-    <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); margin-bottom: 24px; color: #fff;">
-        <div style="text-align:center; margin-bottom:18px;">
-            <span style="font-size:1.3rem;">💰</span>
-            <span style="font-size:1.1rem; font-weight:900; margin-left:6px;">여행 예산 트래커</span>
-        </div>
+    <!-- 예산 트래커: 확정 예약을 주별로 합산. 항공권은 도착하는 주에 넣고, 귀국편은 출발지(뉴욕)에 넣음.
+         금액은 각 .bt-item 의 data-krw / data-usd 에서 스크립트가 다시 합산함 (USD는 오늘 환율로 환산) -->
+    <section class="bt" aria-labelledby="bt-title">
+        <h2 id="bt-title">💰 여행 예산 트래커</h2>
+        <p class="bt-sub">확정된 예약만 · 주별 합계 · 누르면 내역</p>
 
-        <!-- 항공권 -->
-        <div style="margin-bottom:16px;">
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
-                <span style="font-size:1rem;">✈️</span>
-                <span style="font-weight:800; font-size:0.9rem;">항공권</span>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-size:0.85rem; font-weight:700;">ICN → LAX (에어프레미아)</div>
-                        <div style="font-size:0.72rem; color:#aaa;">12/3 · 2인 · 이코노미</div>
-                    </div>
-                    <span style="font-weight:800; color:#4facfe;">₩1,672,600</span>
-                </div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-size:0.85rem; font-weight:700;">JFK → ICN (아시아나항공)</div>
-                        <div style="font-size:0.72rem; color:#aaa;">12/26 · 2인 · 일반석 · 트립닷컴</div>
-                    </div>
-                    <span style="font-weight:800; color:#4facfe;">₩2,174,400</span>
-                </div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-size:0.85rem; font-weight:700;">LAS → ATL (델타 DL466)</div>
-                        <div style="font-size:0.72rem; color:#aaa;">12/10 · 2인 · 메인 클래식 · 위탁 별도</div>
-                    </div>
-                    <span style="font-weight:800; color:#4facfe;">₩760,032</span>
-                </div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-size:0.85rem; font-weight:700;">LAX → LAS (유나이티드)</div>
-                        <div style="font-size:0.72rem; color:#aaa;">12/7 · 2인 · 트립닷컴</div>
-                    </div>
-                    <span style="font-weight:800; color:#4facfe;">₩377,700</span>
-                </div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-size:0.85rem; font-weight:700;">ATL → EWR (델타 마일리지)</div>
-                        <div style="font-size:0.72rem; color:#aaa;">12/16 · 2인 · 15,400마일 + $11.20</div>
-                    </div>
-                    <span style="font-weight:800; color:#4facfe;">🎫 마일리지</span>
-                </div>
-            </div>
+        <div class="bt-grand">
+            <span class="k">✅ 확정 지출 합계</span>
+            <span class="v" id="idx-total">약 ₩13,300,384<small>+ $215.12</small></span>
         </div>
-
-        <!-- 호텔 -->
-        <div style="margin-bottom:16px;">
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
-                <span style="font-size:1rem;">🏨</span>
-                <span style="font-weight:800; font-size:0.9rem;">호텔</span>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-size:0.85rem; font-weight:700;">🌴 LA · Short Stories Hotel</div>
-                        <div style="font-size:0.72rem; color:#aaa;">4박 · 트립닷컴</div>
-                    </div>
-                    <span style="font-weight:800; color:#4facfe;">₩1,410,999</span>
-                </div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-size:0.85rem; font-weight:700;">🎰 베가스 · The Cosmopolitan</div>
-                        <div style="font-size:0.72rem; color:#aaa;">3박 · 여기어때</div>
-                    </div>
-                    <span style="font-weight:800; color:#4facfe;">₩925,681</span>
-                </div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:6px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-size:0.85rem; font-weight:700;">🍑 애틀란타 · Buckhead 1BR (Phipps Blvd)</div>
-                        <div style="font-size:0.72rem; color:#aaa;">6박 · Airbnb</div>
-                    </div>
-                    <span style="font-weight:800; color:#4facfe;">₩1,451,427</span>
-                </div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-size:0.85rem; font-weight:700;">🗽 뉴욕 · TownePlace Suites</div>
-                        <div style="font-size:0.72rem; color:#aaa;">10박 · 마이리얼트립</div>
-                    </div>
-                    <span style="font-weight:800; color:#4facfe;">₩4,527,545</span>
-                </div>
-            </div>
+        <div class="bt-bar" aria-hidden="true">
+            <span data-bar="ca" style="width:23.2%; background:#f5577c;"></span>
+            <span data-bar="nv" style="width:9.8%; background:#9b51e0;"></span>
+            <span data-bar="ga" style="width:16.6%; background:#f08a4b;"></span>
+            <span data-bar="ny" style="width:50.4%; background:#3b6fe0;"></span>
         </div>
+        <p class="bt-sub" id="idx-total-detail">달러 결제는 환율을 불러오면 원화로 합쳐져요.</p>
 
-        <!-- 구분선 -->
-        <div style="border-top:1px solid rgba(255,255,255,0.1); margin:16px 0;"></div>
+        <details class="bt-state" data-state="ca">
+            <summary><span class="n"><i style="background:#f5577c;"></i>🌴 캘리포니아 · LA</span><span class="t" data-total>₩3,083,599</span></summary>
+            <div class="bt-item" data-krw="1672600"><div><div class="k">✈️ 인천 → LA</div><div class="d">12/3 · 에어프레미아 · 2인</div></div><div class="v">₩1,672,600</div></div>
+            <div class="bt-item" data-krw="1410999"><div><div class="k">🏨 Short Stories Hotel</div><div class="d">4박 · 트립닷컴</div></div><div class="v">₩1,410,999</div></div>
+            <div class="bt-item" data-krw="0"><div><div class="k">🖼️ 게티 센터</div><div class="d">12/5 · 입장권 2장</div></div><div class="v">무료</div></div>
+        </details>
 
-        <!-- 합계 -->
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-            <span style="font-size:0.9rem; font-weight:700; color:#aaa;">✅ 확정 지출</span>
-            <span id="idx-total" style="font-size:1.3rem; font-weight:900; color:#4facfe;">약 ₩13,300,384</span>
-        </div>
-        <div id="idx-total-detail" style="font-size:0.72rem; color:#666; text-align:right; margin-bottom:12px;">항공 ₩4,984,732 + 호텔 ₩8,315,652</div>
+        <details class="bt-state" data-state="nv">
+            <summary><span class="n"><i style="background:#9b51e0;"></i>🎰 네바다 · 라스베이거스</span><span class="t" data-total>₩1,303,381<small>+ $203.92</small></span></summary>
+            <div class="bt-item" data-krw="377700"><div><div class="k">✈️ LA → 라스베이거스</div><div class="d">12/7 · 유나이티드 · 2인</div></div><div class="v">₩377,700</div></div>
+            <div class="bt-item" data-krw="925681"><div><div class="k">🏨 The Cosmopolitan</div><div class="d">3박 · 여기어때 · 리조트피 별도</div></div><div class="v">₩925,681</div></div>
+            <div class="bt-item" data-usd="203.92"><div><div class="k">🎭 Mystère 공연</div><div class="d">12/8 · 2장 · Vegas.com</div></div><div class="v">$203.92<small data-krw-of-usd></small></div></div>
+        </details>
 
-        <div style="background:rgba(246,211,101,0.1); border:1px solid rgba(246,211,101,0.3); border-radius:10px; padding:12px; margin-top:12px; text-align:center;">
-            <div style="font-size:0.78rem; color:#f6d365;">💡 리조트피 별도: 베가스 약 $50/박 (3박 ≈ ₩200,000) · LA 리조트이용료 약 ₩116,000</div>
-        </div>
-    </div>
+        <details class="bt-state" data-state="ga">
+            <summary><span class="n"><i style="background:#f08a4b;"></i>🍑 조지아 · 애틀란타</span><span class="t" data-total>₩2,211,459</span></summary>
+            <div class="bt-item" data-krw="760032"><div><div class="k">✈️ 라스베이거스 → 애틀란타</div><div class="d">12/10 · 델타 DL466 · 2인</div></div><div class="v">₩760,032</div></div>
+            <div class="bt-item" data-krw="1451427"><div><div class="k">🏠 Buckhead Airbnb</div><div class="d">6박 · 1306호</div></div><div class="v">₩1,451,427</div></div>
+        </details>
+
+        <details class="bt-state" data-state="ny">
+            <summary><span class="n"><i style="background:#3b6fe0;"></i>🗽 뉴욕</span><span class="t" data-total>₩6,701,945<small>+ $11.20</small></span></summary>
+            <div class="bt-item" data-usd="11.20"><div><div class="k">✈️ 애틀란타 → 뉴어크</div><div class="d">12/16 · 델타 · 2인 · 15,400마일 사용</div></div><div class="v">$11.20<small data-krw-of-usd></small></div></div>
+            <div class="bt-item" data-krw="4527545"><div><div class="k">🏨 TownePlace Suites</div><div class="d">10박 · 마이리얼트립</div></div><div class="v">₩4,527,545</div></div>
+            <div class="bt-item" data-krw="2174400"><div><div class="k">✈️ 뉴욕 → 인천 (귀국)</div><div class="d">12/26 · 아시아나 OZ221 · 2인</div></div><div class="v">₩2,174,400</div></div>
+        </details>
+
+        <p class="bt-note">💡 현장 결제 별도: 베가스 리조트피 약 $50/박 · LA 리조트이용료 약 ₩116,000</p>
+    </section>
 
     <!-- Calendar -->
     <div class="calendar-wrap">
@@ -793,8 +748,38 @@ const db = getFirestore(app);
 
 (async function() {
     const HOTEL_USD = 996.72;
-    const FIXED_KRW = { flight: 1672600, returnFlight: 2174400, domestic_lax_las: 377700, domestic_las_atl: 760032, la: 1410999, vegas: 925681, atlanta: 1451427, nyc: 4527545 };
     const fmt = n => n.toLocaleString('ko-KR');
+
+    // 예산 트래커: 각 주의 .bt-item(data-krw / data-usd)을 합산하고, 달러는 오늘 환율로 원화 환산
+    function renderBudget(rate) {
+        const states = [...document.querySelectorAll('.bt-state')];
+        if (!states.length) return;
+        let grand = 0, grandUsd = 0;
+        const sums = states.map(state => {
+            let krw = 0, usd = 0;
+            state.querySelectorAll('.bt-item').forEach(item => {
+                krw += Number(item.dataset.krw || 0);
+                const itemUsd = Number(item.dataset.usd || 0);
+                usd += itemUsd;
+                const note = item.querySelector('[data-krw-of-usd]');
+                if (note && itemUsd) note.textContent = '≈ ₩' + fmt(Math.round(itemUsd * rate));
+            });
+            const total = krw + Math.round(usd * rate);
+            const totalEl = state.querySelector('[data-total]');
+            if (totalEl) totalEl.textContent = '₩' + fmt(total);
+            grand += total;
+            grandUsd += usd;
+            return { key: state.dataset.state, total };
+        });
+        sums.forEach(s => {
+            const bar = document.querySelector('[data-bar="' + s.key + '"]');
+            if (bar && grand > 0) bar.style.width = (s.total / grand * 100).toFixed(1) + '%';
+        });
+        const totalEl = document.getElementById('idx-total');
+        if (totalEl) totalEl.textContent = '약 ₩' + fmt(grand);
+        const detailEl = document.getElementById('idx-total-detail');
+        if (detailEl) detailEl.textContent = '달러 결제 $' + grandUsd.toFixed(2) + '는 오늘 환율 $1 = ₩' + fmt(Math.round(rate)) + ' 기준으로 합산했어요.';
+    }
 
     function todayKey() {
         const d = new Date();
@@ -870,13 +855,7 @@ const db = getFirestore(app);
             const rate = data.rates.KRW;
             const today = todayKey();
 
-            const hotelTotal = FIXED_KRW.la + FIXED_KRW.vegas + FIXED_KRW.atlanta + FIXED_KRW.nyc;
-            const flightTotal = FIXED_KRW.flight + FIXED_KRW.returnFlight + FIXED_KRW.domestic_lax_las + FIXED_KRW.domestic_las_atl;
-            const grandTotal = flightTotal + hotelTotal;
-            const totalEl = document.getElementById('idx-total');
-            if (totalEl) totalEl.textContent = '약 ₩' + fmt(grandTotal);
-            const detailEl = document.getElementById('idx-total-detail');
-            if (detailEl) detailEl.textContent = '항공 ₩' + fmt(flightTotal) + ' + 호텔 ₩' + fmt(hotelTotal);
+            renderBudget(rate);
 
             await saveRate(today, rate);
             const hist = await getHistory();

@@ -33,6 +33,8 @@
         });
     });
 
-    var top = document.querySelector('.to-top');
-    if (top) top.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    var up = document.querySelector('[data-scroll="top"]');
+    var down = document.querySelector('[data-scroll="bottom"]');
+    if (up) up.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    if (down) down.addEventListener('click', function () { window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' }); });
 })();

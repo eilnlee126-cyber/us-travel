@@ -7,6 +7,9 @@
     font-weight: normal;
     font-style: normal;
     font-display: swap;
+    /* 한글·영문·숫자·기본 문장부호만 주아체로. 화살표(↑↓→)·✈·₩ 같은 기호는
+       주아체에 빈 글자로 들어 있어서 기본 글꼴로 보이게 범위를 제한 */
+    unicode-range: U+0020-007E, U+00A0-00FF, U+1100-11FF, U+3000-303F, U+3130-318F, U+AC00-D7A3;
 }
 
 html body,

@@ -160,7 +160,9 @@ b, strong { color: var(--ink); font-weight: 800; }
 
 /* ── 하단 ── */
 .footer { text-align: center; padding: 30px 16px 70px; color: var(--muted); font-size: 0.95rem; }
-.to-top { position: fixed; right: 16px; bottom: 18px; width: 48px; height: 48px; border-radius: 50%; border: none; background: var(--ink); color: #fff; font-size: 1.15rem; box-shadow: 0 6px 18px rgba(0,0,0,0.2); cursor: pointer; z-index: 40; }
+.scroll-btns { position: fixed; right: 16px; bottom: 18px; display: flex; flex-direction: column; gap: 10px; z-index: 40; }
+.scroll-btn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid #d9d4cc; background: #fff; color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,0.12); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.scroll-btn:active { transform: scale(0.95); }
 .toast { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%); background: rgba(21,24,31,0.94); color: #fff; padding: 11px 20px; border-radius: 24px; font-size: 0.95rem; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 60; }
 .toast.show { opacity: 1; }
 

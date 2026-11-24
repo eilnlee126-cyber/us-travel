@@ -18,7 +18,6 @@ const categories = [
                 items: [
                     { id: 'la1', text: '인천→LA 항공권 예약', link: 'la/index.html#la-flight' },
                     { id: 'la2', text: 'LA 숙소 예약 (Short Stories Hotel)', link: 'la/index.html#la-hotel' },
-                    { id: 'la3', text: '디즈니랜드 티켓 예약' },
                 ]
             },
             {

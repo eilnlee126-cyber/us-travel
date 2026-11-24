@@ -607,7 +607,7 @@
             </div>
             <div style="display:flex; align-items:center; justify-content:space-between; font-size:0.78rem;">
                 <span style="color:#aaa;">12/10~12/16 · 6박 · Airbnb</span>
-                <span style="color:#f6d365; font-weight:800;">₩1,272,344</span>
+                <span style="color:#f6d365; font-weight:800;">₩1,451,527</span>
             </div>
             <div style="font-size:0.7rem; color:#90caf9; margin-top:4px;">🏊 수영장 · Atlantic Station · Lockbox 체크인</div>
         </a>
@@ -719,7 +719,7 @@
                         <div style="font-size:0.85rem; font-weight:700;">🍑 애틀란타 · Classy Getaway Midtown</div>
                         <div style="font-size:0.72rem; color:#aaa;">6박 · Airbnb</div>
                     </div>
-                    <span style="font-weight:800; color:#4facfe;">₩1,272,344</span>
+                    <span style="font-weight:800; color:#4facfe;">₩1,451,527</span>
                 </div>
             </div>
             <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px;">
@@ -739,9 +739,9 @@
         <!-- 합계 -->
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <span style="font-size:0.9rem; font-weight:700; color:#aaa;">✅ 확정 지출</span>
-            <span id="idx-total" style="font-size:1.3rem; font-weight:900; color:#4facfe;">약 ₩8,470,826</span>
+            <span id="idx-total" style="font-size:1.3rem; font-weight:900; color:#4facfe;">약 ₩13,300,484</span>
         </div>
-        <div id="idx-total-detail" style="font-size:0.72rem; color:#666; text-align:right; margin-bottom:12px;">항공 ₩1,672,600 + 호텔 ₩6,798,226</div>
+        <div id="idx-total-detail" style="font-size:0.72rem; color:#666; text-align:right; margin-bottom:12px;">항공 ₩4,984,732 + 호텔 ₩8,315,752</div>
 
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <span style="font-size:0.9rem; font-weight:700; color:#888;">⏳ 미확정</span>
@@ -900,7 +900,7 @@ const db = getFirestore(app);
 
 (async function() {
     const HOTEL_USD = 996.72;
-    const FIXED_KRW = { flight: 1672600, returnFlight: 2174400, domestic_lax_las: 377700, domestic_las_atl: 760032, la: 1410999, vegas: 925681, atlanta: 1272344, nyc: 4527545 };
+    const FIXED_KRW = { flight: 1672600, returnFlight: 2174400, domestic_lax_las: 377700, domestic_las_atl: 760032, la: 1410999, vegas: 925681, atlanta: 1451527, nyc: 4527545 };
     const fmt = n => n.toLocaleString('ko-KR');
 
     function todayKey() {

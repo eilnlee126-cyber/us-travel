@@ -37,7 +37,75 @@
         .scroll-btns { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
         .scroll-btn { width: 44px; height: 44px; border-radius: 50%; border: none; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; font-size: 1.3rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
         .scroll-btn:hover { transform: scale(1.1); }
-        @media (max-width: 600px) { .hero h1 { font-size: 1.9rem; } .hero::before, .hero::after { font-size: 2rem; } .nav-tab { padding: 8px 14px; font-size: 0.8rem; } .city-page-header .big-emoji { font-size: 2.5rem; } }
+        @media (max-width: 600px) { .hero h1 { font-size: 1.9rem; } .hero::before, .hero::after { font-size: 2rem; } .nav-tab { padding: 8px 14px; font-size: 0.85rem; } .city-page-header .big-emoji { font-size: 2.5rem; } }
+        /* ── 예약 카드 (모바일 우선) ── */
+        .card { background: #fff; border-radius: 20px; padding: 18px; margin-bottom: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-top: 5px solid #4facfe; }
+        .card.pending { border-top-color: #f6c343; }
+        .card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+        .card-head .label { font-size: 1.05rem; font-weight: 900; color: #2b2b3a; }
+        .badge { margin-left: auto; font-size: 0.8rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; white-space: nowrap; background: #e3f2fd; color: #1479b8; }
+        .pending .badge { background: #fff4d6; color: #a16b00; }
+        .title { font-size: 1.15rem; font-weight: 900; color: #222; line-height: 1.4; }
+        .sub { font-size: 0.92rem; color: #777; margin-top: 4px; }
+        .route { display: flex; align-items: center; gap: 8px; background: #f4f9ff; border-radius: 16px; padding: 16px 12px; margin-bottom: 14px; }
+        .pending .route { background: #fffaf0; }
+        .route .end { text-align: center; flex: 0 0 auto; min-width: 84px; }
+        .route .code { font-size: 1.8rem; font-weight: 900; color: #222; line-height: 1.1; }
+        .route .city { font-size: 0.85rem; color: #777; }
+        .route .time { font-size: 1.25rem; font-weight: 900; color: #1479b8; margin-top: 6px; }
+        .pending .route .time { color: #a16b00; }
+        .route .date { font-size: 0.85rem; color: #777; }
+        .route .mid { flex: 1; text-align: center; font-size: 0.82rem; color: #888; }
+        .route .line { border-top: 2px dashed #b9d9f7; position: relative; margin: 8px 4px; }
+        .pending .route .line { border-top-color: #f0d68a; }
+        .route .line::after { content: "✈"; position: absolute; right: -6px; top: -12px; font-size: 1rem; color: #4facfe; background: #f4f9ff; }
+        .pending .route .line::after { color: #d99a00; background: #fffaf0; }
+        .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+        .stat { background: #f4f9ff; border-radius: 14px; padding: 14px 8px; text-align: center; }
+        .pending .stat { background: #fffaf0; }
+        .stat .k { font-size: 0.82rem; color: #888; margin-bottom: 2px; }
+        .stat .v { font-size: 1.1rem; font-weight: 900; color: #222; }
+        .stat .s { font-size: 0.85rem; font-weight: 700; color: #1479b8; margin-top: 2px; }
+        .pending .stat .s { color: #a16b00; }
+        .price { display: flex; justify-content: space-between; align-items: center; background: #f7f7fa; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; }
+        .price .k { font-size: 0.95rem; color: #666; font-weight: 600; }
+        .price .v { font-size: 1.25rem; font-weight: 900; color: #222; }
+        .price .s { display: block; font-size: 0.8rem; color: #888; text-align: right; font-weight: 400; }
+        .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+        .chip { background: #eef6ff; color: #1479b8; font-size: 0.85rem; font-weight: 700; padding: 5px 12px; border-radius: 20px; }
+        .pending .chip { background: #fff4d6; color: #a16b00; }
+        .btn-row { display: flex; gap: 10px; margin-bottom: 14px; }
+        .btn { flex: 1; text-align: center; padding: 13px 8px; border-radius: 14px; border: none; background: #4facfe; color: #fff; font-family: inherit; font-size: 0.95rem; font-weight: 800; text-decoration: none; cursor: pointer; }
+        .btn.light { background: #e3f2fd; color: #1479b8; }
+        .btn:active { transform: scale(0.98); }
+        .info { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; font-size: 0.95rem; align-items: baseline; }
+        .info dt { color: #888; white-space: nowrap; }
+        .info dd { color: #222; font-weight: 600; word-break: break-all; }
+        .info dd.mono { font-family: monospace; font-weight: 800; letter-spacing: 0.5px; }
+        .more { border-top: 1px solid #eee; margin-top: 14px; padding-top: 4px; }
+        .more summary { list-style: none; cursor: pointer; padding: 12px 2px; font-size: 0.98rem; font-weight: 800; color: #1479b8; display: flex; justify-content: space-between; }
+        .more summary::-webkit-details-marker { display: none; }
+        .more summary::after { content: "＋"; }
+        .more[open] summary::after { content: "－"; }
+        .more .body { font-size: 0.95rem; color: #444; line-height: 1.8; padding-bottom: 6px; }
+        .more .body p { margin-bottom: 10px; }
+        .notice { background: #fff4d6; border-radius: 14px; padding: 12px 14px; font-size: 0.92rem; color: #7a5200; font-weight: 600; margin-top: 14px; line-height: 1.6; }
+        .tips-card { background: #fff; border-radius: 20px; padding: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 18px; }
+        .tips-card h4 { font-size: 1.05rem; font-weight: 900; margin-bottom: 8px; }
+        .tips-card div { font-size: 0.95rem; color: #555; line-height: 2; }
+        .toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); background: rgba(30,30,40,0.92); color: #fff; padding: 10px 18px; border-radius: 24px; font-size: 0.9rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 1000; }
+        .toast.show { opacity: 1; }
+        @media (max-width: 600px) {
+            .hero { padding: 40px 16px; }
+            .container { padding: 14px; }
+            .nav-wrap { padding: 10px; margin: 18px 0; border-radius: 16px; }
+            .nav-tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+            .nav-tab { white-space: nowrap; flex: 0 0 auto; }
+            .city-page-header { padding: 22px 16px; }
+            .scroll-btns { bottom: 16px; right: 14px; }
+            .route .end { min-width: 70px; }
+            .route .code { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -79,191 +147,100 @@
         </div>
     </div>
 
-    <!-- 국내선 항공편 카드 (베가스→애틀란타) -->
-    <div style="background: linear-gradient(135deg, #1a1a2e, #0f2040); border: 2px solid #4facfe; border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
-            <span style="font-size:1.5rem;">✅</span>
-            <span style="color:#4facfe; font-weight:900; font-size:1rem;">국내선 항공권 예약 완료</span>
-            <span style="margin-left:auto; background:rgba(79,172,254,0.15); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">CONFIRMED</span>
+    <!-- 국내선 항공편 (베가스→애틀란타) -->
+    <section class="card">
+        <div class="card-head"><span>✈️</span><span class="label">국내선 항공 · LAS → ATL</span><span class="badge">✅ 예약 완료</span></div>
+        <div class="route">
+            <div class="end"><div class="code">LAS</div><div class="city">라스베이거스</div><div class="time">13:36</div><div class="date">12/10 (목)</div></div>
+            <div class="mid">DL466<div class="line"></div>3시간 51분 · 직항</div>
+            <div class="end"><div class="code">ATL</div><div class="city">애틀란타</div><div class="time">20:27</div><div class="date">12/10 (목)</div></div>
         </div>
-
-        <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.04); border-radius:12px; padding:16px; margin-bottom:12px;">
-            <div style="text-align:center;">
-                <div style="font-size:1.6rem; font-weight:900; color:#fff;">LAS</div>
-                <div style="font-size:0.75rem; color:#888; margin-top:2px;">라스베이거스</div>
-                <div style="font-size:1rem; font-weight:800; color:#4facfe; margin-top:4px;">13:36</div>
-                <div style="font-size:0.72rem; color:#aaa;">12월 10일 (목)</div>
+        <div class="price"><span class="k">총 결제 (2인)</span><span class="v">₩760,032<span class="s">$278.40 × 2 · 위탁 별도</span></span></div>
+        <div class="chips"><span class="chip">델타항공</span><span class="chip">메인 클래식</span><span class="chip">🎒 캐리온 포함</span><span class="chip">🔄 변경 무료</span></div>
+        <details class="more">
+            <summary>좌석 · 티켓 · 예약번호</summary>
+            <div class="body">
+                <dl class="info">
+                    <dt>예약번호</dt><dd class="mono">HP5GZC</dd>
+                    <dt>LEE YOUNGMIN</dt><dd>좌석 30F<br><span class="mono" style="font-size:0.85rem;">0062466340273</span></dd>
+                    <dt>KIM WOOHYEON</dt><dd>좌석 30E<br><span class="mono" style="font-size:0.85rem;">0062466340274</span></dd>
+                </dl>
             </div>
-            <div style="text-align:center; flex:1;">
-                <div style="font-size:0.72rem; color:#666; margin-bottom:4px;">DL466 · 메인 클래식</div>
-                <div style="border-top:1px dashed #333; position:relative; margin:0 12px;">
-                    <span style="position:absolute; right:-4px; top:-7px; color:#4facfe;">✈</span>
-                </div>
-                <div style="font-size:0.72rem; color:#666; margin-top:4px;">3시간 51분 · 직항</div>
+        </details>
+    </section>
+
+    <!-- 숙소 -->
+    <section class="card">
+        <div class="card-head"><span>🏠</span><span class="label">숙소</span><span class="badge">✅ 예약 완료</span></div>
+        <div class="title">1BR w/ Southern Charm in the Heart of Buckhead</div>
+        <div class="sub">Airbnb · Home in Atlanta · Buckhead</div>
+        <div class="sub" style="margin-bottom:14px;">📍 700 Phipps Boulevard Northeast, Atlanta, GA 30326 · <b>1306호</b></div>
+        <div class="grid2">
+            <div class="stat"><div class="k">체크인</div><div class="v">12/10 (목)</div><div class="s">오후 3:00~</div></div>
+            <div class="stat"><div class="k">체크아웃</div><div class="v">12/16 (수)</div><div class="s">오전 11:00까지</div></div>
+        </div>
+        <div class="price"><span class="k">총 결제 (6박)</span><span class="v">₩1,451,427</span></div>
+        <div class="btn-row">
+            <a class="btn" href="https://www.google.com/maps/search/?api=1&query=700+Phipps+Blvd+NE+Atlanta+GA+30326" target="_blank" rel="noopener">🗺️ 지도 열기</a>
+            <button class="btn light" type="button" data-copy="700 Phipps Boulevard Northeast, Atlanta, GA 30326">📋 주소 복사</button>
+        </div>
+        <div class="chips"><span class="chip">🛏️ 1BR</span><span class="chip">👥 최대 3명</span><span class="chip">🚭 금연</span><span class="chip">🐾 반려동물 불가</span></div>
+
+        <details class="more" open>
+            <summary>🚪 입장 · 🅿️ 주차 안내</summary>
+            <div class="body">
+                <p><b>입장</b><br>Chirp 앱 설치 → 앱에서 <b>Entrance</b>를 눌러 단지 게이트 입장 → 첫 번째 왼쪽, 왼편 건물(앞에 <b>1000</b> 표시) → 3층 뒤쪽 왼쪽 코너 <b>1306호</b> (계단만 있음)</p>
+                <p><b>주차</b><br>Reserved 표시가 없는 곳은 어디든 가능. PaybyPhone 앱에서 Location # <b>18872</b> 입력 후 차량 번호 등록 (무료).<br>⚠️ 48시간마다 재등록 · 미등록 시 딱지</p>
+                <p>체크인 방법 안내와 와이파이 정보는 체크인 24시간 전에 에어비앤비에서 알려줘요.</p>
             </div>
-            <div style="text-align:center;">
-                <div style="font-size:1.6rem; font-weight:900; color:#fff;">ATL</div>
-                <div style="font-size:0.75rem; color:#888; margin-top:2px;">애틀란타</div>
-                <div style="font-size:1rem; font-weight:800; color:#4facfe; margin-top:4px;">20:27</div>
-                <div style="font-size:0.72rem; color:#aaa;">12월 10일 (목)</div>
+        </details>
+        <details class="more">
+            <summary>예약 정보</summary>
+            <div class="body">
+                <dl class="info">
+                    <dt>예약 코드</dt><dd class="mono">HMRSTZZARP</dd>
+                    <dt>호스트</dt><dd>Renee</dd>
+                    <dt>게스트</dt><dd>2명</dd>
+                </dl>
             </div>
-        </div>
+        </details>
+        <div class="notice">⚠️ 12월 9일 오후 3시 전까지 무료 취소 · 이후 체크인 전까지는 부분 환불</div>
+    </section>
 
-        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
-            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">✈️ 델타항공</span>
-            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">메인 클래식 (X)</span>
-            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">🎒 캐리온 포함</span>
-            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">🔄 변경 무료</span>
+    <!-- 렌트카 -->
+    <section class="card pending">
+        <div class="card-head"><span>🚗</span><span class="label">렌트카</span><span class="badge">⏳ 검토 중</span></div>
+        <div class="title">기아 스포티지 또는 유사 콤팩트 SUV</div>
+        <div class="sub" style="margin-bottom:14px;">trip.com · 12/10 ~ 12/16 · 6일</div>
+        <div class="grid2">
+            <div class="stat"><div class="k">하루 요금</div><div class="v">₩62,195</div></div>
+            <div class="stat"><div class="k">총 요금</div><div class="v">₩336,655</div><div class="s">약 $250</div></div>
         </div>
+    </section>
 
-        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; font-size:0.8rem; color:#aaa; line-height:1.9; margin-bottom:12px;">
-            <div>👤 LEE YOUNGMIN — 좌석 30F · Ticket: <span style="font-family:monospace;">0062466340273</span></div>
-            <div>👤 KIM WOOHYEON — 좌석 30E · Ticket: <span style="font-family:monospace;">0062466340274</span></div>
-            <div>🎫 Confirmation: <span style="color:#fff; font-weight:800; font-family:monospace;">HP5GZC</span></div>
-            <div>💰 <span style="color:#ddd;">총 결제 (2인):</span> <span style="color:#fff; font-weight:700;">₩760,032</span> ($278.40 × 2, 위탁 별도)</div>
+    <!-- ATL→EWR 항공편 -->
+    <section class="card pending">
+        <div class="card-head"><span>✈️</span><span class="label">뉴욕행 · ATL → EWR</span><span class="badge">⏳ 검토 중</span></div>
+        <div class="route">
+            <div class="end"><div class="code">ATL</div><div class="city">애틀란타</div><div class="time">12:06</div><div class="date">12/16 (수)</div></div>
+            <div class="mid">델타<div class="line"></div>약 2시간 13분 · 직항</div>
+            <div class="end"><div class="code">EWR</div><div class="city">뉴어크</div><div class="time">14:19</div><div class="date">12/16 (수)</div></div>
         </div>
-    </div>
-
-    <!-- 숙소 예약 카드 -->
-    <div style="background: linear-gradient(135deg, #1a1a2e, #0f2040); border: 2px solid #4facfe; border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
-            <span style="font-size:1.5rem;">✅</span>
-            <span style="color:#4facfe; font-weight:900; font-size:1rem;">숙소 예약 완료</span>
-            <span style="margin-left:auto; background:rgba(79,172,254,0.15); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">CONFIRMED</span>
-        </div>
-
-        <div style="background:rgba(255,255,255,0.05); border-radius:12px; padding:16px; margin-bottom:12px;">
-            <div style="font-size:1.05rem; font-weight:900; color:#fff; margin-bottom:4px;">🏠 1BR w/ Southern Charm in the Heart of Buckhead</div>
-            <div style="font-size:0.8rem; color:#aaa;">Home in Atlanta · Buckhead</div>
-            <div style="font-size:0.8rem; color:#aaa; margin-top:4px;">📍 700 Phipps Boulevard Northeast, NA, Atlanta, GA 30326 (Unit 1306)</div>
-        </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
-                <div style="font-size:0.68rem; color:#888; margin-bottom:4px;">체크인</div>
-                <div style="font-size:1rem; font-weight:800; color:#fff;">12월 10일 (목)</div>
-                <div style="font-size:0.8rem; color:#4facfe; font-weight:700;">오후 3:00~</div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
-                <div style="font-size:0.68rem; color:#888; margin-bottom:4px;">체크아웃</div>
-                <div style="font-size:1rem; font-weight:800; color:#fff;">12월 16일 (수)</div>
-                <div style="font-size:0.8rem; color:#4facfe; font-weight:700;">오전 11:00까지</div>
-            </div>
-        </div>
-
-        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; font-size:0.8rem; color:#aaa; line-height:2; margin-bottom:12px;">
-            <div>📋 <span style="color:#ddd;">예약 코드:</span> <span style="color:#fff; font-weight:800; font-family:monospace; font-size:0.95rem;">HMRSTZZARP</span></div>
-            <div>🏠 <span style="color:#ddd;">호스트:</span> <span style="color:#fff;">Renee</span></div>
-            <div>🔑 <span style="color:#ddd;">체크인 방법:</span> <span style="color:#fff;">기타 · 체크인 24시간 전 에어비앤비에서 안내</span></div>
-            <div>👥 <span style="color:#ddd;">게스트:</span> <span style="color:#fff;">2명</span></div>
-            <div>💰 <span style="color:#ddd;">총 결제:</span> <span style="color:#fff; font-weight:700;">₩1,451,427</span></div>
-        </div>
-
-        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
-            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">🛏️ 1BR</span>
-            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">🚭 금연 · 반려동물 불가</span>
-            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">👥 최대 3명</span>
-            <span style="background:rgba(79,172,254,0.12); color:#4facfe; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">📍 Buckhead</span>
-        </div>
-
-        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; font-size:0.78rem; color:#ccc; line-height:1.8; margin-bottom:12px;">
-            <div>🚪 Chirp 앱 설치 필요 → 앱에서 Entrance를 눌러 단지 게이트 입장. 첫 번째 왼쪽, 왼편 건물(앞에 1000 표시), 3층 뒤쪽 왼쪽 코너 <b style="color:#fff;">1306호</b> (계단만 있음)</div>
-            <div>🅿️ Reserved 표시 없는 곳 어디든 주차 가능. PaybyPhone 앱에서 Location # <b style="color:#fff;">18872</b> 입력 후 차량 번호 등록 (무료, 48시간마다 재등록 · 미등록 시 딱지)</div>
-        </div>
-
-        <div style="background:rgba(255,200,100,0.08); border:1px solid rgba(255,200,100,0.25); border-radius:10px; padding:10px 14px; font-size:0.78rem; color:#f6d365;">
-            ⚠️ 취소 정책: 12월 9일 오후 3시 전 무료 취소 가능 · 이후 부분 환불
-        </div>
-    </div>
-
-    <!-- 렌트카 카드 -->
-    <div style="background: linear-gradient(135deg, #1a1a2e, #0f2040); border: 2px dashed rgba(246,211,101,0.5); border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
-            <span style="font-size:1.5rem;">🚗</span>
-            <span style="color:#f6d365; font-weight:900; font-size:1rem;">렌트카 검토 중</span>
-            <span style="margin-left:auto; background:rgba(246,211,101,0.15); color:#f6d365; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">⏳ 미확정</span>
-        </div>
-
-        <div style="background:rgba(255,255,255,0.05); border-radius:12px; padding:16px; margin-bottom:12px;">
-            <div style="font-size:1.05rem; font-weight:900; color:#fff; margin-bottom:4px;">🚙 기아 스포티지 또는 유사 콤팩트 SUV</div>
-            <div style="font-size:0.8rem; color:#aaa;">trip.com · 12/10 ~ 12/16 · 6일</div>
-        </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
-                <div style="font-size:0.68rem; color:#888; margin-bottom:4px;">하루 요금</div>
-                <div style="font-size:1.1rem; font-weight:900; color:#f6d365;">₩62,195</div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
-                <div style="font-size:0.68rem; color:#888; margin-bottom:4px;">총 요금</div>
-                <div style="font-size:1.1rem; font-weight:900; color:#f6d365;">₩336,655</div>
-                <div style="font-size:0.75rem; color:#aaa; margin-top:2px;">약 $250</div>
-            </div>
-        </div>
-
-        <div style="display:flex; flex-wrap:wrap; gap:8px;">
-            <span style="background:rgba(246,211,101,0.12); color:#f6d365; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">🚙 콤팩트 SUV</span>
-            <span style="background:rgba(246,211,101,0.12); color:#f6d365; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">trip.com</span>
-            <span style="background:rgba(246,211,101,0.12); color:#f6d365; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">6일 렌트</span>
-        </div>
-    </div>
-
-    <!-- ATL→EWR 항공편 카드 -->
-    <div style="background: linear-gradient(135deg, #1a1a2e, #0f2040); border: 2px dashed rgba(246,211,101,0.5); border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
-            <span style="font-size:1.5rem;">✈️</span>
-            <span style="color:#f6d365; font-weight:900; font-size:1rem;">뉴욕행 항공편 검토 중</span>
-            <span style="margin-left:auto; background:rgba(246,211,101,0.15); color:#f6d365; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">⏳ 미확정</span>
-        </div>
-
-        <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.04); border-radius:12px; padding:16px; margin-bottom:12px;">
-            <div style="text-align:center;">
-                <div style="font-size:1.6rem; font-weight:900; color:#fff;">ATL</div>
-                <div style="font-size:0.75rem; color:#888; margin-top:2px;">애틀란타</div>
-                <div style="font-size:1rem; font-weight:800; color:#f6d365; margin-top:4px;">12:06</div>
-                <div style="font-size:0.72rem; color:#aaa;">12월 16일 (수)</div>
-            </div>
-            <div style="text-align:center; flex:1;">
-                <div style="font-size:0.72rem; color:#666; margin-bottom:4px;">델타 · 직항</div>
-                <div style="border-top:1px dashed #333; position:relative; margin:0 12px;">
-                    <span style="position:absolute; right:-4px; top:-7px; color:#f6d365;">✈</span>
-                </div>
-                <div style="font-size:0.72rem; color:#666; margin-top:4px;">약 2시간 13분</div>
-            </div>
-            <div style="text-align:center;">
-                <div style="font-size:1.6rem; font-weight:900; color:#fff;">EWR</div>
-                <div style="font-size:0.75rem; color:#888; margin-top:2px;">뉴어크 (뉴욕)</div>
-                <div style="font-size:1rem; font-weight:800; color:#f6d365; margin-top:4px;">14:19</div>
-                <div style="font-size:0.72rem; color:#aaa;">12월 16일 (수)</div>
-            </div>
-        </div>
-
-        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
-            <span style="background:rgba(246,211,101,0.12); color:#f6d365; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">✈️ 델타항공</span>
-            <span style="background:rgba(246,211,101,0.12); color:#f6d365; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">🎒 캐리온 1개 포함</span>
-            <span style="background:rgba(246,211,101,0.12); color:#f6d365; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">🔄 변경 수수료 없음</span>
-            <span style="background:rgba(246,211,101,0.12); color:#f6d365; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">🧳 위탁 $45 추가</span>
-        </div>
-
-        <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; font-size:0.8rem; color:#aaa; line-height:1.9;">
-            <div>💰 <span style="color:#ddd;">총 결제 (2인):</span> <span style="color:#fff; font-weight:700;">₩570,331</span></div>
-        </div>
-    </div>
+        <div class="price"><span class="k">총 결제 (2인)</span><span class="v">₩570,331</span></div>
+        <div class="chips"><span class="chip">델타항공</span><span class="chip">🎒 캐리온 1개 포함</span><span class="chip">🔄 변경 수수료 없음</span><span class="chip">🧳 위탁 $45 추가</span></div>
+    </section>
 
     <!-- 팁 & 세금 가이드 -->
-    <div style="background: white; border-radius: 20px; padding: 20px 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px;">
-        <h4 style="font-size: 1rem; font-weight: 800; margin-bottom: 12px;">💰 애틀란타 팁 & 세금 가이드</h4>
-        <div style="font-size:0.82rem; color:#555; line-height:2;">
-            <div>🍽️ 레스토랑: <strong>18~20%</strong></div>
-            <div>🍗 소울푸드/BBQ: <strong>15~20%</strong></div>
-            <div>☕ 카페/카운터: <strong>$1~2</strong> (선택)</div>
-            <div>🚗 렌트카: 팁 없음!</div>
-            <div>🧾 세금: <strong>~4%</strong> ← 쇼핑은 여기서! 🛍️</div>
-        </div>
-    </div>
+    <section class="tips-card">
+        <h4>💰 애틀란타 팁 & 세금 가이드</h4>
+        <div>🍽️ 레스토랑: <strong>18~20%</strong></div>
+        <div>🍗 소울푸드/BBQ: <strong>15~20%</strong></div>
+        <div>☕ 카페/카운터: <strong>$1~2</strong> (선택)</div>
+        <div>🚗 렌트카: 팁 없음!</div>
+        <div>🧾 세금: <strong>~4%</strong> ← 쇼핑은 여기서! 🛍️</div>
+    </section>
 
 </div>
-
 <div class="footer">
     <div class="big-emoji">🎉✈️🇺🇸</div>
     <p>즐거운 여행 되자! 💕</p>
@@ -274,5 +251,25 @@
     <button class="scroll-btn" onclick="window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})" title="맨 아래로">↓</button>
 </div>
 
+<div class="toast" id="toast">복사했어요 ✅</div>
+<script>
+document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+        var text = btn.getAttribute('data-copy');
+        var done = function () {
+            var toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(function () { toast.classList.remove('show'); }, 1500);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done);
+        } else {
+            var ta = document.createElement('textarea');
+            ta.value = text; document.body.appendChild(ta); ta.select();
+            document.execCommand('copy'); document.body.removeChild(ta); done();
+        }
+    });
+});
+</script>
 </body>
 </html>

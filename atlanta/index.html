@@ -5,193 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🍑 애틀란타 — 남편이랑 첫 미국여행</title>
     <link rel="icon" href="../assets/FLAG.webp" type="image/webp">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans KR', -apple-system, sans-serif; background: #fef9f4; color: #3d3d3d; line-height: 1.7; }
-        .hero { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a8edea 100%); padding: 70px 20px; text-align: center; position: relative; overflow: hidden; }
-        .hero::before { content: "✈️"; position: absolute; font-size: 3.5rem; top: 20px; right: 10%; animation: float 3s ease-in-out infinite; }
-        .hero::after { content: "🧳"; position: absolute; font-size: 2.5rem; bottom: 20px; left: 10%; animation: float 3s ease-in-out infinite 1s; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-        .hero h1 { font-size: 2.5rem; font-weight: 900; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); margin-bottom: 8px; }
-        .hero .subtitle { font-size: 1.2rem; color: #fff; opacity: 0.9; font-weight: 600; }
-        .hero .dates { margin-top: 16px; display: inline-block; background: rgba(255,255,255,0.85); padding: 8px 24px; border-radius: 30px; font-weight: 700; color: #e75480; }
-        .container { max-width: 850px; margin: 0 auto; padding: 20px; }
-        .nav-wrap { background: white; border-radius: 20px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin: 30px 0; }
-        .nav-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-        .nav-tab { padding: 10px 18px; border-radius: 30px; border: none; font-family: 'Noto Sans KR', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; background: #f5f5f5; color: #666; text-decoration: none; }
-        .nav-tab:hover { background: #eee; }
-        .nav-tab.active { color: white; transform: scale(1.05); }
-        .nav-tab[data-tab="atlanta"].active { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #1a1a2e; }
-        .city-page-header { background: white; border-radius: 24px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center; margin-bottom: 24px; }
-        .city-page-header .big-emoji { font-size: 3.5rem; margin-bottom: 10px; }
-        .city-page-header h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 6px; }
-        .city-page-header .city-meta { color: #888; font-size: 0.95rem; }
-        .city-page-header .city-weather { margin-top: 14px; display: inline-block; background: #fff3e0; padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; }
-        .city-page-header .city-clothing { margin-top: 10px; background: #e8f5e9; padding: 12px 20px; border-radius: 16px; text-align: left; font-size: 0.85rem; }
-        .city-page-header .city-clothing ul { list-style: none; margin-top: 6px; }
-        .city-page-header .city-clothing li { padding: 3px 0; padding-left: 20px; position: relative; }
-        .city-page-header .city-clothing li::before { content: "👕"; position: absolute; left: 0; font-size: 0.75rem; }
-        .footer { text-align: center; padding: 50px 20px; color: #bbb; }
-        .footer .big-emoji { font-size: 3rem; margin-bottom: 12px; }
-        .scroll-btns { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
-        .scroll-btn { width: 44px; height: 44px; border-radius: 50%; border: none; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; font-size: 1.3rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
-        .scroll-btn:hover { transform: scale(1.1); }
-        @media (max-width: 600px) { .hero h1 { font-size: 1.9rem; } .hero::before, .hero::after { font-size: 2rem; } .nav-tab { padding: 8px 14px; font-size: 0.85rem; } .city-page-header .big-emoji { font-size: 2.5rem; } }
-        /* ── 예약 카드 (모바일 우선) ── */
-        .card { background: #fff; border-radius: 20px; padding: 18px; margin-bottom: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-top: 5px solid #4facfe; }
-        .card.pending { border-top-color: #f6c343; }
-        .card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-        .card-head .label { font-size: 1.05rem; font-weight: 900; color: #2b2b3a; }
-        .badge { margin-left: auto; font-size: 0.8rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; white-space: nowrap; background: #e3f2fd; color: #1479b8; }
-        .pending .badge { background: #fff4d6; color: #a16b00; }
-        .title { font-size: 1.15rem; font-weight: 900; color: #222; line-height: 1.4; }
-        .sub { font-size: 0.92rem; color: #777; margin-top: 4px; }
-        .route { display: flex; align-items: center; gap: 8px; background: #f4f9ff; border-radius: 16px; padding: 16px 12px; margin-bottom: 14px; }
-        .pending .route { background: #fffaf0; }
-        .route .end { text-align: center; flex: 0 0 auto; min-width: 84px; }
-        .route .code { font-size: 1.8rem; font-weight: 900; color: #222; line-height: 1.1; }
-        .route .city { font-size: 0.85rem; color: #777; }
-        .route .time { font-size: 1.25rem; font-weight: 900; color: #1479b8; margin-top: 6px; }
-        .pending .route .time { color: #a16b00; }
-        .route .date { font-size: 0.85rem; color: #777; }
-        .route .mid { flex: 1; text-align: center; font-size: 0.82rem; color: #888; }
-        .route .line { border-top: 2px dashed #b9d9f7; position: relative; margin: 8px 4px; }
-        .pending .route .line { border-top-color: #f0d68a; }
-        .route .line::after { content: "✈"; position: absolute; right: -6px; top: -12px; font-size: 1rem; color: #4facfe; background: #f4f9ff; }
-        .pending .route .line::after { color: #d99a00; background: #fffaf0; }
-        .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-        .stat { background: #f4f9ff; border-radius: 14px; padding: 14px 8px; text-align: center; }
-        .pending .stat { background: #fffaf0; }
-        .stat .k { font-size: 0.82rem; color: #888; margin-bottom: 2px; }
-        .stat .v { font-size: 1.1rem; font-weight: 900; color: #222; }
-        .stat .s { font-size: 0.85rem; font-weight: 700; color: #1479b8; margin-top: 2px; }
-        .pending .stat .s { color: #a16b00; }
-        .price { display: flex; justify-content: space-between; align-items: center; background: #f7f7fa; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; }
-        .price .k { font-size: 0.95rem; color: #666; font-weight: 600; }
-        .price .v { font-size: 1.25rem; font-weight: 900; color: #222; }
-        .price .s { display: block; font-size: 0.8rem; color: #888; text-align: right; font-weight: 400; }
-        .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-        .chip { background: #eef6ff; color: #1479b8; font-size: 0.85rem; font-weight: 700; padding: 5px 12px; border-radius: 20px; }
-        .pending .chip { background: #fff4d6; color: #a16b00; }
-        .btn-row { display: flex; gap: 10px; margin-bottom: 14px; }
-        .btn { flex: 1; text-align: center; padding: 13px 8px; border-radius: 14px; border: none; background: #4facfe; color: #fff; font-family: inherit; font-size: 0.95rem; font-weight: 800; text-decoration: none; cursor: pointer; }
-        .btn.light { background: #e3f2fd; color: #1479b8; }
-        .btn:active { transform: scale(0.98); }
-        .info { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; font-size: 0.95rem; align-items: baseline; }
-        .info dt { color: #888; white-space: nowrap; }
-        .info dd { color: #222; font-weight: 600; word-break: break-all; }
-        .info dd.mono { font-family: monospace; font-weight: 800; letter-spacing: 0.5px; }
-        .more { border-top: 1px solid #eee; margin-top: 14px; padding-top: 4px; }
-        .more summary { list-style: none; cursor: pointer; padding: 12px 2px; font-size: 0.98rem; font-weight: 800; color: #1479b8; display: flex; justify-content: space-between; }
-        .more summary::-webkit-details-marker { display: none; }
-        .more summary::after { content: "＋"; }
-        .more[open] summary::after { content: "－"; }
-        .more .body { font-size: 0.95rem; color: #444; line-height: 1.8; padding-bottom: 6px; }
-        .more .body p { margin-bottom: 10px; }
-        .notice { background: #fff4d6; border-radius: 14px; padding: 12px 14px; font-size: 0.92rem; color: #7a5200; font-weight: 600; margin-top: 14px; line-height: 1.6; }
-        .tips-card { background: #fff; border-radius: 20px; padding: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 18px; }
-        .tips-card h4 { font-size: 1.05rem; font-weight: 900; margin-bottom: 8px; }
-        .tips-card div { font-size: 0.95rem; color: #555; line-height: 2; }
-        .toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); background: rgba(30,30,40,0.92); color: #fff; padding: 10px 18px; border-radius: 24px; font-size: 0.9rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 1000; }
-        .toast.show { opacity: 1; }
-        @media (max-width: 600px) {
-            .hero { padding: 40px 16px; }
-            .container { padding: 14px; }
-            .nav-wrap { padding: 10px; margin: 18px 0; border-radius: 16px; }
-            .nav-tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
-            .nav-tab { white-space: nowrap; flex: 0 0 auto; }
-            .city-page-header { padding: 22px 16px; }
-            .scroll-btns { bottom: 16px; right: 14px; }
-            .route .end { min-width: 70px; }
-            .route .code { font-size: 1.5rem; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/city.css">
 </head>
-<body>
+<body style="--accent:#f08a4b; --accent-soft:#fff2e8; --accent-ink:#a24a12;">
 
-<div class="hero">
-    <h1 style="cursor:pointer;" onclick="window.location='../index.html'">남편이랑 첫 미국여행 🇺🇸</h1>
-    <p class="subtitle">남편 첫 미국! 서부부터 동부까지 🎉</p>
-    <div class="dates">📅 2026.12.3 ~ 12.26 (24 days)</div>
-</div>
-
-<div class="container">
-    <div class="nav-wrap">
-        <div class="nav-tabs">
-            <a class="nav-tab" data-tab="overview" href="../index.html">🗺️ 전체보기</a>
-            <a class="nav-tab" data-tab="la" href="../la/index.html">🌴 LA</a>
-            <a class="nav-tab" data-tab="vegas" href="../vegas/index.html">🎰 베가스</a>
-            <a class="nav-tab active" data-tab="atlanta" href="../atlanta/index.html">🍑 애틀란타</a>
-            <a class="nav-tab" data-tab="nyc" href="../nyc/index.html">🗽 뉴욕</a>
-            <a class="nav-tab" data-tab="flights" href="../flights.html">✈️ 항공편</a>
-            <a class="nav-tab" data-tab="tips" href="../tips.html">💡 팁/준비물</a>
-            <a class="nav-tab" data-tab="tipcalc" href="../tipcalc.html">💰 팁 계산기</a>
-            <a class="nav-tab" data-tab="expenses" href="../expenses/index.html">🧾 여행 가계부</a>
-        </div>
+<header class="topbar">
+    <div class="topbar-inner">
+        <a class="brand" href="../index.html">🇺🇸 남편이랑 첫 미국여행</a>
+        <nav class="nav" aria-label="여행 메뉴">
+            <a href="../index.html">🗺️ 전체</a>
+            <a href="../la/index.html">🌴 LA</a>
+            <a href="../vegas/index.html">🎰 베가스</a>
+            <a href="../atlanta/index.html" aria-current="page">🍑 애틀란타</a>
+            <a href="../nyc/index.html">🗽 뉴욕</a>
+            <a href="../flights.html">✈️ 항공편</a>
+            <a href="../tips.html">💡 준비물</a>
+            <a href="../tipcalc.html">💰 팁 계산기</a>
+            <a href="../expenses/index.html">🧾 가계부</a>
+        </nav>
     </div>
+</header>
 
-    <div class="city-page-header">
-        <div class="big-emoji">🍑</div>
-        <h2>애틀란타 + Athens</h2>
-        <div class="city-meta">12/10 ~ 12/16 · 6박 7일 · Day 8~14</div>
-        <div class="city-weather">🌤️ 3~12°C (37~54°F) · 쌀쌀하고 가끔 비</div>
-        <div class="city-clothing">
-            <strong>👗 뭐 입지?</strong>
-            <ul>
-                <li>코트 or 패딩</li>
-                <li>니트/맨투맨 + 겉옷 (레이어드)</li>
-                <li>차 안에서 벗을 수 있게!</li>
-                <li>우산 ☂️</li>
-            </ul>
-        </div>
-    </div>
+<main class="wrap">
 
-    <!-- 국내선 항공편 (베가스→애틀란타) -->
-    <section class="card">
-        <div class="card-head"><span>✈️</span><span class="label">국내선 항공 · LAS → ATL</span><span class="badge">✅ 예약 완료</span></div>
+    <section class="city-hero" data-emoji="🍑">
+        <div class="eyebrow">DAY 8 – 14 · GEORGIA</div>
+        <h1>애틀란타 + Athens</h1>
+        <div class="meta"><span>12/10 (목) – 12/16 (수)</span><span>6박</span><span>🌤️ 3~12°C</span></div>
+    </section>
+
+    <section class="glance" aria-labelledby="atl-glance">
+        <h2 id="atl-glance">한눈에 보기</h2>
+        <ol>
+            <li><span class="when">12/10 13:36</span><span class="what">베가스 출발 → 애틀란타 20:27<small>델타 DL466</small></span><a class="go" href="#atl-flight">항공</a></li>
+            <li><span class="when">12/10 밤</span><span class="what">숙소 체크인 (15:00부터)<small>Buckhead Airbnb · 1306호</small></span><a class="go" href="#atlanta-hotel">숙소</a></li>
+            <li><span class="when">12/16 11:00</span><span class="what">체크아웃<small>→ 뉴욕</small></span><a class="go" href="../nyc/index.html">다음</a></li>
+        </ol>
+    </section>
+
+    <details class="weather">
+        <summary>🌤️ 쌀쌀하고 가끔 비 · 3~12°C (37~54°F)</summary>
+        <ul>
+            <li>코트 or 패딩</li>
+            <li>니트/맨투맨 + 겉옷 (레이어드)</li>
+            <li>차 안에서 벗을 수 있게!</li>
+            <li>우산 ☂️</li>
+        </ul>
+    </details>
+
+    <h2 class="section-title">예약 내역</h2>
+
+    <!-- 베가스 → 애틀란타 항공 -->
+    <section class="card" id="atl-flight">
+        <div class="card-head"><span class="kind">✈️ 항공</span><span class="badge">✓ 예약 완료</span></div>
         <div class="route">
             <div class="end"><div class="code">LAS</div><div class="city">라스베이거스</div><div class="time">13:36</div><div class="date">12/10 (목)</div></div>
             <div class="mid">DL466<div class="line"></div>3시간 51분 · 직항</div>
             <div class="end"><div class="code">ATL</div><div class="city">애틀란타</div><div class="time">20:27</div><div class="date">12/10 (목)</div></div>
         </div>
-        <div class="price"><span class="k">총 결제 (2인)</span><span class="v">₩760,032<span class="s">$278.40 × 2 · 위탁 별도</span></span></div>
+        <div class="grid2">
+            <div class="stat"><div class="k">YOUNGMIN LEE</div><div class="v">30F</div></div>
+            <div class="stat"><div class="k">WOOHYEON KIM</div><div class="v">30E</div></div>
+        </div>
         <div class="chips"><span class="chip">델타항공</span><span class="chip">메인 클래식</span><span class="chip">🎒 캐리온 포함</span><span class="chip">🔄 변경 무료</span></div>
+        <div class="price"><span class="k">총 결제 (2인)</span><span class="v">₩760,032<small>$278.40 × 2 · 위탁 별도</small></span></div>
         <details class="more">
-            <summary>좌석 · 티켓 · 예약번호</summary>
+            <summary>예약번호 · 티켓 번호</summary>
             <div class="body">
                 <dl class="info">
                     <dt>예약번호</dt><dd class="mono">HP5GZC</dd>
-                    <dt>LEE YOUNGMIN</dt><dd>좌석 30F<br><span class="mono" style="font-size:0.85rem;">0062466340273</span></dd>
-                    <dt>KIM WOOHYEON</dt><dd>좌석 30E<br><span class="mono" style="font-size:0.85rem;">0062466340274</span></dd>
+                    <dt>LEE YOUNGMIN</dt><dd class="mono">0062466340273</dd>
+                    <dt>KIM WOOHYEON</dt><dd class="mono">0062466340274</dd>
                 </dl>
             </div>
         </details>
     </section>
 
     <!-- 숙소 -->
-    <section class="card">
-        <div class="card-head"><span>🏠</span><span class="label">숙소</span><span class="badge">✅ 예약 완료</span></div>
+    <section class="card" id="atlanta-hotel">
+        <div class="card-head"><span class="kind">🏠 숙소</span><span class="badge">✓ 예약 완료</span></div>
         <div class="title">1BR w/ Southern Charm in the Heart of Buckhead</div>
-        <div class="sub">Airbnb · Home in Atlanta · Buckhead</div>
-        <div class="sub" style="margin-bottom:14px;">📍 700 Phipps Boulevard Northeast, Atlanta, GA 30326 · <b>1306호</b></div>
+        <div class="sub">📍 700 Phipps Boulevard Northeast, Atlanta, GA 30326 · <b>1306호</b></div>
         <div class="grid2">
-            <div class="stat"><div class="k">체크인</div><div class="v">12/10 (목)</div><div class="s">오후 3:00~</div></div>
-            <div class="stat"><div class="k">체크아웃</div><div class="v">12/16 (수)</div><div class="s">오전 11:00까지</div></div>
+            <div class="stat"><div class="k">체크인</div><div class="v">12/10 (목)</div><div class="s">15:00~</div></div>
+            <div class="stat"><div class="k">체크아웃</div><div class="v">12/16 (수)</div><div class="s">11:00까지</div></div>
         </div>
-        <div class="price"><span class="k">총 결제 (6박)</span><span class="v">₩1,451,427</span></div>
         <div class="btn-row">
-            <a class="btn" href="https://www.google.com/maps/search/?api=1&query=700+Phipps+Blvd+NE+Atlanta+GA+30326" target="_blank" rel="noopener">🗺️ 지도 열기</a>
+            <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=700+Phipps+Blvd+NE+Atlanta+GA+30326" target="_blank" rel="noopener">🗺️ 지도</a>
             <button class="btn light" type="button" data-copy="700 Phipps Boulevard Northeast, Atlanta, GA 30326">📋 주소 복사</button>
         </div>
-        <div class="chips"><span class="chip">🛏️ 1BR</span><span class="chip">👥 최대 3명</span><span class="chip">🚭 금연</span><span class="chip">🐾 반려동물 불가</span></div>
-
+        <div class="alert warn">⚠️ 12/9 오후 3시 전까지 무료 취소 · 이후 체크인 전까지는 부분 환불</div>
+        <div class="chips"><span class="chip">Airbnb</span><span class="chip">🛏️ 1BR</span><span class="chip">👥 최대 3명</span><span class="chip">🚭 금연</span><span class="chip">🐾 반려동물 불가</span></div>
+        <div class="price"><span class="k">총 결제 (6박)</span><span class="v">₩1,451,427</span></div>
         <details class="more" open>
             <summary>🚪 입장 · 🅿️ 주차 안내</summary>
             <div class="body">
                 <p><b>입장</b><br>Chirp 앱 설치 → 앱에서 <b>Entrance</b>를 눌러 단지 게이트 입장 → 첫 번째 왼쪽, 왼편 건물(앞에 <b>1000</b> 표시) → 3층 뒤쪽 왼쪽 코너 <b>1306호</b> (계단만 있음)</p>
                 <p><b>주차</b><br>Reserved 표시가 없는 곳은 어디든 가능. PaybyPhone 앱에서 Location # <b>18872</b> 입력 후 차량 번호 등록 (무료).<br>⚠️ 48시간마다 재등록 · 미등록 시 딱지</p>
-                <p>체크인 방법 안내와 와이파이 정보는 체크인 24시간 전에 에어비앤비에서 알려줘요.</p>
+                <p>문 여는 방법과 와이파이 정보는 체크인 24시간 전에 에어비앤비에서 알려줘요.</p>
             </div>
         </details>
         <details class="more">
@@ -204,40 +116,13 @@
                 </dl>
             </div>
         </details>
-        <div class="notice">⚠️ 12월 9일 오후 3시 전까지 무료 취소 · 이후 체크인 전까지는 부분 환불</div>
     </section>
 
+</main>
 
-</div>
-<div class="footer">
-    <div class="big-emoji">🎉✈️🇺🇸</div>
-    <p>즐거운 여행 되자! 💕</p>
-</div>
+<footer class="footer">즐거운 여행 되자! 💕</footer>
+<button class="to-top" type="button" aria-label="맨 위로">↑</button>
+<script src="../assets/city.js"></script>
 
-<div class="scroll-btns">
-    <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
-    <button class="scroll-btn" onclick="window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})" title="맨 아래로">↓</button>
-</div>
-
-<div class="toast" id="toast">복사했어요 ✅</div>
-<script>
-document.querySelectorAll('[data-copy]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-        var text = btn.getAttribute('data-copy');
-        var done = function () {
-            var toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(function () { toast.classList.remove('show'); }, 1500);
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(done);
-        } else {
-            var ta = document.createElement('textarea');
-            ta.value = text; document.body.appendChild(ta); ta.select();
-            document.execCommand('copy'); document.body.removeChild(ta); done();
-        }
-    });
-});
-</script>
 </body>
 </html>
